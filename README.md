@@ -425,7 +425,7 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 
 編輯 `mysite/settings.py`
 文件前，先設定 [`TIME_ZONE`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TIME_ZONE)
-為你自己時區。
+為你自己時區。在台灣台北時區，請設定 TIME_ZONE = 'Asia/Taipei'。LANGUAGE_CODE = 'zh-Hant'
 
 此外，說明一下文件頂部的 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
 設定項。這裡包括了會在你專案中啟用的所有 Django

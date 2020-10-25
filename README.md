@@ -15,7 +15,7 @@ Django](https://docs.djangoproject.com/zh-hans/3.0/intro/install/)。你能知�
 Django 已被安裝，且安裝的是哪個版本，透過在命令提示欄輸入命令（由 \$
 前置符號）。
 
-/ 
+
 
     $ python -m django --version
 
@@ -52,7 +52,7 @@ Django
 打開命令列，`cd`
 到一個你想放置你程式的目錄，然後執行以下命令：
 
-/ 
+
 
     $ django-admin startproject mysite
 
@@ -130,7 +130,7 @@ Django
 .docutils .literal .notranslate}
 目錄的話，請切換到此目錄，然後執行下面的命令：
 
-/ 
+
 
     $ python manage.py runserver
 
@@ -174,14 +174,14 @@ Web 框架方面是專家，在 Web 伺服器方面並不是。)
 如果你想更換伺服器的監聽連接埠，請使用命令列參數。舉個例子，下面的命令會使伺服器監聽
 8080 連接埠：
 
-/ 
+
 
     $ python manage.py runserver 8080
 
 如果你想要修改伺服器監聽的IP，在連接埠之前輸入新的。比如，為了監聽所有伺服器的公開IP（在你執行
 Vagrant 或想要向網絡上的其它電腦展示你的成果時很有用），使用：
 
-/ 
+
 
     $ python manage.py runserver 0:8000
 
@@ -216,7 +216,7 @@ path](https://docs.python.org/3/tutorial/modules.html#tut-searchpath "(在 Pytho
 請確定你現在處於 `manage.py`
 所在的目錄下，然後執行這行命令來建立一個應用程式：
 
-/ 
+
 
     $ python manage.py startapp polls
 
@@ -309,7 +309,7 @@ mysite/urls.py[¶](#id3 "永久連結至程式")**
 你現在把 `index` 視圖增加進了
 URLconf。透過以下命令驗證是否正常工作：
 
-/ 
+
 
     $ python manage.py runserver
 

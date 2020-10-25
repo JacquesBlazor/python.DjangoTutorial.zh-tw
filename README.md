@@ -25,7 +25,7 @@ django”的錯誤提示，則表示你尚未安裝。
 
 這個教學是為了 Django 3.0 寫的，它支援 Python 3.6 和後續版本。如果
 Django
-的版本不比對，你可以透過頁面右下角的版本切換器切換到對應你版本的教學，或更新至最新版本。如果你正在使用一個較舊版本的
+的版本不符合，你可以透過頁面右下角的版本切換器切換到對應你版本的教學，或更新至最新版本。如果你正在使用一個較舊版本的
 Python，在 [我應該使用哪個版本的 Python 來配合
 Django?](https://docs.djangoproject.com/zh-hans/3.0/faq/install/#faq-python-version-support)
 查找一個合適的 Django 版本。

@@ -1,4 +1,3 @@
-# python.DjangoTutorial.zh-tw
 編寫你的第一個 Django 應用，第 1 部分 | Django 文件 | Django
 
 -   [Getting Help](https://docs.djangoproject.com/zh-hans/3.0/faq/help/)
@@ -68,9 +67,7 @@ Django
 注解
 
 你得避免使用 Python 或 Django
-的內部保留字來命名你的專案。具體地說，你得避免使用像 `django`{.docutils
-.literal .notranslate} (會和 Django 自己產生衝突)或 `test`{.docutils
-.literal .notranslate} (會和 Python 的內置組件產生衝突)這樣的名字。
+的內部保留字來命名你的專案。具體地說，你得避免使用像 `django` (會和 Django 自己產生衝突)或 `test` (會和 Python 的內置組件產生衝突)這樣的名字。
 
 我的程式該放在哪？
 
@@ -288,8 +285,7 @@ polls/urls.py[¶](#id2 "永久連結至程式")**
         path('', views.index, name='index'),
     ]
 
-下一步是要在根 URLconf 文件中指定我們建立的 `polls.urls`{.docutils
-.literal .notranslate} 模組。在 `mysite/urls.py` 文件的 `urlpatterns`
+下一步是要在根 URLconf 文件中指定我們建立的 `polls.urls` 模組。在 `mysite/urls.py` 文件的 `urlpatterns`
 欄表裡插入一個 `include()`{.xref .py .py-func .docutils .literal
 .notranslate}， 如下：
 
@@ -333,8 +329,7 @@ URLconf。透過以下命令驗證是否正常工作：
     $ python manage.py runserver
 
 用你的瀏覽器開啟 <http://localhost:8000/polls/>，你應該能夠看見 "*Hello,
-world. You're at the polls index.*" ，這是你在 `index`{.docutils
-.literal .notranslate} 視圖中定義的。
+world. You're at the polls index.*" ，這是你在 `index` 視圖中定義的。
 
 無法找到頁面 Page Not Found?
 
@@ -390,3 +385,4 @@ URL 模式。
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
 
 [** Back to Top](#top)
+

@@ -1,10 +1,5 @@
 # python.DjangoTutorial.zh-tw
 Convert_Django_Turorial_into_TraditionalChinese(Mandarin Taiwan)
-
-編寫你的第一個 Django 應用，第 1 部分 | Django 文件 | Django
-
--   [Getting Help](https://docs.djangoproject.com/zh-hans/3.0/faq/help/)
-
 編寫你的第一個 Django 應用，第 1 部分 | Django 文件 | Django
 
 -   [Getting Help](https://docs.djangoproject.com/zh-hans/3.0/faq/help/)
@@ -64,7 +59,7 @@ Django
 —— 即一個 Django 專案實例需要的設定項集合，套件括資料庫設定、Django
 設定和應用程式設定。
 
-打開命令列，`cd`{.docutils .literal .notranslate}
+打開命令列，`cd`
 到一個你想放置你程式的目錄，然後執行以下命令：
 
 / 
@@ -118,7 +113,7 @@ Django
 -   裡面一層的 `mysite/`{.file .docutils .literal .notranslate}
     目錄套件含你的專案，它是一個純 Python
     套件。它的名字就是當你引用它內部任何東西時需要用到的 Python 套件名。
-    (比如 `mysite.urls`{.docutils .literal .notranslate}).
+    (比如 `mysite.urls`).
 -   `mysite/__init__.py`{.file .docutils .literal
     .notranslate}：一個空文件，告訴 Python 這個目錄應該被認為是一個
     Python 套件。如果你是 Python 初學者，閱讀官方文件中的
@@ -234,7 +229,7 @@ path](https://docs.python.org/3/tutorial/modules.html#tut-searchpath "(在 Pytho
 中定義的路徑。在這個教學中，我們將在你的 `manage.py`{.file .docutils
 .literal .notranslate}
 同階層目錄下建立投票應用程式。這樣它就可以作為頂層模組匯入，而不是
-`mysite`{.docutils .literal .notranslate} 的子模組。
+`mysite` 的子模組。
 
 請確定你現在處於 `manage.py`{.file .docutils .literal .notranslate}
 所在的目錄下，然後執行這行命令來建立一個應用程式：
@@ -289,7 +284,7 @@ polls/views.py[¶](#id1 "永久連結至程式")**
         urls.py
         views.py
 
-在 `polls/urls.py`{.docutils .literal .notranslate} 中，輸入如下程式碼：
+在 `polls/urls.py` 中，輸入如下程式碼：
 
 polls/urls.py[¶](#id2 "永久連結至程式")**
 
@@ -303,7 +298,7 @@ polls/urls.py[¶](#id2 "永久連結至程式")**
 
 下一步是要在根 URLconf 文件中指定我們建立的 `polls.urls`{.docutils
 .literal .notranslate} 模組。在 `mysite/urls.py`{.docutils .literal
-.notranslate} 文件的 `urlpatterns`{.docutils .literal .notranslate}
+.notranslate} 文件的 `urlpatterns`
 欄表裡插入一個 `include()`{.xref .py .py-func .docutils .literal
 .notranslate}， 如下：
 
@@ -329,7 +324,7 @@ mysite/urls.py[¶](#id3 "永久連結至程式")**
 我們設計 [`include()`{.xref .py .py-func .docutils .literal
 .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
 的理念是使其可以即插即用。因為投票應用程式有它自己的 URLconf(
-`polls/urls.py`{.docutils .literal .notranslate} )，他們能夠被放在
+`polls/urls.py` )，他們能夠被放在
 "/polls/" ， "/fun\_polls/"
 ，"/content/polls/"，或者其他任何路徑下，這個應用程式都能夠正常工作。
 
@@ -337,10 +332,10 @@ mysite/urls.py[¶](#id3 "永久連結至程式")**
 .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
 
 當套件括其它 URL 模式時你應該總是使用 `include()`{.docutils .literal
-.notranslate} ， `admin.site.urls`{.docutils .literal .notranslate}
+.notranslate} ， `admin.site.urls`
 是唯一例外。
 
-你現在把 `index`{.docutils .literal .notranslate} 視圖增加進了
+你現在把 `index` 視圖增加進了
 URLconf。透過以下命令驗證是否正常工作：
 
 / 
@@ -358,26 +353,26 @@ http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 
 函數 [`path()`{.xref .py .py-func .docutils .literal
 .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path")
-具有四個參數，兩個必要參數：`route`{.docutils .literal .notranslate} 和
+具有四個參數，兩個必要參數：`route` 和
 `view`{.docutils .literal
-.notranslate}，兩個可選參數：`kwargs`{.docutils .literal .notranslate}
+.notranslate}，兩個可選參數：`kwargs`
 和 `name`{.docutils .literal
 .notranslate}。現在，是時候來研究這些參數的含義了。
 
-### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `route`{.docutils .literal .notranslate}[¶](#path-argument-route "永久連結至標題")
+### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `route`[¶](#path-argument-route "永久連結至標題")
 
-`route`{.docutils .literal .notranslate} 是一個包含 URL
+`route` 是一個包含 URL
 模式的字串（類似正規表達式）。當 Django 回應一個請求時，它會從
-`urlpatterns`{.docutils .literal .notranslate}
+`urlpatterns`
 清單的第一項開始，依序比對清單中的每一個項目，直到找到比對符合的項目為止。
 
 這些模式不會比對 GET 和 POST 參數或網域名稱。例如，URLconf 在處理請求
-`https://www.example.com/myapp/`{.docutils .literal .notranslate}
-時，它會嘗試比對 `myapp/`{.docutils .literal .notranslate} 。在處理
-`https://www.example.com/myapp/?page=3`{.docutils .literal .notranslate}
-請求時，也只會嘗試比對 `myapp/`{.docutils .literal .notranslate}。
+`https://www.example.com/myapp/`
+時，它會嘗試比對 `myapp/` 。在處理
+`https://www.example.com/myapp/?page=3`
+請求時，也只會嘗試比對 `myapp/`。
 
-### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `view`{.docutils .literal .notranslate}[¶](#path-argument-view "永久連結至標題")
+### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `view`[¶](#path-argument-view "永久連結至標題")
 
 當 Django
 找到了一個比對符合的模式，就會呼叫這個特定的視圖函數，並傳入一個
@@ -386,11 +381,11 @@ http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 物件作為第一個參數，被 “捕獲”
 的參數以關鍵字參數的形式傳入。稍後，我們會提供一個範例。
 
-### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `kwargs`{.docutils .literal .notranslate}[¶](#path-argument-kwargs "永久連結至標題")
+### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `kwargs`[¶](#path-argument-kwargs "永久連結至標題")
 
 任意個關鍵字參數可以作為一個字典傳遞給目標視圖函數。本教學中不會使用這一特性。
 
-### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `name`{.docutils .literal .notranslate}[¶](#path-argument-name "永久連結至標題")
+### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `name`[¶](#path-argument-name "永久連結至標題")
 
 為你的 URL 取名能使你在 Django
 的任意地方唯一地引用它，尤其是在範本中。這個有用的特性允許你只改一個文件就能全域地修改某個
@@ -407,3 +402,5 @@ URL 模式。
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
 
 [** Back to Top](#top)
+
+

@@ -108,7 +108,7 @@ Django
     設定](https://docs.djangoproject.com/zh-hans/3.0/topics/settings/)
     了解細節。
 -   `mysite/urls.py`：Django
-    專案的 URL 聲明，就像你網站的“目錄”。閱讀
+    專案的 URL 宣告，就像你網站的“目錄”。閱讀
     [URL調度器](https://docs.djangoproject.com/zh-hans/3.0/topics/http/urls/)
     文件來獲取更多關於 URL 的內容。
 -   `mysite/asgi.py`{.file .docutils .literal
@@ -472,7 +472,7 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 前毫無顧慮地從 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
 裡注釋或者刪除掉它們。 [`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
 命令只會為在 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
-裡聲明了的應用程式進行資料庫遷移。
+裡有宣告的應用程式進行資料庫遷移。
 
 建立模型[¶](#creating-models "永久連結至標題")
 ----------------------------------------------

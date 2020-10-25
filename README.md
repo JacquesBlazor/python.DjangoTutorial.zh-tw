@@ -5,6 +5,10 @@ Convert_Django_Turorial_into_TraditionalChinese(Mandarin Taiwan)
 
 -   [Getting Help](https://docs.djangoproject.com/zh-hans/3.0/faq/help/)
 
+編寫你的第一個 Django 應用，第 1 部分 | Django 文件 | Django
+
+-   [Getting Help](https://docs.djangoproject.com/zh-hans/3.0/faq/help/)
+
 -   -   -   -   -   -   -   -   -   -   
 
 -   -   -   -   -   
@@ -360,7 +364,7 @@ http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 和 `name`{.docutils .literal
 .notranslate}。現在，是時候來研究這些參數的含義了。
 
-### [`path()`{.xref .py .py-func .docutils .literal .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `route`{.docutils .literal .notranslate}[¶](#path-argument-route "永久連結至標題")
+### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `route`{.docutils .literal .notranslate}[¶](#path-argument-route "永久連結至標題")
 
 `route`{.docutils .literal .notranslate} 是一個包含 URL
 模式的字串（類似正規表達式）。當 Django 回應一個請求時，它會從
@@ -373,7 +377,7 @@ http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 `https://www.example.com/myapp/?page=3`{.docutils .literal .notranslate}
 請求時，也只會嘗試比對 `myapp/`{.docutils .literal .notranslate}。
 
-### [`path()`{.xref .py .py-func .docutils .literal .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `view`{.docutils .literal .notranslate}[¶](#path-argument-view "永久連結至標題")
+### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `view`{.docutils .literal .notranslate}[¶](#path-argument-view "永久連結至標題")
 
 當 Django
 找到了一個比對符合的模式，就會呼叫這個特定的視圖函數，並傳入一個
@@ -382,11 +386,11 @@ http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 物件作為第一個參數，被 “捕獲”
 的參數以關鍵字參數的形式傳入。稍後，我們會提供一個範例。
 
-### [`path()`{.xref .py .py-func .docutils .literal .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `kwargs`{.docutils .literal .notranslate}[¶](#path-argument-kwargs "永久連結至標題")
+### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `kwargs`{.docutils .literal .notranslate}[¶](#path-argument-kwargs "永久連結至標題")
 
 任意個關鍵字參數可以作為一個字典傳遞給目標視圖函數。本教學中不會使用這一特性。
 
-### [`path()`{.xref .py .py-func .docutils .literal .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `name`{.docutils .literal .notranslate}[¶](#path-argument-name "永久連結至標題")
+### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `name`{.docutils .literal .notranslate}[¶](#path-argument-name "永久連結至標題")
 
 為你的 URL 取名能使你在 Django
 的任意地方唯一地引用它，尤其是在範本中。這個有用的特性允許你只改一個文件就能全域地修改某個
@@ -403,23 +407,3 @@ URL 模式。
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
 
 [** Back to Top](#top)
-
-附加資訊 {.visuallyhidden printedit-style="0⁋" style="display:none!important"}
-========
-
-內容 {printedit-style="0⁋" style="display:none!important"}
-----
-
-瀏覽 {printedit-style="0⁋" style="display:none!important"}
-----
-
-當前位置 {printedit-style="0⁋" style="display:none!important"}
---------
-
-獲取協助 {#getting-help-sidebar printedit-style="0⁋" style="display:none!important"}
---------
-
-下載： {printedit-style="0⁋" style="display:none!important"}
-------
-
-

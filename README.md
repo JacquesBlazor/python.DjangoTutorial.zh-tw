@@ -400,7 +400,7 @@ bindings](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database-in
     - 資料庫的名稱。如果使用的是
     SQLite，資料庫將是你電腦上的一個文件，在這種情況下， [`NAME`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-NAME)
     應該是此文件的絕對路徑，包括文件名稱。預設值
-    `os.path.join(BASE_DIR, 'db.sqlite3')` 將會把資料庫文件儲存在專案的根目錄。
+    `BASE_DIR / 'db.sqlite3'` 將會把資料庫文件儲存在專案的根目錄。
 
 如果你不使用 SQLite，則必須增加一些額外設定，例如 [`USER`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-USER)
 、 [`PASSWORD`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-PASSWORD)

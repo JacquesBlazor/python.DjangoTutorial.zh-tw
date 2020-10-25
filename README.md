@@ -1,12 +1,8 @@
 # python.DjangoTutorial.zh-tw
-Convert_Django_Turorial_into_TraditionalChinese(Mandarin Taiwan)
 編寫你的第一個 Django 應用，第 1 部分 | Django 文件 | Django
 
 -   [Getting Help](https://docs.djangoproject.com/zh-hans/3.0/faq/help/)
 
--   -   -   -   -   -   -   -   -   -   
-
--   -   -   -   -   
 
 編寫你的第一個 Django 應用，第 1 部分[¶](#writing-your-first-django-app-part-1 "永久連結至標題")
 ================================================================================================
@@ -66,8 +62,7 @@ Django
 
     $ django-admin startproject mysite
 
-這行程式將會在當前目錄下建立一個 `mysite`{.docutils .literal
-.notranslate} 目錄。如果命令失敗了，查看 [執行 django-admin
+這行程式將會在當前目錄下建立一個 `mysite` 目錄。如果命令失敗了，查看 [執行 django-admin
 時遇到的問題](https://docs.djangoproject.com/zh-hans/3.0/faq/troubleshooting/#troubleshooting-django-admin)，可能能給你提供協助。
 
 注解
@@ -81,8 +76,7 @@ Django
 
 如果你曾經是原生 PHP
 程式設計師（沒有使用過現代框架），你可能會習慣於把程式放在 Web
-伺服器的文件根目錄(諸如 `/var/www`{.docutils .literal
-.notranslate})。當使用 Django 時不需要這樣做。把所有 Python 程式放在 Web
+伺服器的文件根目錄(諸如 `/var/www`)。當使用 Django 時不需要這樣做。把所有 Python 程式放在 Web
 伺服器的根目錄不是個好主意，因為這樣會有風險。比如會提高人們在網站上看到你的程式的可能性。這不利於網站的安全。
 
 把你的程式放在文件根目錄 **以外** 的某些地方吧，比如 /home/mycode。
@@ -102,15 +96,15 @@ Django
 
 這些目錄和文件的用處是：
 
--   最外層的 `mysite/`{.file .docutils .literal .notranslate}
+-   最外層的 `mysite/`
     根目錄只是你專案的容器，
     根目錄名稱對Django沒有影響，你可以將它重命名為任何你喜歡的名稱。
--   `manage.py`{.file .docutils .literal .notranslate}:
+-   `manage.py`:
     一個讓你用各種方式管理 Django 專案的命令列工具。你可以閱讀
     [django-admin and
     manage.py](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/)
-    獲取所有 `manage.py`{.file .docutils .literal .notranslate} 的細節。
--   裡面一層的 `mysite/`{.file .docutils .literal .notranslate}
+    獲取所有 `manage.py` 的細節。
+-   裡面一層的 `mysite/`
     目錄套件含你的專案，它是一個純 Python
     套件。它的名字就是當你引用它內部任何東西時需要用到的 Python 套件名。
     (比如 `mysite.urls`).
@@ -118,11 +112,11 @@ Django
     .notranslate}：一個空文件，告訴 Python 這個目錄應該被認為是一個
     Python 套件。如果你是 Python 初學者，閱讀官方文件中的
     [更多關於套件的知識](https://docs.python.org/3/tutorial/modules.html#tut-packages "(在 Python v3.8)")。
--   `mysite/settings.py`{.file .docutils .literal .notranslate}：Django
+-   `mysite/settings.py`：Django
     專案的設定文件。如果你想知道這個文件是如何運作的，請查看 [Django
     設定](https://docs.djangoproject.com/zh-hans/3.0/topics/settings/)
     了解細節。
--   `mysite/urls.py`{.file .docutils .literal .notranslate}：Django
+-   `mysite/urls.py`：Django
     專案的 URL 聲明，就像你網站的“目錄”。閱讀
     [URL調度器](https://docs.djangoproject.com/zh-hans/3.0/topics/http/urls/)
     文件來獲取更多關於 URL 的內容。
@@ -231,14 +225,14 @@ path](https://docs.python.org/3/tutorial/modules.html#tut-searchpath "(在 Pytho
 同階層目錄下建立投票應用程式。這樣它就可以作為頂層模組匯入，而不是
 `mysite` 的子模組。
 
-請確定你現在處於 `manage.py`{.file .docutils .literal .notranslate}
+請確定你現在處於 `manage.py`
 所在的目錄下，然後執行這行命令來建立一個應用程式：
 
 / 
 
     $ python manage.py startapp polls
 
-這將會建立一個 `polls`{.file .docutils .literal .notranslate}
+這將會建立一個 `polls`
 目錄，它的目錄結構大致如下：
 
     polls/
@@ -256,8 +250,7 @@ path](https://docs.python.org/3/tutorial/modules.html#tut-searchpath "(在 Pytho
 編寫第一個視圖[¶](#write-your-first-view "永久連結至標題")
 ----------------------------------------------------------
 
-讓我們開始編寫第一個視圖吧。打開 `polls/views.py`{.docutils .literal
-.notranslate}，把下面這些 Python 程式輸入進去：
+讓我們開始編寫第一個視圖吧。打開 `polls/views.py`，把下面這些 Python 程式輸入進去：
 
 polls/views.py[¶](#id1 "永久連結至程式")**
 
@@ -270,8 +263,7 @@ polls/views.py[¶](#id1 "永久連結至程式")**
 這是 Django 中最簡單的視圖。如果想看見效果，我們需要將一個 URL
 對映到它——這就是我們需要 URLconf 的原因了。
 
-為了建立 URLconf，請在 polls 目錄裡新建一個 `urls.py`{.docutils .literal
-.notranslate} 文件。你的應用程式目錄現在看起來應該是這樣：
+為了建立 URLconf，請在 polls 目錄裡新建一個 `urls.py` 文件。你的應用程式目錄現在看起來應該是這樣：
 
     polls/
         __init__.py
@@ -297,8 +289,7 @@ polls/urls.py[¶](#id2 "永久連結至程式")**
     ]
 
 下一步是要在根 URLconf 文件中指定我們建立的 `polls.urls`{.docutils
-.literal .notranslate} 模組。在 `mysite/urls.py`{.docutils .literal
-.notranslate} 文件的 `urlpatterns`
+.literal .notranslate} 模組。在 `mysite/urls.py` 文件的 `urlpatterns`
 欄表裡插入一個 `include()`{.xref .py .py-func .docutils .literal
 .notranslate}， 如下：
 
@@ -331,8 +322,7 @@ mysite/urls.py[¶](#id3 "永久連結至程式")**
 何時使用 [`include()`{.xref .py .py-func .docutils .literal
 .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
 
-當套件括其它 URL 模式時你應該總是使用 `include()`{.docutils .literal
-.notranslate} ， `admin.site.urls`
+當套件括其它 URL 模式時你應該總是使用 `include()` ， `admin.site.urls`
 是唯一例外。
 
 你現在把 `index` 視圖增加進了
@@ -354,10 +344,8 @@ http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 函數 [`path()`{.xref .py .py-func .docutils .literal
 .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path")
 具有四個參數，兩個必要參數：`route` 和
-`view`{.docutils .literal
-.notranslate}，兩個可選參數：`kwargs`
-和 `name`{.docutils .literal
-.notranslate}。現在，是時候來研究這些參數的含義了。
+`view`，兩個可選參數：`kwargs`
+和 `name`。現在，是時候來研究這些參數的含義了。
 
 ### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `route`[¶](#path-argument-route "永久連結至標題")
 
@@ -402,5 +390,3 @@ URL 模式。
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
 
 [** Back to Top](#top)
-
-

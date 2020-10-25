@@ -137,17 +137,18 @@ Django
 你應該會看到如下輸出：
 
 ``` 
+Watching for file changes with StatReloader
 Performing system checks...
 
 System check identified no issues (0 silenced).
 
-You have unapplied migrations; your app may not work properly until they are applied.
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
 Run 'python manage.py migrate' to apply them.
-
-七月 23, 2020 - 15:50:53
-Django version 3.0, using settings 'mysite.settings'
+October 25, 2020 - 12:15:41
+Django version 3.1.2, using settings 'mysite.settings'
 Starting development server at http://127.0.0.1:8000/
-Quit the server with CONTROL-C.
+Quit the server with CTRL-BREAK.
+
 ```
 
 注解

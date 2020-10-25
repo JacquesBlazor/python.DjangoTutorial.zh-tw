@@ -1,8 +1,3 @@
-編寫你的第一個 Django 應用，第 1 部分 | Django 文件 | Django
-
--   [Getting Help](https://docs.djangoproject.com/zh-hans/3.0/faq/help/)
-
-
 編寫你的第一個 Django 應用，第 1 部分[¶](#writing-your-first-django-app-part-1 "永久連結至標題")
 ================================================================================================
 
@@ -78,8 +73,7 @@ Django
 
 把你的程式放在文件根目錄 **以外** 的某些地方吧，比如 /home/mycode。
 
-讓我們看看 [`startproject`{.xref .std .std-djadmin .docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-startproject)
+讓我們看看 [`startproject`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-startproject)
 建立了些什麼:
 
     mysite/
@@ -142,7 +136,7 @@ Django
 
 你應該會看到如下輸出：
 
-``` {.literal-block}
+``` 
 Performing system checks...
 
 System check identified no issues (0 silenced).
@@ -174,8 +168,7 @@ Web 框架方面是專家，在 Web 伺服器方面並不是。)
 
 更換連接埠
 
-預設情況下，[`runserver`{.xref .std .std-djadmin .docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-runserver)
+預設情況下，[`runserver`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-runserver)
 命令會將伺服器設置為監聽本機內部 IP 的 8000 連接埠。
 
 如果你想更換伺服器的監聽連接埠，請使用命令列參數。舉個例子，下面的命令會使伺服器監聽
@@ -195,9 +188,7 @@ Vagrant 或想要向網絡上的其它電腦展示你的成果時很有用），
 **0** 是 **0.0.0.0** 的簡寫。完整的關於開發伺服器的文件可以在
 [:djamdin:\`runserver\`](#id1) 參考文件中找到。
 
-會自動重新載入的伺服器 [`runserver`{.xref .std .std-djadmin .docutils
-.literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-runserver)
+會自動重新載入的伺服器 [`runserver`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-runserver)
 
 用於開發的伺服器在需要的情況下會對每一次的開啟請求重新載入一遍 Python
 程式。所以你不需要為了讓修改的程式生效而頻繁的重新啟動伺服器。然而，一些動作，比如增加新文件，將不會觸發自動重新載入，這時你得自己手動重啟伺服器。
@@ -286,8 +277,7 @@ polls/urls.py[¶](#id2 "永久連結至程式")**
     ]
 
 下一步是要在根 URLconf 文件中指定我們建立的 `polls.urls` 模組。在 `mysite/urls.py` 文件的 `urlpatterns`
-欄表裡插入一個 `include()`{.xref .py .py-func .docutils .literal
-.notranslate}， 如下：
+欄表裡插入一個 `include()`， 如下：
 
 mysite/urls.py[¶](#id3 "永久連結至程式")**
 
@@ -299,24 +289,19 @@ mysite/urls.py[¶](#id3 "永久連結至程式")**
         path('admin/', admin.site.urls),
     ]
 
-函數 [`include()`{.xref .py .py-func .docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
-允許引用其它 URLconfs。每當 Django 遇到 [`include()`{.xref .py .py-func
-.docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
+函數 [`include()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
+允許引用其它 URLconfs。每當 Django 遇到 [`include()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
 時，它會將 URL
 與函式參數指定字串比對符合的部分截斷，並將剩餘的字串傳送到 URLconf
 以供進一步處理。
 
-我們設計 [`include()`{.xref .py .py-func .docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
+我們設計 [`include()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
 的理念是使其可以即插即用。因為投票應用程式有它自己的 URLconf(
 `polls/urls.py` )，他們能夠被放在
 "/polls/" ， "/fun\_polls/"
 ，"/content/polls/"，或者其他任何路徑下，這個應用程式都能夠正常工作。
 
-何時使用 [`include()`{.xref .py .py-func .docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
+何時使用 [`include()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.include "django.urls.include")
 
 當套件括其它 URL 模式時你應該總是使用 `include()` ， `admin.site.urls`
 是唯一例外。
@@ -336,8 +321,7 @@ world. You're at the polls index.*" ，這是你在 `index` 視圖中定義的�
 如果你在這裡得到了一個錯誤頁面，檢查一下你是不是開啟
 http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 
-函數 [`path()`{.xref .py .py-func .docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path")
+函數 [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path")
 具有四個參數，兩個必要參數：`route` 和
 `view`，兩個可選參數：`kwargs`
 和 `name`。現在，是時候來研究這些參數的含義了。
@@ -350,17 +334,14 @@ http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 清單的第一項開始，依序比對清單中的每一個項目，直到找到比對符合的項目為止。
 
 這些模式不會比對 GET 和 POST 參數或網域名稱。例如，URLconf 在處理請求
-`https://www.example.com/myapp/`
-時，它會嘗試比對 `myapp/` 。在處理
-`https://www.example.com/myapp/?page=3`
-請求時，也只會嘗試比對 `myapp/`。
+`https://www.example.com/myapp/`時，它會嘗試比對 `myapp/` 。在處理
+`https://www.example.com/myapp/?page=3`請求時，也只會嘗試比對 `myapp/`。
 
 ### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `view`[¶](#path-argument-view "永久連結至標題")
 
 當 Django
 找到了一個比對符合的模式，就會呼叫這個特定的視圖函數，並傳入一個
-[`HttpRequest`{.xref .py .py-class .docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
+[`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
 物件作為第一個參數，被 “捕獲”
 的參數以關鍵字參數的形式傳入。稍後，我們會提供一個範例。
 

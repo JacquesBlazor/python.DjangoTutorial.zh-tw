@@ -153,7 +153,7 @@ Quit the server with CTRL-BREAK.
 
 注解
 
-忽略有關未套用最新資料庫遷移的警告，稍後我們會處理資料庫。
+忽略有關未套用最新資料庫遷移的警告(You have 18 unapplied migration(s). Your project may not work properly ... to apply them.)，稍後我們會處理資料庫。
 
 你剛剛啟動的是 Django 自帶的用於開發的簡易伺服器，它是一個用純 Python
 寫的輕量級的 Web 伺服器。我們將這個伺服器內置在 Django

@@ -1231,7 +1231,8 @@ polls/views.py[¶](#id2 "永久連結至程式")**
     def vote(request, question_id):
         return HttpResponse("You're voting on question %s." % question_id)
 
-把這些新視圖增加進 `polls.urls`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.conf.urls.url "django.conf.urls.url")
+把這些新視圖增加進 `polls.urls`
+模組裡，只要增加幾個 [`url()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.conf.urls.url "django.conf.urls.url")
 函數呼叫就行：
 
 polls/urls.py[¶](#id3 "永久連結至程式")**
@@ -1257,17 +1258,21 @@ polls/urls.py[¶](#id3 "永久連結至程式")**
 你將會看到暫時用於佔位的結果和投票頁。
 
 當某人請求你網站的某一頁面時 — 例如像是， "/polls/34/" ，Django 將會載入
-`mysite.urls`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-ROOT_URLCONF)
+`mysite.urls` 模組，因為這在設定項
+[`ROOT_URLCONF`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-ROOT_URLCONF)
 中設定了。然後 Django 尋找名為 `urlpatterns` 變數並且按序比對正規表達式。在找到比對項
-`'polls/'`），將剩餘文字 — `"34/"`，發送至 'polls.urls' URLconf
-做進一步處理。在這裡剩餘文字比對了 `'<int:question_id>/'`:
+`'polls/'`，它切掉了比對的文字（`"polls/"`），將剩餘文字 — `"34/"`，發送至 'polls.urls' URLconf
+做進一步處理。在這裡剩餘文字比對了 `'<int:question_id>/'`，使得我們 Django 以如下形式呼叫
+`detail()`:
 
     detail(request=<HttpRequest object>, question_id=34)
 
-`question_id=34`
+`question_id=34` 由
+`<int:question_id>`
 比對產生。使用尖括號“擷取”這部分
 URL，且以關鍵字參數的形式發送給視圖函數。上述字串的
-`:question_id>` 則是一個轉換器決定了應該以什麼變數類型比對這部分的 URL
+`:question_id>`
+部分定義了將被用於區分比對模式的變數名，而 `int:` 則是一個轉換器決定了應該以什麼變數類型比對這部分的 URL
 路徑。
 
 為每個 URL 加上不必要的東西，例如 `.html` ，是沒有必要的。不過如果你非要加的話，也是可以的:
@@ -1316,23 +1321,29 @@ polls/views.py[¶](#id4 "永久連結至程式")**
 Python 程式。所以讓我們使用 Django
 的範本系統，只要建立一個視圖，就可以將頁面的設計從程式中分離出來。
 
-首先，在你的 `polls` 目錄。Django
+首先，在你的 `polls` 目錄裡建立一個
+`templates` 目錄。Django
 將會在這個目錄裡尋找範本文件。
 
 你專案的 [`TEMPLATES`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES)
 設定項描述了 Django 如何載入和實現範本。預設的設定文件設定了
-`DjangoTemplates`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-APP_DIRS)
+`DjangoTemplates` 後端，並將
+[`APP_DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-APP_DIRS)
 設定成了 True。這一選項將會讓 `DjangoTemplates` 在每個 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
 文件夾中尋找 "templates"
 子目錄。這就是為什麼儘管我們沒有像在第二部分中那樣修改 DIRS 設定，Django
 也能正確找到 polls 的範本位置的原因。
 
-在你剛剛建立的 `templates`，然後在其中新建一個文件 `index.html`
-。因為 `app_directories` 這一範本了。
+在你剛剛建立的 `templates`
+目錄裡，再建立一個目錄 `polls`，然後在其中新建一個文件 `index.html` 。換句話說，你的範本文件的路徑應該是
+`polls/templates/polls/index.html`
+。因為 `app_directories`
+範本載入器是透過上述描述的方法執行的，所以 Django 可以引用得到
+`polls/index.html` 這一範本了。
 
 範本命名空間
 
-雖然我們現在可以將範本文件直接放在 `polls/templates` 子文件夾），但是這樣做不太好。Django
+雖然我們現在可以將範本文件直接放在 `polls/templates` 文件夾中（而不是再建立一個 `polls` 子文件夾），但是這樣做不太好。Django
 將會選擇第一個比對的範本文件，如果你有一個範本文件正好和另一個應用中的某個範本文件重名，Django
 沒有辦法 *區分* 它們。我們需要協助 Django
 選擇正確的範本，最好的方法就是把他們放入各自的 *命名空間*
@@ -1358,7 +1369,8 @@ polls/templates/polls/index.html[¶](#id5 "永久連結至程式")**
 [完整的 HTML
 文件](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started#Anatomy_of_an_HTML_document).
 
-然後，讓我們更新一下 `polls/views.py` 視圖來使用範本：
+然後，讓我們更新一下 `polls/views.py`
+裡的 `index` 視圖來使用範本：
 
 polls/views.py[¶](#id6 "永久連結至程式")**
 
@@ -1405,7 +1417,8 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 
 注意到，我們不再需要匯入 [`loader`](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/#module-django.template.loader "django.template.loader")
 和 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponse "django.http.HttpResponse")
-（不過如果你還有其他函數例如像是 `detail` 需要用到它的話，就需要保留匯入
+（不過如果你還有其他函數例如像是 `detail`, `results`, 和
+`vote` 需要用到它的話，就需要保留匯入
 `HttpResponse` ）。
 
 此 [`render()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.render "django.shortcuts.render")
@@ -1493,7 +1506,8 @@ polls/views.py[¶](#id10 "永久連結至程式")**
 使用範本系統[¶](#use-the-template-system "永久連結至標題")
 ----------------------------------------------------------
 
-回過頭去看看我們的 `detail()` 。下面是 `polls/detail.html` 範本裡正式的程式：
+回過頭去看看我們的 `detail()`
+視圖。它向範本傳遞了上下文變數 `question` 。下面是 `polls/detail.html` 範本裡正式的程式：
 
 polls/templates/polls/detail.html[¶](#id11 "永久連結至程式")**
 
@@ -1505,14 +1519,16 @@ polls/templates/polls/detail.html[¶](#id11 "永久連結至程式")**
     </ul>
 
 在範本系統中使用點符號來存取變數的屬性。在範例
-`{{ question.question_text }}`
+`{{ question.question_text }}` 中，首先
+Django 嘗試對 `question`
 物件使用字典尋找（也就是使用 obj.get(str)
 作業），如果失敗了就嘗試屬性尋找（也就是 obj.str
 作業），結果是成功了。如果這一作業也失敗的話，將會嘗試清單尋找（也就是
 obj[int] 操作）。
 
 方法（函數）呼叫發生在 [`{% for %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
-循環中：`question.choice_set.all`，它會回傳一個可迭代的 `Choice`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
+循環中：`question.choice_set.all`
+被解釋為 Python 程式 `question.choice_set.all()`，它會回傳一個可迭代的 `Choice`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
 標籤內部使用。
 
 查看
@@ -1528,7 +1544,7 @@ obj[int] 操作）。
     <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
 
 問題在於，這樣用程式直接編寫成緊密耦合的超連結，對於一個包含很多應用的專案來說，修改這樣的
-URLs 是十分困難的。不過，由於你在 `polls.urls`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.conf.urls.url "django.conf.urls.url")
+URLs 是十分困難的。不過，由於你在 `polls.urls` 的 [`url()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.conf.urls.url "django.conf.urls.url")
 函數中透過 name 參數為 URL 定義了名字，你可以使用 `{% url %}` 標籤替代它：
 
     <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>
@@ -1543,7 +1559,9 @@ URLs 是十分困難的。不過，由於你在 `polls.urls`](https://docs.djang
     ...
 
 如果你想改變投票詳情視圖的 URL，例如想改成
-`polls/specifics/12/` 裡稍微修改一下就行：
+`polls/specifics/12/`
+，你不用在範本裡修改任何東西（包括其它範本），只要在
+`polls/urls.py` 裡稍微修改一下就行：
 
     ...
     # 新增 'specifics' 這個字
@@ -1556,12 +1574,13 @@ URLs 是十分困難的。不過，由於你在 `polls.urls`](https://docs.djang
 教學專案只有一個應用，`polls`
 。在一個真實的 Django
 專案中，可能會有五個，十個，二十個，甚至更多應用。Django 如何分辨重名的
-URL 呢？舉個例子，`polls`
+URL 呢？舉個例子，`polls` 應用有
+`detail`
 視圖，可能另一個部落格應用也有同名的視圖。Django 如何知道
 `{% url %}` 標籤到底對應哪一個應用的
 URL 呢？
 
-答案是：在根 URLconf 中增加命名空間。在 `polls/urls.py` 設定命名空間：
+答案是：在根 URLconf 中增加命名空間。在 `polls/urls.py` 文件中稍作修改，加上 `app_name` 設定命名空間：
 
 polls/urls.py[¶](#id12 "永久連結至程式")**
 
@@ -1577,7 +1596,8 @@ polls/urls.py[¶](#id12 "永久連結至程式")**
         path('<int:question_id>/vote/', views.vote, name='vote'),
     ]
 
-現在，編輯 `polls/index.html`文件，從：
+現在，編輯 `polls/index.html`
+文件，從：
 
 polls/templates/polls/index.html[¶](#id13 "永久連結至程式")**
 
@@ -1598,6 +1618,7 @@ polls/templates/polls/index.html[¶](#id14 "永久連結至程式")**
 
 [編寫你的第一個 Django 應用，第 4 部分
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
+
 
 編寫你的第一個 Django 應用，第 4 部分[¶](#writing-your-first-django-app-part-4 "永久連結至標題")
 ================================================================================================

@@ -49,8 +49,8 @@ Django
 
     $ django-admin startproject mysite
 
-這行程式將會在當前目錄下建立一個 `mysite` 目錄。如果命令失敗了，查看 [執行 django-admin
-時遇到的問題](https://docs.djangoproject.com/zh-hans/3.0/faq/troubleshooting/#troubleshooting-django-admin)，可能能給你提供協助。
+這行程式將會在當前目錄下建立一個 `mysite` 目錄。如果命令失敗了，參考 [執行 django-admin
+時遇到的問題](https://docs.djangoproject.com/zh-hans/3.0/faq/troubleshooting/#troubleshooting-django-admin)，也許可以提供協助。
 
 注解
 
@@ -440,7 +440,7 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 -   [`django.contrib.staticfiles`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/staticfiles/#module-django.contrib.staticfiles "django.contrib.staticfiles: An app for handling static files.")
     -- 管理靜態文件的框架。
 
-這些應用程式被預設啟用是為了給常見的專案提供方便。
+為了給常見的專案提供方便因此這些應用程式預設是啟用的。
 
 預設開啟的某些應用程式需要至少一個資料表，所以，在使用他們之前需要在資料庫中建立一些表。請執行以下命令：
 

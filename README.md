@@ -1,3 +1,50 @@
+開始[¶](#getting-started "永久連結至標題")
+==========================================
+
+初識 Django？或為了 Web 開發？好，那你來對地方了：看看這些資料快速上手。
+
+-   [初識
+    Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
+-   [快速安裝指南](https://docs.djangoproject.com/zh-hans/3.0/intro/install/)
+-   [編寫你的第一個 Django 應用，第 1
+    部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)
+-   [編寫你的第一個 Django 應用，第 2
+    部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
+-   [編寫你的第一個 Django 應用，第 3
+    部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+-   [編寫你的第一個 Django 應用，第 4
+    部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
+-   [編寫你的第一個 Django 應用，第 5
+    部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+-   [編寫你的第一個 Django 應用，第 6
+    部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
+-   [編寫你的第一個 Django 應用，第 7
+    部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+-   [進階指南：如何編寫可重用程式](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)
+-   [下一步看什麼](https://docs.djangoproject.com/zh-hans/3.0/intro/whatsnext/)
+-   [編寫你的第一個 Django
+    修補程式](https://docs.djangoproject.com/zh-hans/3.0/intro/contributing/)
+
+參見
+
+如果你初次了解
+[Python](https://python.org/)，可能想知道它是怎樣一門語言。Django 是
+100% 由 Python 編寫的，所以熟悉 Python 可以加深對 Django 的理解。
+
+如果你毫無編程經驗，可能需要從 [適合零編程經驗者的 Python
+學習資源](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers)
+起步
+
+如果你已經了解過一門其他的編程語言，並且向快速上手Python，我們向你推薦
+[Dive Into
+Python](https://diveinto.org/python3/table-of-contents.html)。如果不太適合你的話，還有其它很多
+[books about Python](https://wiki.python.org/moin/PythonBooks)。
+
+[** Django 文件](https://docs.djangoproject.com/zh-hans/3.0/)
+
+[初識 Django
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
+
 編寫你的第一個 Django 應用，第 1 部分[¶](#writing-your-first-django-app-part-1 "永久連結至標題")
 ================================================================================================
 
@@ -1380,7 +1427,7 @@ polls/templates/polls/detail.html[¶](#id11 "永久連結至程式")**
 obj[int] 操作）。
 
 方法（函數）呼叫發生在 [`{% for %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
-循環中：`question.choice_set.all`，它會回傳一個可迭代的 `Choice``](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
+循環中：`question.choice_set.all`，它會回傳一個可迭代的 `Choice`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
 標籤內部使用。
 
 查看
@@ -1445,8 +1492,7 @@ polls/urls.py[¶](#id12 "永久連結至程式")**
         path('<int:question_id>/vote/', views.vote, name='vote'),
     ]
 
-現在，編輯 `polls/index.html`
-文件，從：
+現在，編輯 `polls/index.html`文件，從：
 
 polls/templates/polls/index.html[¶](#id13 "永久連結至程式")**
 
@@ -1468,7 +1514,1426 @@ polls/templates/polls/index.html[¶](#id14 "永久連結至程式")**
 [編寫你的第一個 Django 應用，第 4 部分
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
 
-[** Back to Top](#top)
+編寫你的第一個 Django 應用，第 4 部分[¶](#writing-your-first-django-app-part-4 "永久連結至標題")
+================================================================================================
+
+這一篇從 [教學第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+結尾的地方繼續講起。我們將繼續編寫投票應用，專注於表單處理並且精簡我們的程式。
+
+從哪裡取得協助：
+
+如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
+Help\</faq/help\> 的小節。
+
+編寫一個簡單的表單[¶](#write-a-minimal-form "永久連結至標題")
+-------------------------------------------------------------
+
+讓我們更新一下在上一個教學中編寫的投票詳細頁面的範本
+("polls/detail.html") ，讓它包含一個 HTML `<form>` 元素：
+
+polls/templates/polls/detail.html[¶](#id1 "永久連結至程式")**
+
+    <h1>{{ question.question_text }}</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+    {% endfor %}
+    <input type="submit" value="Vote">
+    </form>
+
+很簡單地概要說明：
+
+-   上面的範本在 Question 的每個 Choice 前增加一個單選按鈕。
+    每個單選按鈕的 `value`是`"choice"`，其中 \#
+    為選擇的 Choice 的 ID。這是 HTML 表單的基本概念。
+-   我們設定表單的 `         action     `，並設定
+    `         method="post"     `
+    ）是非常重要的，因為這個提交表單的行為會改變伺服器端的資料。無論何時，當你需要建立一個改變伺服器端資料的表單時，使用
+    `method="post"` 指示 [`for`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
+    標籤已經循環多少次。
+-   由於我們建立一個 POST
+    表單（它具有修改資料的作用），所以我們需要小心跨網站請求偽造。這就要感謝由於
+    Django
+    內建了一個非常有用的防禦系統，因此你並不需要太過擔心。簡而言之，所有針對內部
+    URL 的 POST 表單都應該使用 [`{% csrf_token %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-csrf_token)
+    範本標籤。
+
+現在，讓我們來建立一個 Django 視圖來處理提交的資料。記住，在 [教學第 3
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+中，我們為投票應用建立了一個 URLconf ，包含這一行：
+
+polls/urls.py[¶](#id2 "永久連結至程式")**
+
+    path('<int:question_id>/vote/', views.vote, name='vote'),
+
+我們還建立了一個 `vote()` ：
+
+polls/views.py[¶](#id3 "永久連結至程式")**
+
+    from django.http import HttpResponse, HttpResponseRedirect
+    from django.shortcuts import get_object_or_404, render
+    from django.urls import reverse
+
+    from .models import Choice, Question
+    # ...
+    def vote(request, question_id):
+        question = get_object_or_404(Question, pk=question_id)
+        try:
+            selected_choice = question.choice_set.get(pk=request.POST['choice'])
+        except (KeyError, Choice.DoesNotExist):
+            # 重新顯示問題投票表單。
+            return render(request, 'polls/detail.html', {
+                'question': question,
+                'error_message': "You didn't select a choice.",
+            })
+        else:
+            selected_choice.votes += 1
+            selected_choice.save()
+            # 在成功處理 POST 資料後，緊跟著就回應 HttpResponseRedirect。
+            # 這樣可以防止如果使用者按下 "上一頁" 按鈕時，
+            # 資料會傳送兩次的情況。
+            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+以上程式中有些內容還未在本教學中提到過：
+
+-   [`request.POST`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.POST "django.http.HttpRequest.POST")
+    是一個類字典物件，讓你可以透過關鍵字的名字取得提交的資料。
+    這個例子中， `request.POST['choice']` 以字串形式回傳選擇的 Choice 的 ID。
+    [`request.POST`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.POST "django.http.HttpRequest.POST")
+    的值永遠是字串。
+
+    注意，Django 還以同樣的方式提供 [`request.GET`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.GET "django.http.HttpRequest.GET")
+    用於開啟 GET 資料 — 但我們在程式中明確地使用 [`request.POST`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.POST "django.http.HttpRequest.POST")
+    ，以保證資料只能透過 POST 呼叫改動。
+
+-   如果在 `request.POST['choice']` ， POST
+    將引發一個 [`KeyError`](https://docs.python.org/3/library/exceptions.html#KeyError "(在 Python v3.8)")
+    。上面的程式檢查 [`KeyError` 將重新顯示
+    Question 表單和一個錯誤資訊。
+
+-   在增加 Choice 的得票數之後，程式回傳一個
+    [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
+    而不是常用的 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponse "django.http.HttpResponse")。[`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
+    只接收一個參數：用戶將要被重定向的
+    URL（請繼續看下去，我們將會解釋如何構造這個例子中的 URL）。
+
+    正如上面的 Python 註釋所指出的那樣，在成功處理 POST
+    資料後，你應該總是返回一個 [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")。這個技巧並非專門針對
+    Django；總體而言，這是一項很好的 Web 開發實踐。
+
+-   在這個例子中，我們在 [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
+    的構造函數中使用 `reverse()` 函數。這個函數避免了我們在視圖函數中用程式直接編寫
+    URL。它需要我們給出我們想要跳轉的視圖的名字和該視圖所對應的 URL
+    模式中需要給該視圖提供的參數。 在本例中，使用在 [教學第 3
+    部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+    中設定的 URLconf，`reverse()` 呼叫將回傳一個這樣的字串：
+
+        '/polls/3/results/'
+
+    其中 `3` 視圖來顯示最終的頁面。
+
+正如在 [教學第 3
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+中提到的，[`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
+是一個 [`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
+物件。更多關於 [`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
+物件的內容，請參見
+[請求和回應的文件](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/)
+。
+
+當有人對 Question 進行投票後， `vote()`
+視圖將請求重定向到 Question 的結果界面。讓我們來編寫這個視圖：
+
+polls/views.py[¶](#id4 "永久連結至程式")**
+
+    from django.shortcuts import get_object_or_404, render
+
+
+    def results(request, question_id):
+        question = get_object_or_404(Question, pk=question_id)
+        return render(request, 'polls/results.html', {'question': question})
+
+這和 [教學第 3
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/) 中的
+`detail()`
+視圖幾乎一模一樣。唯一的不同是範本的名字。
+我們將在稍後解決這個重複項目。
+
+現在，建立一個 `polls/results.html`
+範本：
+
+polls/templates/polls/results.html[¶](#id5 "永久連結至程式")**
+
+    <h1>{{ question.question_text }}</h1>
+
+    <ul>
+    {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
+    {% endfor %}
+    </ul>
+
+    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+
+現在，在你的瀏覽器中開啟 `/polls/1/`
+然後為 Question
+投票。你應該看到一個投票結果頁面，並且在你每次投票之後都會更新。
+如果你提交時沒有選擇任何 Choice，你應該看到錯誤資訊。
+
+注解
+
+我們的 `vote()` 物件，接著計算
+`vote`
+回傳。然後，對於兩個使用者，新值43計算完畢，並被儲存，但是期望值是44。
+
+這個問題被稱為 *競爭條件* 。如果你對此有興趣，你可以閱讀 [Avoiding race
+conditions using
+F()](https://docs.djangoproject.com/zh-hans/3.0/ref/models/expressions/#avoiding-race-conditions-using-f)
+來學習如何解決這個問題。
+
+使用通用視圖：程式還是少點好[¶](#use-generic-views-less-code-is-better "永久連結至標題")
+----------------------------------------------------------------------------------------
+
+`detail()` 視圖都很精簡 —
+並且，像上面提到的那樣，存在重複項目。用來顯示一個投票欄表的
+`index()` 視圖（也在 [教學第 3
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+中）和它們類似。
+
+這些視圖反映基本的 Web 開發中的一個常見情況：根據 URL
+中的參數從資料庫中取得資料、載入範本文件然後回傳實現後的範本。
+由於這種情況特別常見，Django 提供一種快捷方式，叫做 “通用視圖” 系統。
+
+通用視圖將常見的模式抽象化，可以使你在編寫應用時甚至不需要編寫 Python
+程式。
+
+讓我們將我們的投票應用轉換成使用通用視圖系統，這樣我們可以刪除許多我們的程式。我們僅僅需要做以下幾步來完成轉換，我們將：
+
+1.  轉換 URLconf。
+2.  刪除一些舊的、不再需要的視圖。
+3.  基於 Django 的通用視圖引入新的視圖。
+
+請繼續閱讀來了解詳細資訊。
+
+為什麼要重構程式？
+
+一般來說，當編寫一個 Django
+應用時，你應該先評估一下通用視圖是否可以解決你的問題，你應該在一開始使用它，而不是進行到一半時重構程式。本教學目前為止是有意將重點放在以
+“艱難的方式” 編寫視圖，這是為了將重點放在核心概念上。
+
+就像在使用計算機之前你需要掌握基礎數學一樣。
+
+### 改良 URLconf[¶](#amend-urlconf "永久連結至標題")
+
+首先，打開 `polls/urls.py` 這個 URLconf
+並將它修改成：
+
+polls/urls.py[¶](#id6 "永久連結至程式")**
+
+    from django.urls import path
+
+    from . import views
+
+    app_name = 'polls'
+    urlpatterns = [
+        path('', views.IndexView.as_view(), name='index'),
+        path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+        path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
+        path('<int:question_id>/vote/', views.vote, name='vote'),
+    ]
+
+注意，第二個和第三個比對準則中，路徑字串中比對模式的名稱已經由
+`<question_id>`。
+
+### 改良視圖[¶](#amend-views "永久連結至標題")
+
+下一步，我們將刪除舊的 `index` 視圖，並用 Django 的通用視圖代替。打開
+`polls/views.py` 文件，並將它修改成：
+
+polls/views.py[¶](#id7 "永久連結至程式")**
+
+    from django.http import HttpResponseRedirect
+    from django.shortcuts import get_object_or_404, render
+    from django.urls import reverse
+    from django.views import generic
+
+    from .models import Choice, Question
+
+
+    class IndexView(generic.ListView):
+        template_name = 'polls/index.html'
+        context_object_name = 'latest_question_list'
+
+        def get_queryset(self):
+            """傳回最後五個發佈的問題。"""
+            return Question.objects.order_by('-pub_date')[:5]
+
+
+    class DetailView(generic.DetailView):
+        model = Question
+        template_name = 'polls/detail.html'
+
+
+    class ResultsView(generic.DetailView):
+        model = Question
+        template_name = 'polls/results.html'
+
+
+    def vote(request, question_id):
+        ... # 沒有需要變更，和上面的內容相同。
+
+我們在這裡使用兩個通用視圖： [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
+和 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")
+。這兩個視圖分別抽象 “顯示一個物件欄表” 和
+“顯示一個特定類型物件的詳細資訊頁面” 這兩種概念。
+
+-   每個通用視圖需要知道它將作用於哪個模型。 這由 `model` 屬性提供。
+-   [`DetailView`
+    的主鍵值，所以我們為通用視圖把 `question_id` 。
+
+預設情況下，通用視圖 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")
+使用一個叫做 `<app name>/<model name>_detail.html`
+範本。`template_name` 欄表視圖指定了
+`template_name` — 這確保 results 視圖和
+detail 視圖在實現時具有不同的外觀，即使它們在底層都是使用同一個
+[`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")
+。
+
+類似地，[`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
+使用一個叫做 `<app name>/<model name>_list.html` 來告訴 [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
+使用我們建立的已經存在的 `"polls/index.html"` 範本。
+
+在之前的教學中，提供範本文件時都帶有一個包含 `question` 變數的 context。對於 `DetailView`
+變數會自動提供 — 因為我們使用 Django 的模型 (Question)，Django 能夠為
+context 變數決定一個合適的名字。然而對於 ListView，自動產生的 context
+變數是 `question_list`
+屬性，表示我們想使用 `latest_question_list`。作為一種替換方案，你可以改變你的範本來比對新的 context
+變數 — 這是一種更便捷的方法，告訴 Django 使用你想使用的變數名。
+
+啟動伺服器，使用一下基於通用視圖的新投票應用。
+
+更多關於通用視圖的詳細資訊，請查看
+[通用視圖的文件](https://docs.djangoproject.com/zh-hans/3.0/topics/class-based-views/)
+
+當你對你所寫的表單和通用視圖感到滿意後，請閱讀 [教學的第 5
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+來了解如何測試我們的投票應用。
+
+[** 編寫你的第一個 Django 應用，第 3
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+
+[編寫你的第一個 Django 應用，第 5 部分
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+
+編寫你的第一個 Django 應用，第 5 部分[¶](#writing-your-first-django-app-part-5 "永久連結至標題")
+================================================================================================
+
+這一篇從 [教學第 4
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
+結尾的地方繼續講起。我們在前幾章成功的構建了一個在線投票應用，在這一部分裡我們將為它建立一些自動化測試。
+
+從哪裡取得協助：
+
+如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
+Help\</faq/help\> 的小節。
+
+自動化測試簡介[¶](#introducing-automated-testing "永久連結至標題")
+------------------------------------------------------------------
+
+### 自動化測試是什麼？[¶](#what-are-automated-tests "永久連結至標題")
+
+測試程式，是用來檢查你的程式能否正常執行的程式。
+
+測試在不同的層次中都存在。有些測試只說明某個很小的細節（某個模型的某個方法的回傳值是否滿足預期？），而另一些測試可能檢查對某個軟體的一系列操作（*某一用戶輸入序列是否造成了預期的結果？*）。其實這和我們在
+[教學第 2
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)，裡做的並沒有什麼不同，我們使用
+[`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
+來測試某一方法的功能，或者執行某個應用並輸入資料來檢查它的行為。
+
+真正不同的地方在於，*自動化*
+測試是由某個系統幫你自動完成的。當你建立好了一系列測試，每次修改應用程式後，就可以自動檢查出修改後的程式是否還像你曾經預期的那樣正常工作。你不需要花費大量時間來進行手動測試。
+
+### 為什麼你需要寫測試[¶](#why-you-need-to-create-tests "永久連結至標題")
+
+但是，為什麼需要測試呢？又為什麼是現在呢？
+
+你可能覺得學 Python/Django
+對你來說已經很滿足了，再學一些新東西的話看起來有點負擔過重並且沒什麼必要。畢竟，我們的投票應用看起來已經完美工作了。寫一些自動測試並不能讓它工作的更好。如果寫一個投票應用是你想用
+Django
+完成的唯一工作，那你確實沒必要學寫測試。但是如果你還想寫更複雜的專案，現在就是學習測試寫法的最好時機了。
+
+#### 測試將節約你的時間[¶](#tests-will-save-you-time "永久連結至標題")
+
+在某種程度上，能夠「判斷出程式是否正常工作」的測試，就稱得上是個令人滿意的了。在更複雜的應用程式中，組件之間可能會有數十個複雜的交互。
+
+對其中某一組件的改變，也有可能會造成意想不到的結果。判斷「程式是否正常工作」意味著你需要用大量的資料來完整的測試全部程式的功能，以確保你的小修改沒有對應用整體造成破壞
+— 這太費時間了。
+
+尤其是當你發現自動化測試能在幾秒鍾之內幫你完成這件事時，就更會覺得手動測試實在是太浪費時間了。當某人寫出錯誤的程式時，自動化測試還能協助你定位錯誤程式的位置。
+
+有時候你會覺得，和富有創造性和生產力的業務程式比起來，編寫枯燥的測試程式實在是太無聊了，特別是當你知道你的程式完全沒有問題的時候。
+
+然而，編寫測試還是要比花費幾個小時手動測試你的應用，或者為了找到某個小錯誤而胡亂翻看程式要有意義的多。
+
+#### 測試不僅能發現錯誤，而且能預防錯誤[¶](#tests-don-t-just-identify-problems-they-prevent-them "永久連結至標題")
+
+「測試是開發的對立面」，這種思想是不對的。
+
+如果沒有測試，整個應用的行為意圖會變得更加的不清晰。甚至當你在看自己寫的程式時也是這樣，有時候你需要仔細研讀一段程式才能搞清楚它有什麼用。
+
+而測試的出現改變了這種情況。測試就好像是從內部仔細檢查你的程式，當有些地方出錯時，這些地方將會變得很顯眼
+— *就算你自己沒有意識到那裡寫錯了*。
+
+#### 測試使你的程式更有吸引力[¶](#tests-make-your-code-more-attractive "永久連結至標題")
+
+你也許遇到過這種情況：你編寫了一個絕贊的軟體，但是其他開發者看都不看它一眼，因為它缺少測試。沒有測試的程式不值得信任。
+Django 最初開發者之一的 Jacob Kaplan-Moss
+說過：“專案規劃時沒有包含測試是不科學的。”
+
+其他的開發者希望在正式使用你的程式前先看你的程式的測試，這是你需要寫測試的另一個重要原因。
+
+#### 測試有利於團隊協作[¶](#tests-help-teams-work-together "永久連結至標題")
+
+前面的幾點都是從單人開發的角度來說的。複雜的應用可能由團隊維護。測試的存在保證了同事不會不小心破壞了了你的程式（也保證你不會不小心弄壞他們的）。如果你想作為一個
+Django 程式員謀生的話，你必須擅長編寫測試！
+
+基礎測試策略[¶](#basic-testing-strategies "永久連結至標題")
+-----------------------------------------------------------
+
+有好幾種不同的方法可以寫測試。
+
+一些開發者遵循
+"[測試驅動](https://en.wikipedia.org/wiki/Test-driven_development)"
+的開發原則，他們在寫程式之前先寫測試。這種方法看起來有點反直覺，但事實上，這和大多數人日常的做法是相吻合的。我們會先描述一個問題，然後寫程式來解決它。「測試驅動」的開發方法只是將問題的描述抽象為了
+Python 的測試樣例。
+
+更普遍的情況是，一個剛接觸自動化測試的新手更傾向於先寫程式，然後再寫測試。雖然提前寫測試可能更好，但是晚點寫並不算太遲。
+
+有時候很難決定從哪裡開始下手寫測試。如果你才寫了幾千行 Python
+程式，選擇從哪裡開始寫測試確實不怎麼簡單。如果是這種情況，那麼在你下次修改程式（例如加新功能，或者修正
+Bug）之前寫個測試是比較合理且有效的。
+
+所以，我們現在就開始寫吧。
+
+開始寫我們的第一個測試[¶](#writing-our-first-test "永久連結至標題")
+-------------------------------------------------------------------
+
+### 首先得有個 Bug[¶](#we-identify-a-bug "永久連結至標題")
+
+幸運的是，我們的 `polls`
+應用現在就有一個小 bug 需要被修正：我們的要求是如果 Question
+是在一天之內發佈的， `Question.was_published_recently()` ，然而現在這個方法在 `Question`
+欄位比當前時間還晚時也會回傳 True（這是個 Bug）。
+
+用[`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)``命令確認一下這個方法的日期的 bug：
+
+/ 
+
+    $ python manage.py shell
+
+    >>> import datetime
+    >>> from django.utils import timezone
+    >>> from polls.models import Question
+    >>> # 建立一個　pub_date 在未來 30 天的　Question　實例
+    >>> future_question = Question(pub_date=timezone.now() + datetime.timedelta(days=30))
+    >>> # 是最近發佈的嗎？?
+    >>> future_question.was_published_recently()
+    True
+
+因為將來發生的是肯定不是最近發生的，所以程式明顯是錯誤的。
+
+### 建立一個測試來暴露這個 bug[¶](#create-a-test-to-expose-the-bug "永久連結至標題")
+
+我們剛剛在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
+裡做的測試也就是自動化測試應該做的工作。所以我們來把它改寫成自動化的吧。
+
+按照慣例，Django 應用的測試應該寫在應用的 `tests.py` 開頭的文件裡尋找並執行測試程式。
+
+將下面的程式寫入 `polls` 文件內：
+
+polls/tests.py[¶](#id1 "永久連結至程式")**
+
+    import datetime
+
+    from django.test import TestCase
+    from django.utils import timezone
+
+    from .models import Question
+
+
+    class QuestionModelTests(TestCase):
+
+        def test_was_published_recently_with_future_question(self):
+            """
+            was_published_recently() 對於 questions 的 pub_date　是在未來
+            會回傳 False。 
+            """
+            time = timezone.now() + datetime.timedelta(days=30)
+            future_question = Question(pub_date=time)
+            self.assertIs(future_question.was_published_recently(), False)
+
+我們建立了一個 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase")
+的子類別，並增加了一個方法，此方法建立一個 `pub_date`
+實例。然後檢查它的 `was_published_recently()` 方法的回傳值 — 它 *應該* 是 False。
+
+### 執行測試[¶](#running-tests "永久連結至標題")
+
+在終端中，我們透過輸入以下程式執行測試:
+
+/ 
+
+    $ python manage.py test polls
+
+你將會看到執行結果:
+
+    Creating test database for alias 'default'...
+    System check identified no issues (0 silenced).
+    F
+    ======================================================================
+    FAIL: test_was_published_recently_with_future_question (polls.tests.QuestionModelTests)
+    ----------------------------------------------------------------------
+    Traceback (most recent call last):
+      File "/path/to/mysite/polls/tests.py", line 16, in test_was_published_recently_with_future_question
+        self.assertIs(future_question.was_published_recently(), False)
+    AssertionError: True is not False
+
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.001s
+
+    FAILED (failures=1)
+    Destroying test database for alias 'default'...
+
+不一樣的錯誤？
+
+若在此處你得到了一個 `NameError`
+錯誤，你可能漏了
+[第二步](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/#tutorial02-import-timezone)
+中將 `datetime` 的步驟。復制這些語句，然後試著重新執行測試。
+
+發生了什麼呢？以下是自動化測試的執行過程：
+
+-   `python manage.py test polls` 應用裡的測試程式
+-   它找到了 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase")
+    的一個子類別
+-   它建立一個特殊的資料庫供測試使用
+-   它在類別中尋找測試方法 — 以 `test`
+    開頭的方法。
+-   在 `test_was_published_recently_with_future_question` 值為 30 天後的 `Question` 方法，發現
+    `was_published_recently()`。
+
+測試系統通知我們哪些測試樣例失敗了，和造成測試失敗的程式所在的行號。
+
+### 修正這個 bug[¶](#fixing-the-bug "永久連結至標題")
+
+我們早已知道，當 `pub_date` 應該回傳 `False`
+裡的方法，讓它只在日期是過去式的時候才回傳 `True`：
+
+polls/models.py[¶](#id2 "永久連結至程式")**
+
+    def was_published_recently(self):
+        now = timezone.now()
+        return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
+然後重新執行測試:
+
+    Creating test database for alias 'default'...
+    System check identified no issues (0 silenced).
+    .
+    ----------------------------------------------------------------------
+    Ran 1 test in 0.001s
+
+    OK
+    Destroying test database for alias 'default'...
+
+發現 bug 後，我們編寫了能夠暴露這個 bug 的自動化測試。在修正 bug
+之後，我們的程式順利的透過了測試。
+
+將來，我們的應用可能會出現其他的問題，但是我們可以肯定的是，一定不會再次出現這個
+bug，因為只要執行一遍測試，就會立刻收到警告。我們可以認為應用的這一小部分程式永遠是安全的。
+
+### 更全面的測試[¶](#more-comprehensive-tests "永久連結至標題")
+
+我們已經搞定一小部分了，現在可以考慮全面的測試
+`was_published_recently()`
+這個方法以確定它的安全性，然後就可以把這個方法穩定下來了。事實上，在修正一個
+bug 時不小心引入另一個 bug 會是非常令人尷尬的。
+
+我們在上次寫的類別裡再增加兩個測試，來更全面的測試這個方法：
+
+polls/tests.py[¶](#id3 "永久連結至程式")**
+
+    def test_was_published_recently_with_old_question(self):
+        """
+        was_published_recently() 對於 questions 的 pub_date 是比 1 天還早(older)的
+        會回傳 False。
+        """
+        time = timezone.now() - datetime.timedelta(days=1, seconds=1)
+        old_question = Question(pub_date=time)
+        self.assertIs(old_question.was_published_recently(), False)
+
+    def test_was_published_recently_with_recent_question(self):
+        """
+        was_published_recently() 對於 questions 的 pub_date 是在 1 天之內的
+        會回傳 True。
+        """
+        time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
+        recent_question = Question(pub_date=time)
+        self.assertIs(recent_question.was_published_recently(), True)
+
+現在，我們有三個測試來確保 `Question.was_published_recently()`
+方法對於過去，最近，和將來的三種情況都回傳正確的值。
+
+再次申明，儘管 `polls`
+現在是個小型的應用，但是無論它以後變得到多麼複雜，無論他和其他程式如何交互，我們可以在一定程度上保證我們為之編寫測試的方法將按照預期的方式執行。
+
+測試視圖[¶](#test-a-view "永久連結至標題")
+------------------------------------------
+
+我們的投票應用是相當地沒有差別待遇的：它將會發佈任何的問題，包括那些
+`pub_date` 為未來的某一天時，這應該被解釋為這個問題 Question
+要等到所指定的時間點才發佈，而在此之前在視圖上是看不到的。
+
+### 針對視圖的測試[¶](#a-test-for-a-view "永久連結至標題")
+
+修復上述 bug
+錯誤後，我們首先撰寫了測試，然後再編寫了程式進行修復。事實上，這是一個「測試驅動」開發模式的實例，但我們按什麼順序進行工作並不重要。
+
+在我們的第一個測試中，我們密切關注程式的內部行為。對於此次測試，我們希望檢查其行為，就像用戶使用瀏覽器開啟我們的應用所經歷的那樣。
+
+在嘗試修復任何問題之前，讓我們看一下可供使用的工具。
+
+### Django 測試工具之 Client[¶](#the-django-test-client "永久連結至標題")
+
+Django 提供了一個 [`Client`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.Client "django.test.Client")
+測試能模擬用戶和程式在視圖層的互動。我們可以在 `tests.py` 甚至是 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
+中使用它。
+
+我們將再次從 [`shell`
+中不需要做的事情。第一步是在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
+中設定測試環境:
+
+/ 
+
+    $ python manage.py shell
+
+    >>> from django.test.utils import setup_test_environment
+    >>> setup_test_environment()
+
+[`setup_test_environment()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#django.test.utils.setup_test_environment "django.test.utils.setup_test_environment")
+安裝了一個範本實現器，使我們可以檢查 response 的一些額外的屬性，例如
+`response.context`，否則這些屬性將無法被使用。注意，這個方法並 *不會*
+設定測試資料庫，所以接下來的程式將會在當前存在的資料庫上執行，輸出的內容可能由於資料庫內容的不同而不同。如果你的
+`settings.py`
+的設定不對，你可能無法取得到期望的結果。如果你之前忘了設定，在繼續之前檢查一下。
+
+接下來，我們需要匯入測試 client 類別（稍後在 `tests.py` 中我們將會使用 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase")
+類別，該類別裡包含了自己的 client 實例，因此不需要這一步驟）:
+
+    >>> from django.test import Client
+    >>> # 建立用戶端實例以供我們使用
+    >>> client = Client()
+
+準備好之後，我們可以請 client 為我們做一些工作:
+
+    >>> # 從 '/' 取得一個回應
+    >>> response = client.get('/')
+    Not Found: /
+    >>> # 我們應該從該位址獲得一個 404；如果您看到一個
+    >>> # "Invalid HTTP_HOST header" 錯誤和一個 400 的回應，您可能
+    >>> # 忽略了前面描述的 setup_test_environment() 呼叫。
+    >>> response.status_code
+    404
+    >>> # 另一方面，我們預期應該在 '/polls/' 找到些什麼
+    >>> # 我們將會使用 'reverse()' 而不是一個直接以程式碼撰寫的 URL
+    >>> from django.urls import reverse
+    >>> response = client.get(reverse('polls:index'))
+    >>> response.status_code
+    200
+    >>> response.content
+    b'\n    <ul>\n    \n        <li><a href="/polls/1/">What&#x27;s up?</a></li>\n    \n    </ul>\n\n'
+    >>> response.context['latest_question_list']
+    <QuerySet [<Question: What's up?>]>
+
+### 改善視圖程式[¶](#improving-our-view "永久連結至標題")
+
+現在的投票清單表會顯示尚未發佈的投票（即`pub_date` 的值是未來的某天)。我們來解決這個問題。
+
+在 [教學的第 4
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
+裡，我們介紹了基於 [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
+的視圖類別：
+
+polls/views.py[¶](#id4 "永久連結至程式")**
+
+    class IndexView(generic.ListView):
+        template_name = 'polls/index.html'
+        context_object_name = 'latest_question_list'
+
+        def get_queryset(self):
+            """回傳最近發佈的五個問題。"""
+            return Question.objects.order_by('-pub_date')[:5]
+
+我們需要修改 `get_queryset()` 來檢查日期。首先我們需要新增一行 import 語句：
+
+polls/views.py[¶](#id5 "永久連結至程式")**
+
+    from django.utils import timezone
+
+然後我們把 `get_queryset`
+方法改寫成下面這樣：
+
+polls/views.py[¶](#id6 "永久連結至程式")**
+
+    def get_queryset(self):
+        """
+        回傳最後五個已發佈的問題（不包括計劃在
+        未來發佈的問題）。
+        """
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:5]
+
+`Question.objects.filter(pub_date__lte=timezone.now())`
+的值比'現在時間'還小於或等於的一個查詢集(queryset) — 意即早於或等於
+`timezone.now`。
+
+### 測試新視圖[¶](#testing-our-new-view "永久連結至標題")
+
+啟動伺服器、在瀏覽器中載入網站、建立一些發佈時間在過去和將來的
+`Questions`
+會顯示出來，現在你可以對自己感到滿意了。*你不想每次修改可能與這相關的程式時都重復這樣做*
+— 所以讓我們基於以上 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
+會話中的內容，再編寫一個測試。
+
+將下面的程式增加到 `polls/tests.py` ：
+
+polls/tests.py[¶](#id7 "永久連結至程式")**
+
+    from django.urls import reverse
+
+然後我們寫一個公用的快捷函數用於建立投票問題，再為視圖建立一個測試類別：
+
+polls/tests.py[¶](#id8 "永久連結至程式")**
+
+    def create_question(question_text, days):
+        """
+        使用指定的 `question_text` 建立一個問題，並發佈
+        從現在起所指定偏移的 `天數`  (對於過去發佈的問題為負數
+        ，對於尚未發佈的問題為正數）。
+        """
+        time = timezone.now() + datetime.timedelta(days=days)
+        return Question.objects.create(question_text=question_text, pub_date=time)
+
+
+    class QuestionIndexViewTests(TestCase):
+        def test_no_questions(self):
+            """
+            如果沒有問題，則會顯示相關的訊息。
+            """
+            response = self.client.get(reverse('polls:index'))
+            self.assertEqual(response.status_code, 200)
+            self.assertContains(response, "No polls are available.")
+            self.assertQuerysetEqual(response.context['latest_question_list'], [])
+
+        def test_past_question(self):
+            """
+            過去帶有 pub_date 的問題將顯示在索引
+            的頁面上。
+            """
+            create_question(question_text="Past question.", days=-30)
+            response = self.client.get(reverse('polls:index'))
+            self.assertQuerysetEqual(
+                response.context['latest_question_list'],
+                ['<Question: Past question.>']
+            )
+
+        def test_future_question(self):
+            """
+            帶有在未來 pub_date 的問題沒有顯示在
+            索引的頁面上。
+            """
+            create_question(question_text="Future question.", days=30)
+            response = self.client.get(reverse('polls:index'))
+            self.assertContains(response, "No polls are available.")
+            self.assertQuerysetEqual(response.context['latest_question_list'], [])
+
+        def test_future_question_and_past_question(self):
+            """
+            即使存在過去和將來的問題，也只有過去的問題
+            會顯示在頁面上。
+            """
+            create_question(question_text="Past question.", days=-30)
+            create_question(question_text="Future question.", days=30)
+            response = self.client.get(reverse('polls:index'))
+            self.assertQuerysetEqual(
+                response.context['latest_question_list'],
+                ['<Question: Past question.>']
+            )
+
+        def test_two_past_questions(self):
+            """
+            問題索引頁面可能會顯示多個問題。
+            """
+            create_question(question_text="Past question 1.", days=-30)
+            create_question(question_text="Past question 2.", days=-5)
+            response = self.client.get(reverse('polls:index'))
+            self.assertQuerysetEqual(
+                response.context['latest_question_list'],
+                ['<Question: Past question 2.>', '<Question: Past question 1.>']
+            )
+
+讓我們更詳細地看下以上這些內容。
+
+首先是一個快捷函數 `create_question`，它封裝了建立投票的流程，減少了重復程式。
+
+`test_no_questions`
+方法裡沒有建立任何投票，它檢查回傳的網頁上有沒有 "No polls are
+available." 這段消息和 `latest_question_list` 是否為空。注意到 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase")
+類別提供了一些額外的 assertion 方法，在這個例子中，我們使用了
+[`assertContains()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains "django.test.SimpleTestCase.assertContains")
+和 [`assertQuerysetEqual()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual "django.test.TransactionTestCase.assertQuerysetEqual")
+。
+
+在 `test_past_question`
+方法中，我們建立了一個投票並檢查它是否出現在欄表中。
+
+在 `test_future_question`
+在未來某天的投票。資料庫會在每次呼叫測試方法前被重置，所以第一個投票已經沒了，所以主頁中應該沒有任何投票。
+
+剩下的那些也都差不多。實際上，測試就是假裝一些管理員的輸入，然後透過用戶端的表現是否符合預期來判斷新加入的改變是否破壞了原有的系統狀態。
+
+### 測試 `DetailView`[¶](#testing-the-detailview "永久連結至標題")
+
+我們的工作似乎已經很完美了？不，還有一個問題：就算在發佈日期時未來的那些投票不會在目錄頁
+*index* 裡出現，但是如果用戶知道或者猜到正確的 URL
+，還是可以開啟到它們。所以我們得在 `DetailView` 裡增加一些約束：
+
+polls/views.py[¶](#id9 "永久連結至程式")**
+
+    class DetailView(generic.DetailView):
+        ...
+        def get_queryset(self):
+            """
+            排除所有尚未發佈的問題。
+            """
+            return Question.objects.filter(pub_date__lte=timezone.now())
+
+當然，我們將增加一些測試來檢驗 `pub_date`
+在未來的不可以：
+
+polls/tests.py[¶](#id10 "永久連結至程式")**
+
+    class QuestionDetailViewTests(TestCase):
+        def test_future_question(self):
+            """
+            帶有未來 pub_date 的問題的詳細視圖
+            會回傳一個 404 not found。
+            """
+            future_question = create_question(question_text='Future question.', days=5)
+            url = reverse('polls:detail', args=(future_question.id,))
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, 404)
+
+        def test_past_question(self):
+            """
+            帶有過去 pub_date 的問題的詳細視圖
+            顯示該問題的本文。
+            """
+            past_question = create_question(question_text='Past Question.', days=-5)
+            url = reverse('polls:detail', args=(past_question.id,))
+            response = self.client.get(url)
+            self.assertContains(response, past_question.question_text)
+
+### 更多的測試思路[¶](#ideas-for-more-tests "永久連結至標題")
+
+我們應該給 `ResultsView`
+方法，並且為它建立測試。這和我們之前幹的差不多，事實上，基本就是重復一遍。
+
+我們還可以從各個方面改進投票應用，但是測試會一直伴隨我們。比方說，在目錄頁上顯示一個沒有選項
+`Choices`
+的投票問題就沒什麼意義。我們可以檢查並排除這樣的投票題。測試可以建立一個沒有選項的投票，然後檢查它是否被顯示在目錄上。當然也要建立一個有選項的投票，然後確認它確實被顯示了。
+
+恩，也許你想讓管理員能在目錄上看見未被發佈的那些投票，但是普通用戶看不到。不管怎麼說，如果你想要增加一個新功能，那麼同時一定要為它編寫測試。不過你是先寫程式還是先寫測試那就隨你了。
+
+在未來的某個時刻，你一定會去查看測試程式，然後開始懷疑：「這麼多的測試不會使程式越來越複雜嗎？」。別著急，我們馬上就會談到這一點。
+
+當需要測試的時候，測試用例越多越好[¶](#when-testing-more-is-better "永久連結至標題")
+------------------------------------------------------------------------------------
+
+貌似我們的測試多的快要失去控制了。按照這樣發展下去，測試程式就要變得比應用的實際程式還要多了。而且測試程式大多都是重復且不優雅的，特別是在和業務程式比起來的時候，這種感覺更加明顯。
+
+**但是這沒關聯！**
+就讓測試程式繼續肆意增長吧。大部分情況下，你寫完一個測試之後就可以忘掉它了。在你繼續開發的過程中，它會一直默默無聞地為你做貢獻的。
+
+但有時測試也需要更新。想象一下如果我們修改了視圖，只顯示有選項的那些投票，那麼只前寫的很多測試就都會失敗。*但這也明確地告訴了我們哪些測試需要被更新*，所以測試也會測試自己。
+
+最壞的情況是，當你繼續開發的時候，發現之前的一些測試現在看來是多餘的。但是這也不是什麼問題，多做些測試也
+*不錯*。
+
+如果你對測試有個整體規劃，那麼它們就幾乎不會變得混亂。下面有幾條好的建議：
+
+-   對於每個模型和視圖都建立單獨的 `TestClass`
+-   每個測試方法只測試一個功能
+-   給每個測試方法起個能描述其功能的名字
+
+深入程式測試[¶](#further-testing "永久連結至標題")
+--------------------------------------------------
+
+在本教學中，我們僅僅是了解了測試的基礎知識。你能做的還有很多，而且世界上有很多有用的工具來幫你完成這些有意義的事。
+
+舉個例子，在上述的測試中，我們已經從程式邏輯和視圖回應的角度檢查了應用的輸出，現在你可以從一個更加
+"in-browser" 的角度來檢查最終實現出的 HTML 是否符合預期，使用 Selenium
+可以很輕松的完成這件事。這個工具不僅可以測試 Django
+框架裡的程式，還可以檢查其他部分，例如說你的
+JavaScript。它假裝成是一個正在和你網站進行交互的瀏覽器，就好像有個真人在開啟網站一樣！Django
+它提供了 [`LiveServerTestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.LiveServerTestCase "django.test.LiveServerTestCase")
+來和 Selenium 這樣的工具進行交互。
+
+如果你在開發一個很複雜的應用的話，你也許想在每次提交程式時自動執行測試，也就是我們所說的持續集成
+[continuous
+integration](https://en.wikipedia.org/wiki/Continuous_integration)
+，這樣就能實現質量控制的自動化，起碼是部分自動化。
+
+一個找出程式中未被測試部分的方法是檢查程式覆蓋率。它有助於找出程式中的薄弱部分和無用部分。如果你無法測試一段程式，通常說明這段程式需要被重構或者刪除。想知道程式覆蓋率和無用程式的詳細資訊，查看文件
+[Integration with
+coverage.py](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#topics-testing-code-coverage)
+取得詳細資訊。
+
+文件 [Django
+中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/)
+裡有關於測試的更多資訊。
+
+接下來要做什麼？[¶](#what-s-next "永久連結至標題")
+--------------------------------------------------
+
+如果你想深入了解測試，就去看 [Django
+中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/) 。
+
+當你已經比較熟悉測試 Django 視圖的方法後，就可以繼續閱讀 [教學第 6
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
+，學習靜態文件管理的相關知識。
+
+[** 編寫你的第一個 Django 應用，第 4
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
+
+[編寫你的第一個 Django 應用，第 6 部分
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
+
+編寫你的第一個 Django 應用，第 6 部分[¶](#writing-your-first-django-app-part-6 "永久連結至標題")
+================================================================================================
+
+這一篇從 [教學第 5
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+結尾的地方繼續講起。在上一節中我們為網絡投票應用編寫了測試，而現在我們要為它加上樣式和圖片。
+
+除了服務端產生的 HTML
+以外，網絡應用通常需要一些額外的文件—例如圖片，腳本和樣式表—來協助實現網絡頁面。在
+Django 中，我們把這些文件統稱為“靜態文件”。
+
+對於小專案來說，這個問題沒什麼大不了的，因為你可以把這些靜態文件隨便放在哪，只要服務程式能夠找到它們就行。然而在大專案—特別是由好幾個應用組成的大專案—中，處理不同應用所需要的靜態文件的工作就顯得有點麻煩了。
+
+這就是 `django.contrib.staticfiles`{.docutils .literal .notranslate}
+存在的意義：它將各個應用的靜態文件（和一些你指明的目錄裡的文件）統一收集起來，這樣一來，在生產環境中，這些文件就會集中在一個便於分發的地方。
+
+從哪裡取得協助：
+
+如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
+Help\</faq/help\> 的小節。
+
+自定義 *應用* 的界面和風格[¶](#customize-your-app-s-look-and-feel "永久連結至標題")
+-----------------------------------------------------------------------------------
+
+首先，在你的 `polls`{.docutils .literal .notranslate} 目錄下建立一個名為
+`static`{.docutils .literal .notranslate} 的目錄。Django
+將在該目錄下尋找靜態文件，這種方式和 Diango 在
+`polls/templates/`{.docutils .literal .notranslate} 目錄下尋找 template
+的方式類似。
+
+Django 的 [`STATICFILES_FINDERS`{.xref .std .std-setting .docutils
+.literal
+.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-STATICFILES_FINDERS)
+設定包含了一系列的尋找器，它們知道去哪裡找到 static
+文件。`AppDirectoriesFinder`{.docutils .literal .notranslate}
+是預設尋找器中的一個，它會在每個 [`INSTALLED_APPS`{.xref .std
+.std-setting .docutils .literal
+.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
+中指定的應用的子文件中尋找名稱為 `static`{.docutils .literal
+.notranslate} 的特定文件夾，就像我們在 `polls`{.docutils .literal
+.notranslate}
+中剛建立的那個一樣。管理管理採用相同的目錄結構管理它的靜態文件。
+
+在你剛建立的 `static`{.docutils .literal .notranslate}
+文件夾中建立一個名為 `polls`{.docutils .literal .notranslate}
+的文件夾，再在 `polls`{.docutils .literal .notranslate}
+文件夾中建立一個名為 `style.css`{.docutils .literal .notranslate}
+的文件。換句話說，你的樣式表路徑應是
+`polls/static/polls/style.css`{.docutils .literal .notranslate}。因為
+`AppDirectoriesFinder`{.docutils .literal .notranslate} 的存在，你可以在
+Django 中以 `polls/style.css`{.docutils .literal .notranslate}
+的形式引用此文件，類似你引用範本路徑的方式。
+
+靜態文件命名空間
+
+雖然我們 *可以* 像管理範本文件一樣，把 static 文件直接放入
+`polls/static`{.docutils .literal .notranslate} （而不是建立另一個名為
+`polls`{.docutils .literal .notranslate}
+的子文件夾），不過這實際上是一個很蠢的做法。Django
+只會使用第一個找到的靜態文件。如果你在 *其它*
+應用中有一個相同名字的靜態文件，Django 將無法區分它們。我們需要指引
+Django 選擇正確的靜態文件，而最好的方式就是把它們放入各自的 *命名空間*
+。也就是把這些靜態文件放入 *另一個* 與應用名相同的目錄中。
+
+將以下程式放入樣式表(`polls/static/polls/style.css`{.docutils .literal
+.notranslate})：
+
+polls/static/polls/style.css[¶](#id1 "永久連結至程式")**
+
+    li a {
+        color: green;
+    }
+
+下一步，在 `polls/templates/polls/index.html`{.docutils .literal
+.notranslate} 的文件頭增加以下內容：
+
+polls/templates/polls/index.html[¶](#id2 "永久連結至程式")**
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+`{% static %}`{.docutils .literal .notranslate}
+範本標籤會產生靜態文件的絕對路徑。
+
+這就是你開發所需要做的所有事情了。
+
+啟動伺服器(如果它正在執行中，重新啟動一次):
+
+/ 
+
+    $ python manage.py runserver
+
+重新載入\`\`http://localhost:8000/polls/\`\`
+，你會發現有問題的連結是綠色的 (這是Django自己的問題標注方式)
+，意思是你追加的樣式表起作用了。
+
+增加一個背景圖[¶](#adding-a-background-image "永久連結至標題")
+--------------------------------------------------------------
+
+接著，我們會建立一個用於存在圖像的目錄。在
+`polls/static/polls`{.docutils .literal .notranslate} 目錄下建立一個名為
+`images`{.docutils .literal .notranslate}
+的子目錄。在這個目錄中，放一張名為 `background.gif`{.docutils .literal
+.notranslate} 的圖片。換言之，在目錄
+`polls/static/polls/images/background.gif`{.docutils .literal
+.notranslate} 中放一張圖片。
+
+隨後，在你的樣式表（`polls/static/polls/style.css`{.docutils .literal
+.notranslate}）中增加：
+
+polls/static/polls/style.css[¶](#id3 "永久連結至程式")**
+
+    body {
+        background: white url("images/background.gif") no-repeat;
+    }
+
+瀏覽器重載 `http://localhost:8000/polls/`{.docutils .literal
+.notranslate}，你將在螢幕的左上角見到這張背景圖。
+
+警告
+
+當然，`{% static %}`{.docutils .literal .notranslate}
+範本標籤在靜態文件（例如樣式表）中是不可用的，因為它們不是由 Django
+產生的。你仍需要使用 *相對路徑*
+的方式在你的靜態文件之間互相引用。這樣之後，你就可以任意改變
+`` STATIC_URL`（由 :ttag:`static ``{.xref .std .std-setting .docutils
+.literal .notranslate} 範本標籤用於產生
+URL），而無需修改大量的靜態文件。
+
+這些只是 **基礎** 。更多關於設定和框架的資料，參考
+[靜態文件解惑](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/)
+和
+[靜態文件指南](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/staticfiles/)。[部署靜態文件](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/deployment/)
+介紹了如何在真實伺服器上使用靜態文件。
+
+當你熟悉靜態文件後，閱讀 [此教學的第 7
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+來學習如何自定義 Django 自動產生管理網頁的過程。
+
+[** 編寫你的第一個 Django 應用，第 5
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+
+[編寫你的第一個 Django 應用，第 7 部分
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+
+編寫你的第一個 Django 應用，第 7 部分[¶](#writing-your-first-django-app-part-7 "永久連結至標題")
+================================================================================================
+
+這篇教學承接 [教學第 6
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
+結束的地方。我們繼續修改在線投票應用，這次我們專注於自定義我們在 [教學第
+2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
+初見過的 Django 自動產生管理的過程。
+
+從哪裡取得協助：
+
+如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
+Help\</faq/help\> 的小節。
+
+自定義管理表單[¶](#customize-the-admin-form "永久連結至標題")
+-------------------------------------------------------------
+
+透過 `admin.site.register(Question)` 模型，Django
+能夠構建一個預設的表單用於顯示。通常來說，你期望能自定義表單的外觀和工作方式。你可以在注冊模型時將這些設定告訴
+Django。
+
+讓我們透過重排欄表單上的欄位來看看它是怎麼工作的。用以下內容替換
+`admin.site.register(Question)`：
+
+polls/admin.py[¶](#id1 "永久連結至程式")**
+
+    from django.contrib import admin
+
+    from .models import Question
+
+
+    class QuestionAdmin(admin.ModelAdmin):
+        fields = ['pub_date', 'question_text']
+
+    admin.site.register(Question, QuestionAdmin)
+
+你需要遵循以下流程—建立一個模型管理類，接著將其作為第二個參數傳給
+`admin.site.register()`
+—在你需要修改模型的管理管理選項時這麼做。
+
+以上修改使得 "Publication date" 欄位顯示在 "Question" 欄位之前：
+
+![Fields have been
+reordered
+
+這在只有兩個欄位時並不特別引人注意，但對於擁有數十個欄位的表單來說，為表單選擇一個直觀的排序方法就是個很有用的細節。
+
+說到擁有數十個欄位的表單，你可能更期望將表單分為幾個欄位集：
+
+polls/admin.py[¶](#id2 "永久連結至程式")**
+
+    from django.contrib import admin
+
+    from .models import Question
+
+
+    class QuestionAdmin(admin.ModelAdmin):
+        fieldsets = [
+            (None,               {'fields': ['question_text']}),
+            ('Date information', {'fields': ['pub_date']}),
+        ]
+
+    admin.site.register(Question, QuestionAdmin)
+
+[`fieldsets`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets "django.contrib.admin.ModelAdmin.fieldsets")
+元組中的第一個元素是欄位集的標題。以下是我們的表單現在的樣子：
+
+***
+
+增加關聯的物件[¶](#adding-related-objects "永久連結至標題")
+-----------------------------------------------------------
+
+好了，現在我們有了投票的管理頁。不過，一個 `Question`，但管理頁卻沒有顯示多個選項。
+
+好了。
+
+有兩個方法可以解決這個問題。第一個就是仿照我們向管理注冊
+`Question` ：
+
+polls/admin.py[¶](#id3 "永久連結至程式")**
+
+    from django.contrib import admin
+
+    from .models import Choice, Question
+    # ...
+    admin.site.register(Choice)
+
+現在 "Choices" 在 Django
+管理頁中是一個可用的選項了。“增加選項”的表單看起來像這樣：
+
+***
+
+在這個表單中，"Question" 欄位是一個包含資料庫中所有投票的選擇框。Django
+知道要將 [`ForeignKey`
+的形式顯示。此時，我們只有一個投票。
+
+同時也注意下 "Question" 旁邊的“增加”按鈕。每個使用
+`ForeignKey`
+關聯到另一個物件的物件會自動取得這個功能。當你點擊“增加”按鈕時，你會見到一個包含“增加投票”的表單。如果你在這個對話框中增加了一個投票，並點擊了“儲存”，Django
+會將其儲存至資料庫，並動態地在你正在查看的“增加選項”表單中取得它。
+
+不過，這是一種很低效地增加“選項”的方法。更好的辦法是在你建立“投票”物件時直接增加好幾個選項。讓我們實現它。
+
+移除呼叫 `register()` 的注冊程式：
+
+polls/admin.py[¶](#id4 "永久連結至程式")**
+
+    from django.contrib import admin
+
+    from .models import Choice, Question
+
+
+    class ChoiceInline(admin.StackedInline):
+        model = Choice
+        extra = 3
+
+
+    class QuestionAdmin(admin.ModelAdmin):
+        fieldsets = [
+            (None,               {'fields': ['question_text']}),
+            ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
+        ]
+        inlines = [ChoiceInline]
+
+    admin.site.register(Question, QuestionAdmin)
+
+這會告訴 Django：“`Choice` 管理頁面編輯。預設提供 3
+個足夠的選項欄位。”
+
+載入“增加投票”頁面來看看它看起來的樣子：
+
+***
+
+它看起來像這樣：有三個關聯的選項位置—由 `extra`
+定義，且每次你回傳任意已建立的物件的“修改”頁面時，你會見到三個新的位置。
+
+在三個位置的末端，你會看到一個“增加新選項”的按鈕。如果你單擊它，一個新的位置會被增加。如果你想移除已有的位置，可以點擊位置右上角的X。注意，你不能移除原始的
+3 個位置。以下圖片顯示了一個已增加的位置：
+
+***
+
+不過，仍然有點小問題。它佔據了大量的螢幕區域來顯示所有關聯的
+`Choice`
+物件的欄位。對於這個問題，Django
+提供了一種表格式的單行顯示關聯物件的方法。要使用它，只需按如下形式修改
+`ChoiceInline` 申明：
+
+polls/admin.py[¶](#id5 "永久連結至程式")**
+
+    class ChoiceInline(admin.TabularInline):
+        #...
+
+透過 ``` TabularInline``（取代 ``StackedInline ``` ），關聯物件以一種表格式的方式顯示，顯得更加緊湊：
+
+***
+
+注意這裡有一個額外的“刪除？”欄，這允許移除透過“增加新選項”按鈕增加的，或是已被儲存的行。
+
+自定義管理更改欄表[¶](#customize-the-admin-change-list "永久連結至標題")
+------------------------------------------------------------------------
+
+現在投票的管理頁看起來很不錯，讓我們對“更改欄表”頁面進行一些調整—改成一個能顯示系統中所有投票的頁面。
+
+以下是它此時的外觀：
+
+***
+
+預設情況下，Django 顯示每個物件的 `str()`
+回傳的值。但有時如果我們能夠顯示單個欄位，它會更有協助。為此，使用
+[`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display")
+管理選項，它是一個包含要顯示的欄位名的元組，在更改欄表頁中以欄的形式顯示這個物件：
+
+polls/admin.py[¶](#id6 "永久連結至程式")**
+
+    class QuestionAdmin(admin.ModelAdmin):
+        # ...
+        list_display = ('question_text', 'pub_date')
+
+另外，讓我們把 [教學第 2
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/) 中的
+`was_published_recently()` 方法也加上：
+
+polls/admin.py[¶](#id7 "永久連結至程式")**
+
+    class QuestionAdmin(admin.ModelAdmin):
+        # ...
+        list_display = ('question_text', 'pub_date', 'was_published_recently')
+
+現在修改投票的欄表頁看起來像這樣：
+
+***
+
+你可以點擊欄標題來對這些行進行排序—除了
+`was_published_recently`
+這個欄，因為沒有實現排序方法。順便看下這個欄的標題
+`was_published_recently`，預設就是方法名（用空格替換下劃線），該欄的每行都以字串形式顯示出處。
+
+你可以透過給這個方法（在 `polls/models.py` 中）一些屬性來達到優化的目的，像這樣：
+
+polls/models.py[¶](#id8 "永久連結至程式")**
+
+    class Question(models.Model):
+        # ...
+        def was_published_recently(self):
+            now = timezone.now()
+            return now - datetime.timedelta(days=1) <= self.pub_date <= now
+        was_published_recently.admin_order_field = 'pub_date'
+        was_published_recently.boolean = True
+        was_published_recently.short_description = 'Published recently?'
+
+更多關於這些方法屬性的資訊，參見 [`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display")。
+
+再次編輯文件 `polls/admin.py`
+變更頁：過濾器，使用 [`list_filter`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter "django.contrib.admin.ModelAdmin.list_filter")。將以下程式增加至
+`QuestionAdmin`：
+
+    list_filter = ['pub_date']
+
+這樣做增加了一個“過濾器”側邊欄，允許人們以 `pub_date` 欄位來過濾欄表：
+
+***
+
+顯示的過濾器類型取決你你要過濾的欄位的類型。因為 `pub_date` 是類 [`DateTimeField`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField "django.db.models.DateTimeField")，Django
+知道要提供哪個過濾器：“任意時間”，“今天”，“過去7天”，“這個月”和“今年”。
+
+這已經弄的很好了。讓我們再擴充些功能:
+
+    search_fields = ['question_text']
+
+在欄表的頂部增加一個搜索框。當輸入待搜項時，Django 將搜索
+`question_text`
+來查詢資料，將待搜索的欄位數限制為一個不會出問題大小，會便於資料庫進行查詢操作。
+
+現在是給你的修改欄表頁增加分頁功能的好時機。預設每頁顯示 100
+項。[`變更頁分頁`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_per_page "django.contrib.admin.ModelAdmin.list_per_page"),
+[`搜索框`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields "django.contrib.admin.ModelAdmin.search_fields"),
+[`過濾器`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter "django.contrib.admin.ModelAdmin.list_filter"),
+[`日期層次結構`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.date_hierarchy "django.contrib.admin.ModelAdmin.date_hierarchy"),
+和 [`欄標題排序`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display")
+均以你期望的方式合作執行。
+
+自定義管理界面和風格[¶](#customize-the-admin-look-and-feel "永久連結至標題")
+----------------------------------------------------------------------------
+
+在每個管理頁頂部顯示“Django 管理員”顯得很滑稽。這只是一串佔位文字。
+
+不過，你可以透過 Django 的範本系統來修改。Django
+的管理由自己驅動，且它的交互接口採用 Django 自己的範本系統。
+
+### 自定義你的 *工程的* 範本[¶](#customizing-your-project-s-templates "永久連結至標題")
+
+在你的工程目錄（指包含 `manage.py` 的目錄。範本可放在你系統中任何 Django
+能找到的位置。（誰啟動了 Django，Django
+就以他的用戶身份執行。）不過，把你的範本放在工程內會帶來很大便利，推薦你這樣做。
+
+打開你的設定文件（`mysite/settings.py`，牢記），在 [`TEMPLATES`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES)
+設定中增加 [`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS)
+選項：
+
+mysite/settings.py[¶](#id9 "永久連結至程式")**
+
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [os.path.join(BASE_DIR, 'templates')],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+            },
+        },
+    ]
+
+[`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS)
+是一個包含多個系統目錄的文件欄表，用於在載入 Django
+範本時使用，是一個待搜索路徑。
+
+組織範本
+
+就像靜態文件一樣，我們 *可以*
+把所有的範本文件放在一個大範本目錄內，這樣它也能工作的很好。但是，屬於特定應用的範本文件最好放在應用所屬的範本目錄（例如
+`polls/templates`）。我們會在
+[建立可復用的應用教學](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)
+中討論 *為什麼* 我們要這樣做。
+
+現在，在 `templates` 的目錄，隨後，將存放 Django
+預設範本的目錄（`django/contrib/admin/templates` 復制到這個目錄內。
+
+Django 的源文件在哪裡？
+
+如果你不知道 Django 源碼在你系統的哪個位置，執行以下命令：
+
+/ 
+
+    $ python -c "import django; print(django.__path__)"
+
+接著，用你網頁網站的名字編輯替換文件內的 [\`\`](#id1){{
+site\_header|default:\_('Django administration')
+}}\`\`（包含大括號）。完成後，你應該看到如下程式：
+
+    {% block branding %}
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">Polls Administration</a></h1>
+    {% endblock %}
+
+我們會用這個方法來教你復寫範本。在一個實際工程中，你可能更期望使用
+[`django.contrib.admin.AdminSite.site_header`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.AdminSite.site_header "django.contrib.admin.AdminSite.site_header")
+來進行簡單的定制。
+
+這個範本文件包含很多類似 `{% block branding %}` 和 `{{`
+時，這個範本語言會被求值，產生最終的網頁，就像我們在 [教學第 3
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+所學的一樣。
+
+注意，所有的 Django 預設管理範本均可被復寫。若要復寫範本，像你修改
+`base_site.html`
+一樣修改其它文件—先將其從預設目錄中拷貝到你的自定義目錄，再做修改。
+
+### 自定義你 *應用的* 範本[¶](#customizing-your-application-s-templates "永久連結至標題")
+
+機智的同學可能會問： [`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS)
+預設是空的，Django 是怎麼找到預設的管理範本的？因為 [`APP_DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-APP_DIRS)
+被置為 `True` 子目錄（不要忘了 `django.contrib.admin` 也是一個應用）。
+
+我們的投票應用不是非常複雜，所以無需自定義管理範本。不過，如果它變的更加複雜，需要修改
+Django 的標準管理範本功能時，修改 *應用* 的範本會比 *工程*
+的更加明智。這樣，在其它工程包含這個投票應用時，可以確保它總是能找到需要的自定義範本文件。
+
+更多關於 Django 如何尋找範本的文件，參見
+[載入範本文件](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/#template-loading)。
+
+自定義管理主頁[¶](#customize-the-admin-index-page "永久連結至標題")
+-------------------------------------------------------------------
+
+在類似的說明中，你可能想要自定義 Django 管理索引頁的外觀。
+
+預設情況下，它顯示了所有設定在 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
+中，已透過管理應用注冊，按拼音排序的應用。你可能想對這個頁面的布局做重大的修改。畢竟，索引頁是管理的重要頁面，它應該便於使用。
+
+需要自定義的範本是 `admin/index.html`
+那樣修改此文件—從預設目錄中拷貝此文件至自定義範本目錄）。打開此文件，你將看到它使用了一個叫做
+`app_list`
+的範本變數。這個變數包含了每個安裝的 Django
+應用。你可以用任何你期望的直接以程式編寫連結（連結至特定物件的管理頁）取代使用這個變數。
+
+接下來要做什麼？[¶](#what-s-next "永久連結至標題")
+--------------------------------------------------
+
+初學者教學到這就結束了。隨後，你可能想閱讀
+[下一步看什麼](https://docs.djangoproject.com/zh-hans/3.0/intro/whatsnext/)，看看下一步能做什麼。
+
+如果你很熟悉 Python
+包裝，且對學習如何把投票應用改成“可復用應用”感興趣，查看
+[進階教學：如何建立可復用應用](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)。
+
+[** 編寫你的第一個 Django 應用，第 6
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
+
+[進階指南：如何編寫可重用程式
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)
+
+
 
 
 

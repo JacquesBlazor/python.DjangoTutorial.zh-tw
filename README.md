@@ -506,7 +506,7 @@ Principle](https://docs.djangoproject.com/zh-hans/3.0/misc/design-philosophies/#
 
 來介紹一下遷移 - 舉個例子，不像 Ruby On Rails，Django
 的遷移程式是由你的模型文件自動產生的，它本質上是個歷史記錄，Django
-可以用它來進行資料庫的滾動更新，透過這種方式使其能夠和當前的模型比對。
+可以用它來進行資料庫的滾動更新，透過這種方式使其能夠和當前的模型相符合。
 
 在這個投票應用程式中，需要建立兩個模型：問題 `Question` 和選項 `Choice`。`Question`
 模型包括問題描述和發佈時間。`Choice`

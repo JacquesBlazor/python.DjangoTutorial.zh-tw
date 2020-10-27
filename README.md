@@ -45,6 +45,91 @@ Python](https://diveinto.org/python3/table-of-contents.html)。如果不太適�
 [初識 Django
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 
+快速安裝指南[¶](#quick-install-guide "永久連結至標題")
+======================================================
+
+開始用 Django 前，需要先進行安裝。我們寫了 :doc:\`
+完整安裝指南\</topics/install\>\`
+羅欄了各種安裝方法和情況；它會指導你完成一個簡易安裝，只要你按照指示操作，就可以執行得起來。
+
+安裝 Python[¶](#install-python "永久連結至標題")
+------------------------------------------------
+
+作為一個 Python Web 框架，Django 需要 Python。更多細節請參見
+[我應該使用哪個版本的 Python 來配合
+Django?](https://docs.djangoproject.com/zh-hans/3.0/faq/install/#faq-python-version-support)。Python
+包含了一個名為 [SQLite](https://sqlite.org/)
+的輕量級資料庫，所以你暫時不必自行設置一個資料庫。
+
+最新版本的 Python 可以透過開啟
+[https://www.python.org/downloads/](https://www.python.org/downloads/)
+或者操作系統的套件管理工具獲取。
+
+你可以在你的 shell 中輸入 `python`{.docutils .literal .notranslate}
+來確定你是否安裝過 Python；你看到的可能是像這樣子的:
+
+    Python 3.x.y
+    [GCC 4.x] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>>
+
+設置資料庫[¶](#set-up-a-database "永久連結至標題")
+--------------------------------------------------
+
+此步驟僅在你打算使用諸如 PostgreSQL, MariaDB, MySQL, 或者 Oracle
+這些大型資料庫引擎時需要。要安裝這種資料庫, 請參考 [database
+installation
+information](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database-installation)。
+
+安裝 Django[¶](#install-django "永久連結至標題")
+------------------------------------------------
+
+安裝 Django有以下三種方式：
+
+-   [Install an official
+    release](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#installing-official-release)
+    適合大部分用戶。
+-   安裝 Django [provided by your operating system
+    distribution](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#installing-distribution-package)。
+-   [Install the latest development
+    version](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#installing-development-version)
+    這個選擇是針對那些想要體驗最新和最好的特性的愛好者們，並不怕執行全新程式。你在開發版中可能會遇到新的
+    bug，可以報告給社區團隊協助 Django
+    開發。此外，第三方發行的軟件套件也可能不與開發版進行相容。
+
+請始終參考與你所使用的版本對應的 Django 文件！
+
+如果採用了前兩種方式進行安裝，你需要注意在文件中標明
+**在開發版中新增**。這個標記表示這個特性僅適用開發版
+Django，並且他們可能不會在官方發布的穩定版中出現。
+
+驗證[¶](#verifying "永久連結至標題")
+------------------------------------
+
+若要驗證 Django 是否能被 Python 識別，可以在 shell 中輸入
+`python`{.docutils .literal .notranslate}。 然後在 Python
+提示符下，嘗試導入 Django：
+
+``` {.literal-block}
+>>> import django
+>>> print(django.get_version())
+3.0
+```
+
+當然了，你也可能安裝的是其它版本的 Django。
+
+搞定！[¶](#that-s-it "永久連結至標題")
+--------------------------------------
+
+搞定，現在你可以 [move onto the
+tutorial](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)。
+
+[** 初識
+Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
+
+[編寫你的第一個 Django 應用，第 1 部分
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)
+
 編寫你的第一個 Django 應用，第 1 部分[¶](#writing-your-first-django-app-part-1 "永久連結至標題")
 ================================================================================================
 
@@ -2933,9 +3018,1074 @@ Django 的標準管理範本功能時，修改 *應用* 的範本會比 *工程*
 [進階指南：如何編寫可重用程式
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)
 
+進階指南：如何編寫可重用程式[¶](#advanced-tutorial-how-to-write-reusable-apps "永久連結至標題")
+===============================================================================================
+
+這篇進階指南從 [Tutorial
+7](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+結尾的地方繼續講起。我們將會把我們的 Web-poll 放進一個獨立的 Python
+套件中，以便你在新的專案中重用它或將它與他人分享。
+
+如果你尚未完成教學
+1-7，我們推薦你先瀏覽一遍教學，這樣你的樣例工程會和下面的一致。
+
+可重用性很重要[¶](#reusability-matters "永久連結至標題")
+--------------------------------------------------------
+
+設計，構建，測試以及維護一個 web 應用要做很多的工作。很多 Python 以及
+Django
+專案都有一些常見問題。如果我們能儲存並利用這些重復的工作豈不是更好？
+
+可重用性是 Python 的根本。[The Python Package Index
+(PyPI)](https://pypi.python.org/pypi) 有許大量的套件，都可被用在你自己的
+Python 專案中。同樣可以在 [Django Packages](https://djangopackages.org/)
+中查找已發布的可重用應用，也可將其引入到你的專案中。Django 本身也是一個
+Python 套件，也就是說你可以將已有的 Python 套件或 Django
+應用並入你的專案。你只需要編寫屬於你的那部分即可。
+
+假設你現在建立了一個新的專案，並且需要一個類似我們之前做的投票應用。你該如何復用這個應用呢？慶幸的是，其實你已經知道了一些。在
+[教學
+1](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)，我們使用過
+`include`{.docutils .literal .notranslate} 從專案級別的 URLconf 分割出
+polls。在本教學中，我們將進一步使這個應用易用於新的專案中，並發布給其他人安裝使用。
+
+套件？應用？
+
+一個
+[package](https://docs.python.org/3/glossary.html#term-package "(在 Python v3.8)")
+提供了一組關聯的 Python
+程式的簡單復用方式。一個套件（“模組”）包含了一個或多個 Python 程式文件。
+
+一個套件透過 `import foo.bar`{.docutils .literal .notranslate} 或
+`from foo import bar`{.docutils .literal .notranslate}
+的形式導入。一個目錄（例如 `polls`{.docutils .literal
+.notranslate}）要成為一個套件，它必須包含一個特定的文件
+`__init__.py`{.docutils .literal .notranslate}，即便這個文件是空的。
+
+Django *應用* 僅僅是專用於 Django 專案的 Python 套件。應用會按照 Django
+規則，建立好 `models`{.docutils .literal .notranslate},
+`tests`{.docutils .literal .notranslate}, `urls`{.docutils .literal
+.notranslate}, 以及 `views`{.docutils .literal .notranslate} 等子模組。
+
+稍後，我們將解釋術語 *包裝* ——為了方便其它人安裝 Python
+套件的處理流程。我知道，這可能會使你感到一點點迷惑。
+
+你的專案和可復用應用[¶](#your-project-and-your-reusable-app "永久連結至標題")
+-----------------------------------------------------------------------------
+
+透過前面的教學，我們的工程應該看起來像這樣:
+
+    mysite/
+        manage.py
+        mysite/
+            __init__.py
+            settings.py
+            urls.py
+            asgi.py
+            wsgi.py
+        polls/
+            __init__.py
+            admin.py
+            apps.py
+            migrations/
+                __init__.py
+                0001_initial.py
+            models.py
+            static/
+                polls/
+                    images/
+                        background.gif
+                    style.css
+            templates/
+                polls/
+                    detail.html
+                    index.html
+                    results.html
+            tests.py
+            urls.py
+            views.py
+        templates/
+            admin/
+                base_site.html
+
+1
+
+目錄 `polls`{.docutils .literal .notranslate} 現在可以被拷貝至一個新的
+Django
+工程，且立刻被復用。不過現在還不是發布它的時候。為了這樣做，我們需要包裝這個應用，便於其他人安裝它。
+
+安裝必須環境[¶](#installing-some-prerequisites "永久連結至標題")
+----------------------------------------------------------------
+
+目前，包裝 Python
+程式需要工具，有許多工具可以完成此項工作。在此教學中，我們將使用
+[setuptools](https://pypi.org/project/setuptools/)
+來包裝我們的程式。這是推薦的包裝工具（與 `發布`{.docutils .literal
+.notranslate} 分支合並）。我們仍舊使用
+[pip](https://pypi.org/project/pip/)
+來安裝和卸載這個工具。現在，你需要安裝這兩個套件。如果你需要協助，你可以參考
+[如何透過 pip 安裝
+Django](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#installing-official-release)，你可以透過相同的方式安裝
+`setuptools`{.docutils .literal .notranslate}。
+
+包裝你的應用[¶](#packaging-your-app "永久連結至標題")
+-----------------------------------------------------
+
+Python 的 *包裝*
+將以一種特殊的格式組織你的應用，意在方便安裝和使用這個應用。Django
+本身就被包裝成類似的形式。對於一個小應用，例如 polls，這不會太難。
+
+1.  首先，在你的 Django 專案目錄外建立一個名為 `django-polls`{.docutils
+    .literal .notranslate} 的文件夾，用於盛放 `polls`{.docutils .literal
+    .notranslate}。
+
+    為你的應用選擇一個名字
+
+    當為你的套件選一個名字時，避免使用像 PyPI
+    這樣已存在的套件名，否則會導致衝突。當你建立你的發布套件時，可以在模組名前增加
+    `django-`{.docutils .literal .notranslate}
+    前綴，這是一個很常用也很有用的避免套件名衝突的方法。同時也有助於他人在尋找
+    Django 應用時確認你的 app 是 Django 獨有的。
+
+    應用標籤（指用點分隔的套件名的最後一部分）在 [`INSTALLED_APPS`{.xref
+    .std .std-setting .docutils .literal
+    .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
+    中 *必須* 是獨一無二的。避免使用任何與 Django [contrib
+    packages](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/)
+    文件中相同的標籤名，例如 `auth`{.docutils .literal
+    .notranslate}，`admin`{.docutils .literal
+    .notranslate}，`messages`{.docutils .literal .notranslate}。
+
+2.  將 `polls`{.docutils .literal .notranslate} 目錄移入
+    `django-polls`{.docutils .literal .notranslate} 目錄。
+
+3.  建立一個名為 `django-polls/README.rst`{.docutils .literal
+    .notranslate} 的文件，包含以下內容：
+
+    django-polls/README.rst[¶](#id1 "永久連結至程式")**
+
+        =====
+        Polls
+        =====
+
+        Polls is a Django app to conduct Web-based polls. For each question,
+        visitors can choose between a fixed number of answers.
+
+        Detailed documentation is in the "docs" directory.
+
+        Quick start
+        -----------
+
+        1. Add "polls" to your INSTALLED_APPS setting like this::
+
+            INSTALLED_APPS = [
+                ...
+                'polls',
+            ]
+
+        2. Include the polls URLconf in your project urls.py like this::
+
+            path('polls/', include('polls.urls')),
+
+        3. Run ``python manage.py migrate`` to create the polls models.
+
+        4. Start the development server and visit http://127.0.0.1:8000/admin/
+           to create a poll (you'll need the Admin app enabled).
+
+        5. Visit http://127.0.0.1:8000/polls/ to participate in the poll.
+
+4.  建立一個 `django-polls/LICENSE`{.docutils .literal .notranslate}
+    文件。選擇一個非本教學使用的授權協議，但是要足以說明發布程式沒有授權證書是
+    *不可能的* 。Django 和很多相容 Django 的應用是以 BSD
+    授權協議發布的；不過，你可以自己選擇一個授權協議。只要確定你選擇的協議能夠限制未來會使用你的程式的人。
+
+5.  下一步我們將建立 ``` setup.cfg``和``setup.py ```{.docutils .literal
+    .notranslate}
+    文件用於說明如何構建和安裝應用的細節。關於此文件的完整介紹超出了此教學的範圍，但是
+    [setuptools docs](https://setuptools.readthedocs.io/en/latest/)
+    有詳細的介紹。建立文件 `django-polls/setup.py`{.docutils .literal
+    .notranslate} 包含以下內容：
+
+    django-polls/setup.cfg[¶](#id2 "永久連結至程式")**
+
+        [metadata]
+        name = django-polls
+        version = 0.1
+        description = A Django app to conduct Web-based polls.
+        long_description = file: README.rst
+        url = https://www.example.com/
+        author = Your Name
+        author_email = yourname@example.com
+        license = BSD-3-Clause  # Example license
+        classifiers =
+            Environment :: Web Environment
+            Framework :: Django
+            Framework :: Django :: X.Y  # Replace "X.Y" as appropriate
+            Intended Audience :: Developers
+            License :: OSI Approved :: BSD License
+            Operating System :: OS Independent
+            Programming Language :: Python
+            Programming Language :: Python :: 3
+            Programming Language :: Python :: 3 :: Only
+            Programming Language :: Python :: 3.6
+            Programming Language :: Python :: 3.7
+            Programming Language :: Python :: 3.8
+            Topic :: Internet :: WWW/HTTP
+            Topic :: Internet :: WWW/HTTP :: Dynamic Content
+
+        [options]
+        include_package_data = true
+        packages = find:
+
+    django-polls/setup.py[¶](#id3 "永久連結至程式")**
+
+        from setuptools import setup
+
+        setup()
+
+6.  預設套件中只包含 Python
+    模組和套件。為了包含額外文件，我們需要建立一個名為
+    `MANIFEST.in`{.docutils .literal .notranslate} 的文件。上一步中關於
+    setuptools
+    的文件詳細介紹了這個文件。為了包含範本、`README.rst`{.docutils
+    .literal .notranslate} 和我們的 `LICENSE`{.docutils .literal
+    .notranslate} 文件，建立文件 `django-polls/MANIFEST.in`{.docutils
+    .literal .notranslate} 包含以下內容：
+
+    django-polls/MANIFEST.in[¶](#id4 "永久連結至程式")**
+
+        include LICENSE
+        include README.rst
+        recursive-include polls/static *
+        recursive-include polls/templates *
+
+7.  在應用中包含詳細文件是可選的，但我們推薦你這樣做。建立一個空目錄
+    `django-polls/docs`{.docutils .literal .notranslate}
+    用於未來編寫文件。額外增加一行至
+    `django-polls/MANIFEST.in`{.docutils .literal .notranslate}
+
+        recursive-include docs *
+
+    注意，現在 `docs`{.docutils .literal .notranslate}
+    目錄不會被加入你的應用套件，除非你往這個目錄加幾個文件。許多 Django
+    應用也提供他們的在線文件透過類似
+    [readthedocs.org](https://readthedocs.org/) 這樣的網站。
+
+8.  試著構建你自己的應用套件透過 `ptyhon setup.py sdist`{.docutils
+    .literal .notranslate} （在
+    ``` django-polls``目錄內）。這將建立一個名為 ``dist ```{.docutils
+    .literal .notranslate} 的目錄並構建你自己的應用套件，
+    `django-polls-0.1.tar.gz`{.docutils .literal .notranslate}。
+
+更多關於包裝的資訊，見 Python 的
+[關於包裝和發布專案的教學](https://packaging.python.org/tutorials/packaging-projects/)。
+
+使用你自己的套件名[¶](#using-your-own-package "永久連結至標題")
+---------------------------------------------------------------
+
+由於我們把 `polls`{.docutils .literal .notranslate}
+目錄移出了專案，所以它無法工作了。我們現在要透過安裝我們的新
+`django-polls`{.docutils .literal .notranslate} 應用來修正這個問題。
+
+作為用戶庫安裝
+
+以下步驟將 `django-polls`{.docutils .literal .notranslate}
+以用戶庫的形式安裝。與安裝整個系統的軟件套件相比，用戶安裝具有許多優點，例如可在沒有管理員開啟權的系統上使用，以及防止應用套件影響系統服務和其他用戶。
+
+Note that per-user installations can still affect the behavior of system
+tools that run as that user, so using a virtual environment is a more
+robust solution (see below).
+
+1.  為了安裝這個套件，使用 pip (你早已 [安裝
+    pip](#installing-reusable-apps-prerequisites), 對嗎？):
+
+        python -m pip install --user django-polls/dist/django-polls-0.1.tar.gz
+
+2.  幸運的話，你的 Django 專案應該再一次正確執行。啟動伺服器確認這一點。
+
+3.  透過 pip 卸載套件:
+
+        python -m pip uninstall django-polls
+
+發布你的應用[¶](#publishing-your-app "永久連結至標題")
+------------------------------------------------------
+
+現在，你已經對 `django-polls`{.docutils .literal .notranslate}
+完成了包裝和測試，準備好向世界分享它！如果這不是一個例子應用，你現在就可以這樣做。
+
+-   透過郵件將你的套件發送給朋友。
+-   將這個套件上傳至你的網站。
+-   將你的套件發布至公共倉庫，例如 [the Python Package Index
+    (PyPI)](https://pypi.python.org/pypi)。
+    [packaging.python.org](https://packaging.python.org/) 有一個不錯的
+    [教學](https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives)
+    說明如何發布至公共倉庫。
+
+Installing Python packages with a virtual environment[¶](#installing-python-packages-with-a-virtual-environment "永久連結至標題")
+---------------------------------------------------------------------------------------------------------------------------------
+
+早些時候，我們以用戶庫的形式安裝了投票應用。這樣做有一些缺點。
+
+-   修改用戶庫會影響你系統上的其他 Python 軟件。
+-   你將不能執行此套件的多個版本（或者其它用有相同套件名的套件）。
+
+Typically, these situations only arise once you're maintaining several
+Django projects. When they do, the best solution is to use
+[venv](https://docs.python.org/3/tutorial/venv.html "(在 Python v3.8)").
+This tool allows you to maintain multiple isolated Python environments,
+each with its own copy of the libraries and package namespace.
+
+[** 編寫你的第一個 Django 應用，第 7
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+
+[下一步看什麼
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/whatsnext/)
 
 
+下一步看什麼[¶](#what-to-read-next "永久連結至標題")
+====================================================
 
+如果你已經讀完了
+[介紹文件](https://docs.djangoproject.com/zh-hans/3.0/intro/)，且對繼續使用
+Django
+感興趣。不過，你讀的是整體文件的精簡版（實際上，如果你逐字閱讀了此文件，你已經閱讀了整體文件的
+5%）。
+
+那麼下一步做什麼？
+
+不錯，我們已經透過邊學邊做成為了 Django
+的死忠粉了。此時，你應該已經知道如何開始你自己的工程，且會到處搜索其它文件了。想知道更多技巧的話，請回到文件頁。
+
+為了使 Django
+的文件達到更易使用，更清晰，更加全面的目的，我們付出了巨大的努力。本文件的剩餘部分將更詳細地介紹此文件的工作方式，以便您可以充分利用它。
+
+（是的，這就是傳說中的說明文件的說明文件。請放心，我們不打算寫一篇關於如何閱讀此文件的文件。）
+
+查找文件[¶](#finding-documentation "永久連結至標題")
+----------------------------------------------------
+
+Django有 *許多* 的文件——差不多有 450000
+字（英文單詞），所以查找你需要的文件可能需要點技巧。對此，有幾個不錯的去處，[搜索頁面](https://docs.djangoproject.com/zh-hans/3.0/search/)
+和 [索引](https://docs.djangoproject.com/zh-hans/3.0/genindex/)。
+
+或者你可以只是四處看看！
+
+文件是如何組成[¶](#how-the-documentation-is-organized "永久連結至標題")
+-----------------------------------------------------------------------
+
+Django的主要文件以“塊”的形式劃分，用於滿足不同的需求：
+
+-   The [介紹文件](https://docs.djangoproject.com/zh-hans/3.0/intro/)
+    是專為 Django 初學者或 Web
+    初學者設計的。它不會做任何的深入，只是以高度概括的方式介紹了如果以
+    Django “風格”開發應用的方式。
+
+-   另一方面，The
+    [主題指南](https://docs.djangoproject.com/zh-hans/3.0/topics/)
+    則深入介紹 Django 的各個部分。那裡有更多完整的關於 Django的
+    [範本系統](https://docs.djangoproject.com/zh-hans/3.0/topics/db/),
+    [範本引擎](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/),
+    [表單框架](https://docs.djangoproject.com/zh-hans/3.0/topics/forms/)
+    和其它東西的資訊。
+
+    這可能是你會花費你大部分時間的地方。如果你詳細閱讀了這些指南，你就能了解幾乎所有關於
+    Django 的知識。
+
+-   Web
+    開發通常是廣而不深的——問題通常跨越多個領域。我們已經寫了一系欄的文件
+    [how-to 指引](https://docs.djangoproject.com/zh-hans/3.0/howto/)
+    用於回答常見的“為什麼我會……？”系欄問題。在這裡，你可以找到關於 [透過
+    Django 產生
+    PDF](https://docs.djangoproject.com/zh-hans/3.0/howto/outputting-pdf/)，[定義自定義範本標籤](https://docs.djangoproject.com/zh-hans/3.0/howto/custom-template-tags/)
+    的文件，當然，還有其它的文件。
+
+    關於常見問題的回答可參見
+    [FAQ](https://docs.djangoproject.com/zh-hans/3.0/faq/)。
+
+-   這個引導和怎麼做的文件不會覆蓋 Django
+    中每個可用的類，函數和方法——在你想學的時候，你會發現實在是太多了。作為取代，每個類，函數，方法和模組的細節在
+    [參考](https://docs.djangoproject.com/zh-hans/3.0/ref/)
+    中介紹。那是你未來查找某個函數的細節或其它你需要的東西的地方。
+
+-   如果你對部署一個公用的工程感興趣，我們有介紹各種部署設置的文件
+    [幾個指引](https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/)
+    和介紹你幾個你需要了解的東西的文件
+    [部署清單](https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/checklist/)。
+
+-   最後，這裡有一些與大部分開發者無關的“專業”文件。包含
+    [發布說明](https://docs.djangoproject.com/zh-hans/3.0/releases/) 和
+    [內部文件](https://docs.djangoproject.com/zh-hans/3.0/internals/)
+    ，用於向那些想向 Django 提交程式的專業人士。還有一份文件
+    [不適合放到其它地方的一點內容](https://docs.djangoproject.com/zh-hans/3.0/misc/)
+    。
+
+這個文件是如何更新的[¶](#how-documentation-is-updated "永久連結至標題")
+-----------------------------------------------------------------------
+
+就像 Django
+的源碼每天都被更新和提升一樣，我們的文件也會持續優化。我們因為以下幾個原因優化文件：
+
+-   更正內容，如更正語法/拼寫錯誤。
+-   向已有的需要被擴展的某個章節增加介紹資訊或例子。
+-   記錄尚未記錄的 Django 功能。
+    （這些功能的欄表正在縮小，但仍然存在。）
+-   在新特性被增加時，或 Django 的 API 或行為有變化時，會增加新文件。
+
+Django
+的文件以和它的程式一樣，以程式版本管理系統方式進行管理。它被儲存在 git
+倉庫的 [docs](https://github.com/django/django/blob/master/docs)
+目錄內。每份在線文件都是倉庫內的一份獨立文本文件。
+
+從哪裡獲取這個[¶](#where-to-get-it "永久連結至標題")
+----------------------------------------------------
+
+你可以以好幾種形式閱讀 Django 的文件。他們按照優先順序排欄：
+
+### 在網絡上[¶](#on-the-web "永久連結至標題")
+
+Django 最新的在線版文件位於
+[https://docs.djangoproject.com/en/dev/](https://docs.djangoproject.com/en/dev/)。這些網頁由
+Django 的源碼控制系統中的純文本文件自動產生。這意味著它們展示了 Django
+“最新最好”
+的修改——它們包含最新的更正和補充，並討論了最新的Django功能，這些功能只可供Django開發版的用戶使用。（參見以下關於“不同版本之間的差異”的介紹。）
+
+為提高文件質量，你可以選擇在 [工單系統](https://code.djangoproject.com/)
+中提交變更，修正以及建議，為此我們將十分欣喜。 Django
+的開發者們會積極的監控工單系統，並使用你的反饋為大家改善文件。
+
+值得一提的是，工單(ticket)應該明確地關聯到文件，而不是詢問籠統的技術支援問題。
+如果你需要針對你的 Django 設定尋求協助，嘗試聯系
+[django-users](https://docs.djangoproject.com/zh-hans/3.0/internals/mailing-lists/#django-users-mailing-list)
+郵件組 或者 [\#django IRC channel](irc://irc.freenode.net/django) 。
+
+### 純文本形式[¶](#in-plain-text "永久連結至標題")
+
+離線閱讀，或僅僅是為了方便，你可以閱讀 Djano 文件的純文本形式。
+
+如果你正在使用的是 Django
+的某個正式發布版，注意有一個程式壓縮套件，包含了 `docs/`{.docutils
+.literal .notranslate} 目錄，內含這個版本的完整文件。
+
+如果你正在使用開發版的 Django （又名“trunk”），注意目錄
+`docs/`{.docutils .literal .notranslate} 包含所有的文件。你可以透過 git
+獲取最新的修改。
+
+一種沒啥技術含量的利用純文本文件的方式是使用 Unix 的 `grep`{.docutils
+.literal .notranslate}
+工具在文件中全域中搜索一個短語。舉個例子，接下來會向你展示 Django
+文件中所有提到這個特定短語 "max\_length" 的地方：
+
+/ 
+
+    $ grep -r max_length /path/to/django/docs/
+
+### 以本地網頁形式閱讀[¶](#as-html-locally "永久連結至標題")
+
+經過幾步操作，你可以取得一份網頁文件的拷貝：
+
+-   Django 文件使用了一個叫做 [Sphinx](https://www.sphinx-doc.org/)
+    的系統將純文本轉換為網頁。你可以透過 Sphinx 的官方網站或
+    `pip`{.docutils .literal .notranslate} 來下載和安裝它：
+
+    / 
+
+        $ python -m pip install Sphinx
+
+-   接著，使用其中的 `Makefile`{.docutils .literal .notranslate}
+    工具將文件轉換為網頁：
+
+        $ cd path/to/django/docs
+        $ make html
+
+    你需要為此安裝 [GNU Make](https://www.gnu.org/software/make/) 工具。
+
+    如果你是 Windows 系統，你應該使用其中的批處理文件：
+
+        cd path\to\django\docs
+        make.bat html
+
+-   這個 HTML 文件將會被放置在 `docs/_build/html`{.docutils .literal
+    .notranslate}。
+
+版本之間的差異[¶](#differences-between-versions "永久連結至標題")
+-----------------------------------------------------------------
+
+The text documentation in the master branch of the Git repository
+contains the "latest and greatest" changes and additions. These changes
+include documentation of new features targeted for Django's next
+[feature
+release](https://docs.djangoproject.com/zh-hans/3.0/internals/release-process/#term-feature-release).
+For that reason, it's worth pointing out our policy to highlight recent
+changes and additions to Django.
+
+我們遵循以下原則：
+
+-   [https://docs.djangoproject.com/en/dev/](https://docs.djangoproject.com/en/dev/)
+    上的開發文件來自主分支。
+    這些文件對應於官方最新發布的特性，並且包含所有自當時起，我們在框架中增加或修改的功能。
+-   當我們為 Django 的開發版本增加功能時，我們會在相同的 Git commit
+    交易中更新文件。
+-   為區分文件中修改或新增的內容，我們使用短語 : "New in Django
+    Development version" 來表示其屬於還未發布的開發版，使用 "New in
+    version X.Y" 來表示其屬於已經發布的某個版本。
+-   文件的修正和提升可能只會提交到最新的一個發布版本，這取決於提交者，然而，一旦一個
+    Django 的版本處於
+    [不在維護欄表](https://docs.djangoproject.com/zh-hans/3.0/internals/release-process/#supported-versions-policy)
+    中，這個版本對應的文件將不再更新。
+-   The [main documentation Web
+    page](https://docs.djangoproject.com/en/dev/) includes links to
+    documentation for previous versions. Be sure you are using the
+    version of the docs corresponding to the version of Django you are
+    using!
+
+[**
+進階指南：如何編寫可重用程式](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)
+
+[編寫你的第一個 Django 修補程式
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/contributing/)
+
+編寫你的第一個 Django 修補程式[¶](#writing-your-first-patch-for-django "永久連結至標題")
+========================================================================================
+
+介紹[¶](#introduction "永久連結至標題")
+---------------------------------------
+
+想為 Django 社區做一點貢獻？也許是你發現了一個想修正的
+bug，或者想增加一個新的功能。
+
+回報 Django
+這件事本身就是使你的顧慮得到解決的最好方式。一開始這可能會使你怯步，但這是一條有文件、工具和社區支援的成功之路。整個過程中我們會一步一步為你解說，所以你可以透過例子學習。
+
+### 這個教學適合誰？[¶](#who-s-this-tutorial-for "永久連結至標題")
+
+參見
+
+如果你正在尋找一個關於如何提交修補程式的說明文件，請查看 [Submitting
+patches](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/submitting-patches/)。
+
+使用教學前，我們希望你至少對於 Django 的執行方式有一定的認識。
+這意味著你可以很容易地通讀 [編寫第一個 Django
+應用](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)。
+除此之外，你應該對於 Python 有很好的理解。 如果不太熟悉
+Python，我們為您推薦 [\`Dive Into Python\`\_\_](#id11)
+對於初學Python的程式員來說這是一本很棒（而且免費）的在線電子書。
+
+那些不熟悉版本控制系統及缺陷追蹤的朋友可以查看這個教學，這個連結包含了足夠的資訊。如果你打算定期地為
+Django 做貢獻，你可能期望閱讀更多關於這些不同工具的資料。
+
+當然對於此教學中的大部分內容，Django 會盡可能做出解釋以協助廣大的讀者。
+
+從哪裡取得協助：
+
+如果你在使用本教學時遇到困難, 你可以發資訊給
+[django-developers](https://docs.djangoproject.com/zh-hans/3.0/internals/mailing-lists/#django-developers-mailing-list)
+中的人或登陸 [\`\#django-dev on irc.freenode.net\`\_\_](#id11) 向其他
+Django 使用者尋求協助。
+
+### 這個指南涵蓋哪些內容？[¶](#what-does-this-tutorial-cover "永久連結至標題")
+
+我們將指導你貢獻你的第一個 Django
+修補程式，在本教學完畢時，你將對相關工具及流程有一個基本的認識。特別的，我們將覆蓋以下內容：
+
+-   安裝 Git。
+-   下載一份Django開發版的拷貝。
+-   執行 Django 的測試套件。
+-   為你的修補程式寫一個測試。
+-   為你的修補程式編寫程式。
+-   測試你的修補程式。
+-   提交一個 pull request（PR）。
+-   在哪裡查找更多的資訊。
+
+一旦你完成了這份教學，你可以瀏覽 [Django
+貢獻文件](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/)
+的剩餘部分。它包含了大量資訊。任何想成為 Django
+的正式貢獻者的人都必須閱讀它。如果你有問題，它也許會給你答案。
+
+必須Python 3！
+
+目前的 Django 版本不再支援 Python 2.7。你可以在 [Python
+下載頁](https://www.python.org/downloads/)
+或透過操作系統的套件管理器下載 Python 3。
+
+對於 Windows 用戶
+
+See
+[安裝Python](https://docs.djangoproject.com/zh-hans/3.0/howto/windows/#install-python-windows)
+on Windows docs for additional guidance.
+
+程式規範[¶](#code-of-conduct "永久連結至標題")
+----------------------------------------------
+
+作為一個貢獻者, 你可以協助我們保持 Django
+的社區開放性和套件容性。請仔細閱讀並遵守我們的
+[行為守則](https://www.djangoproject.com/conduct/)。
+
+安裝Git[¶](#installing-git "永久連結至標題")
+--------------------------------------------
+
+在本教學中，你需要安裝好 Git，用 Git 下載 Django
+的最新開發版本並且為你的修改產生修補程式文件。
+
+要檢查你是否已經安裝 Git，命令欄輸入 `git`{.docutils .literal
+.notranslate}。如果提示這個命令無法找到，你必須下載並安裝它，參考
+[\`Git's download page\`\_\_](#id11) 。
+
+如果你還不熟悉 Git, 你可以在命令欄下輸入 `git help`{.docutils .literal
+.notranslate} 了解更多關於 Git 命令的使用方法 (確保已安裝)
+
+取得一個 Django 開發版本的副本[¶](#getting-a-copy-of-django-s-development-version "永久連結至標題")
+---------------------------------------------------------------------------------------------------
+
+為 Django 做貢獻的第一步就是獲取源程式副本。首先， fork Github 上的
+Django 專案
+\<https://github.com/django/django/fork\>。接下來，在命令欄中，使用
+`cd`{.docutils .literal .notranslate} 命令切換至某個你想存放 Django
+源碼的目錄。
+
+使用下面的命令來下載 Django 的源碼庫：
+
+/ 
+
+    $ git clone https://github.com/YourGitHubName/django.git
+
+低速寬帶連接？
+
+你可以在用命令 `git clone`{.docutils .literal .notranslate}
+下載倉庫的時候加上參數 `--depth 1`{.docutils .literal .notranslate}
+來跳過 Django 的提交歷史，這大約能把下載大小從250MB減少到70MB
+
+你現在已經將Django拷貝到本地，可以像安裝其他軟件套件一樣使用
+[\`\`](#id1)pip\`\`進行安裝。 最便捷的方式是透過 *virtual environment*，
+這是 Python
+的一個內置特性，它可以讓你在一個目錄中保持獨立的軟件套件環境而不影響其他的專案。
+
+將你的虛擬環境都放在一個位置是明智的做法，例如將它們放置在你主目錄下的
+`.virtualenvs/`{.docutils .literal .notranslate} 中。
+
+透過執行以下命令建立一個虛擬環境：
+
+/ 
+
+    $ python3 -m venv ~/.virtualenvs/djangodev
+
+該路徑就是儲存這個新的虛擬執行環境的地方。
+
+設置虛擬環境的最後一步是啟用它；
+
+    $ source ~/.virtualenvs/djangodev/bin/activate
+
+如果 `source`{.docutils .literal .notranslate} 命令不可用，你可以試試：
+
+    $ . ~/.virtualenvs/djangodev/bin/activate
+
+You have to activate the virtual environment whenever you open a new
+terminal window.
+
+對於 Windows 用戶
+
+在Windows下採用如下命令進行啟用虛擬環境：
+
+    ...\> %HOMEPATH%\.virtualenvs\djangodev\Scripts\activate.bat
+
+當前啟用的虛擬環境的名稱會被展示在命令欄，這可以讓你搞清楚你正在使用哪一個虛擬環境。你透過
+`pip`{.docutils .literal .notranslate}
+安裝的任何軟件套件如果在安裝時顯示了該名稱，則都會被安裝到該虛擬環境中，而且這些軟件套件不會影響到其他虛擬環境，也不會與其他系統級的軟件套件發生衝突。
+
+下一步安裝之前克隆的 Django 副本：
+
+/ 
+
+    $ python -m pip install -e /path/to/your/local/clone/django/
+
+在可編輯的模式下，安裝的 Django
+版本就是你本地副本的版本。你將立刻見到任何你對它的修改，這對你編寫第一個修補程式很有協助。
+
+### 使用 Django 本地副本建立專案[¶](#creating-projects-with-a-local-copy-of-django "永久連結至標題")
+
+這對你測試本地Django專案發生了那些變化很有協助。首先，你需要建立一個新的虛擬環境，
+[在可編輯模式下安裝之前克隆的Django本地副本](#intro-contributing-install-local-copy),
+接著在你本地Django副本之外建立一個新的Django專案。
+在你的新專案中，一旦你改動任何文件，你都會立刻看到相關資訊，這對你編寫第一個修補程式是很有協助的。
+
+首先執行 Django 的測試套件[¶](#running-django-s-test-suite-for-the-first-time "永久連結至標題")
+-----------------------------------------------------------------------------------------------
+
+當你貢獻程式給 Django 的時候，你修改的程式千萬不要給其它部分引入新的
+bug。 有個辦法可以在你更改程式之後檢查 Django 是否能正常工作，就是執行
+Django
+的測試套件。如果所有的測試用例都透過，你就有理由相信你的改動完全沒有破壞
+Django。如果你從來沒有執行過 Django
+的測試套件，那麼比較好的做法是事先執行一遍，熟悉下正常情況下應該輸出什麼結果。
+
+執行測試套件之前，先 `cd`{.docutils .literal .notranslate} 進入 Django
+的 `test/`{.docutils .literal .notranslate} 目錄，安裝其依賴，執行：
+
+/ 
+
+    $ python -m pip install -r requirements/py3.txt
+
+如果安裝過程中發生了錯誤，可能是你的系統缺少一個或多個 Python
+依賴套件。請參考安裝失敗的套件的文件或者在網上搜索提示的錯誤資訊。
+
+現在你可以執行測試套件。如果你用的是 GNU/Linux， macOS 或者其它類 Unix
+系統，執行：
+
+/ 
+
+    $ ./runtests.py
+
+Now sit back and relax. Django's entire test suite has thousands of
+tests, and it takes at least a few minutes to run, depending on the
+speed of your computer.
+
+當Django的測試套件被執行時，您將看到一個代表測試執行狀態的字串流。
+其中字串 `E`{.docutils .literal .notranslate} 表示測試中出現異常，
+`F`{.docutils .literal .notranslate}
+表示測試中的一個斷言失敗，這兩種情況都被認為測試結果失敗。而
+`x`{.docutils .literal .notranslate} 和 `s`{.docutils .literal
+.notranslate} 分別表示與期望結果不同和跳過測試，逗點則表示測試被透過了。
+
+缺失外部依賴庫通常會導致測試被跳過；查看 [Running all the
+tests](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/unit-tests/#running-unit-tests-dependencies)
+獲取依賴庫欄表，如果你修改了測試程式，請同時安裝相關依賴庫（本教學無需額外依賴庫）。某些測試使用了特定的資料庫後端，如果當前測試設置並未使用此資料庫後端，那麼這些相關的測試也會被跳過。SQLite
+是預設的資料庫後端。如果想使用其他後端進行測試，查看 [Using another
+settings
+module](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/unit-tests/#running-unit-tests-settings)。
+
+程式測試集當測試執行完畢後，得到反饋資訊顯示測試已透過，或者測試失敗。
+因為還沒有對 Django 的程式做任何修改, 所有的測試集 **應該** 測試透過.
+如果測試失敗或出現錯誤，回頭確認以上執行操作是否正確. 查看 [Running the
+unit
+tests](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/unit-tests/#running-unit-tests)
+獲取更多資訊。
+
+注意最新版本 Django
+分支不總是穩定的。當在分支上開發時，你可以查看程式持續集成構建頁面的資訊
+來判斷測試錯誤只在你指定的電腦上發生，還是官方版本中也存在該錯誤。如果點擊某個構建資訊，可以透過
+"Configuration Matrix" 查看錯誤發生時 Python 以及後端資料庫的資訊。
+
+注解
+
+在本教學以及處理工單所用分支中，測試使用資料庫 SQLite
+即可，然而在某些情況下需要（有時需要） ，參考 :ref:[\`](#id1)run the
+tests using a different database [\`](#id3)。
+
+嘗試搞定一項新功能[¶](#working-on-a-feature "永久連結至標題")
+-------------------------------------------------------------
+
+這次教學中，我們將學習去完成一個名叫 "fake ticket"
+的例子。下面是關於這個例子的大體構想:
+
+Ticket \#99999 -- 允許發表祝辭
+
+Djando中需要聲明一個函數django.shortcuts.make\_toast()，它的回傳值為'toast'。
+
+我們現在來實現這個新功能並且做一下相關的測試。
+
+為你的修補程式建立一個分支[¶](#creating-a-branch-for-your-patch "永久連結至標題")
+---------------------------------------------------------------------------------
+
+在做出任何修改之前，為你的工單建立一個分支：
+
+/ 
+
+    $ git checkout -b ticket_99999
+
+你可以選擇任意你想要的分支名，ticket\_99999只是一個例子。你在該分支上做出的所有更改，將只會針對該分支即ticket\_99999產生影響，而不會影響到我們早先克隆的原始程式。
+
+為你的工單寫一些測試用例[¶](#writing-some-tests-for-your-ticket "永久連結至標題")
+---------------------------------------------------------------------------------
+
+大多數情況下，Django 的修補程式必需包含測試。Bug
+修正修補程式的測試是一個回歸測試，確保該 Bug 不會再次在 Django
+中出現。該測試應該在 Bug 存在時測試失敗，在 Bug
+已經修正後透過測試。新功能修補程式的測試必須驗證新功能是否正常執行。新功能的測試將在功能正常時透過測試，功能未執行時測試失敗。
+
+最好的方式是在修改程式之前寫測試單元程式。這種開發風格叫做
+[\`test-driven development\`\_\_](#id11)
+被應用在專案開發和單一修補程式開發過程中。單元測試編寫完畢後，執行單元測試，此時測試失敗（因為目前還沒有修正
+bug
+或增加新功能），如果測試成功透過，你需要重新修改單元測試保證測試失敗。因為單元測試並不能阻止
+bug 發生。
+
+現在看我們的操作範例。
+
+### 為工單 \#99999 寫測試[¶](#writing-a-test-for-ticket-99999 "永久連結至標題")
+
+為了解決這次的工單問題，我們將在最上層的 django 模組中增加一個函數
+`make_toast()`{.docutils .literal
+.notranslate}。首先我們來寫一個測試用例，用於測試該函數，並且驗證一下它的輸出項是否正確。
+
+前往Django的 `tests/shortcuts/`{.docutils .literal .notranslate}
+文件夾，建立一個名為 `test_make_toast.py`{.docutils .literal
+.notranslate} 的新文件。增加如下程式:
+
+    from django.shortcuts import make_toast
+    from django.test import SimpleTestCase
+
+
+    class MakeToastTests(SimpleTestCase):
+        def test_make_toast(self):
+            self.assertEqual(make_toast(), 'toast')
+
+上述測試是用來檢測 `make_toast()`{.docutils .literal .notranslate}
+函數是否會回傳 [\`\`](#id1)'toast'\` [\`](#id3)的。
+
+但這種測試看起來有點困難……
+
+如果你之前從未處理過測試，那他們看起來會有點難以編寫。幸運的是，測試是一個計算機編程中
+*非常* 大的一個主題，所以這裡有大量的相關資料：
+
+-   瀏覽
+    [編寫並執行測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/overview/)
+    大致看一下如何在 Django 中編寫測試。
+-   深入理解 Python（一本針對 Python
+    初學者的免費在線書籍），包含了不錯的 [\`introduction to Unit
+    Testing\`\_\_](#id11)。
+-   讀到這裡，你還想深入了解的話，可以查看 Python [`unittest`{.xref .py
+    .py-mod .docutils .literal
+    .notranslate}](https://docs.python.org/3/library/unittest.html#module-unittest "(在 Python v3.8)")。
+
+### 執行你的新測試[¶](#running-your-new-test "永久連結至標題")
+
+由於我們還沒有對 `django.shortcuts`{.docutils .literal .notranslate}
+進行任何修改，這次測試將會失敗。現在讓我們來執行一下
+`shortcuts`{.docutils .literal .notranslate}
+目錄中的所有測試，以便確定它們真的都會產生失敗的結果。使用
+`cd`{.docutils .literal .notranslate} 命令進入Django的
+`tests/`{.docutils .literal .notranslate} 文件夾，然後執行:
+
+/ 
+
+    $ ./runtests.py shortcuts
+
+如果測試被正確執行，一個該測試方法所對應的錯誤將會呈現給你:
+
+    ImportError: cannot import name 'make_toast' from 'django.shortcuts'
+
+如果所有測試都執行過了，那麼你要確保在準確的文件夾和文件名中增加了上述新測試。
+
+為你的工單編寫程式[¶](#writing-the-code-for-your-ticket "永久連結至標題")
+-------------------------------------------------------------------------
+
+接下來我們將增加 `make_toast()`{.docutils .literal .notranslate} 函數
+
+打開 `django/`{.docutils .literal .notranslate} 文件夾中的
+`shortcuts.py`{.docutils .literal .notranslate} 文件，在文件末尾追加:
+
+    def make_toast():
+        return 'toast'
+
+現在我們需要保證之前所寫的測試會正常透過，以便我們判斷所追加的程式是否正確。再來一次，現跳轉到Django的
+`tests/`{.docutils .literal .notranslate} 目錄，然後執行:
+
+/ 
+
+    $ ./runtests.py shortcuts
+
+所有專案都需要正常透過測試。如果沒有，檢查一下你的函數是否書寫正確，並且是否寫在了正確的文件中。
+
+第二次執行 Django 測試套件[¶](#running-django-s-test-suite-for-the-second-time "永久連結至標題")
+------------------------------------------------------------------------------------------------
+
+如果已經確認修補程式以及測試結果都正常，就執行 Django
+的測試套件，驗證你的修改是否導致 Django 的其它部分引入了新的 bug。
+雖然測試用例協助識別容易被人忽略的錯誤，但測試透過並不能保證完全沒有 bug
+存在。
+
+執行 Django 完整的測試用例，`cd`{.docutils .literal .notranslate} 進入
+Django下的 `tests/`{.docutils .literal .notranslate} 目錄並執行：
+
+/ 
+
+    $ ./runtests.py
+
+書寫文件[¶](#writing-documentation "永久連結至標題")
+----------------------------------------------------
+
+這是一項新功能，所以應該為它建立一個說明，打開文件
+`docs/topics/http/shortcuts.txt`{.docutils .literal .notranslate}
+，然後在文件末尾追加下記內容:
+
+    ``make_toast()``
+    ================
+
+    .. versionadded:: 2.2
+
+    Returns ``'toast'``.
+
+由於這一新功能將在即將到來的版本中被加入，所以下個版本的發布說明裡也加入了相關內容。打開
+`docs/releases/2.2.txt`{.docutils .literal .notranslate}
+文件，即發布說明的最新版本文件，在小標題"Minor
+Features"下面增加一個說明:
+
+    :mod:`django.shortcuts`
+    ~~~~~~~~~~~~~~~~~~~~~~~
+
+    * The new :func:`django.shortcuts.make_toast` function returns ``'toast'``.
+
+更多關於編寫文件和 `versionadded`{.docutils .literal .notranslate}
+的解釋和資訊，請參考
+[編寫文件](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-documentation/)。這個頁面還介紹了怎麼在本地重新產生一份文件，方便你在本地預覽文件。
+
+預覽你的修改[¶](#previewing-your-changes "永久連結至標題")
+----------------------------------------------------------
+
+現在是時候完成我們這個分支的所有變更，準備將它們提交了，執行:
+
+/ 
+
+    $ git add --all
+
+然後將你當前版本(包含有你修改的內容)的拷貝和你最初在教學中取出的版本對比:
+
+/ 
+
+    $ git diff --cached
+
+使用方向鍵上下移動
+
+    diff --git a/django/shortcuts.py b/django/shortcuts.py
+    index 7ab1df0e9d..8dde9e28d9 100644
+    --- a/django/shortcuts.py
+    +++ b/django/shortcuts.py
+    @@ -156,3 +156,7 @@ def resolve_url(to, *args, **kwargs):
+
+         # Finally, fall back and assume it's a URL
+         return to
+    +
+    +
+    +def make_toast():
+    +    return 'toast'
+    diff --git a/docs/releases/2.2.txt b/docs/releases/2.2.txt
+    index 7d85d30c4a..81518187b3 100644
+    --- a/docs/releases/2.2.txt
+    +++ b/docs/releases/2.2.txt
+    @@ -40,6 +40,11 @@ database constraints. Constraints are added to models using the
+     Minor features
+     --------------
+
+    +:mod:`django.shortcuts`
+    +~~~~~~~~~~~~~~~~~~~~~~~
+    +
+    +* The new :func:`django.shortcuts.make_toast` function returns ``'toast'``.
+    +
+     :mod:`django.contrib.admin`
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    diff --git a/docs/topics/http/shortcuts.txt b/docs/topics/http/shortcuts.txt
+    index 7b3a3a2c00..711bf6bb6d 100644
+    --- a/docs/topics/http/shortcuts.txt
+    +++ b/docs/topics/http/shortcuts.txt
+    @@ -271,3 +271,12 @@ This example is equivalent to::
+             my_objects = list(MyModel.objects.filter(published=True))
+             if not my_objects:
+                 raise Http404("No MyModel matches the given query.")
+    +
+    +``make_toast()``
+    +================
+    +
+    +.. function:: make_toast()
+    +
+    +.. versionadded:: 2.2
+    +
+    +Returns ``'toast'``.
+    diff --git a/tests/shortcuts/test_make_toast.py b/tests/shortcuts/test_make_toast.py
+    new file mode 100644
+    index 0000000000..6f4c627b6e
+    --- /dev/null
+    +++ b/tests/shortcuts/test_make_toast.py
+    @@ -0,0 +1,7 @@
+    +from django.shortcuts import make_toast
+    +from django.test import SimpleTestCase
+    +
+    +
+    +class MakeToastTests(SimpleTestCase):
+    +    def test_make_toast(self):
+    +        self.assertEqual(make_toast(), 'toast')
+
+當你檢查完修補程式後，敲擊 `q`{.docutils .literal .notranslate}
+鍵回傳到命令欄。如果修補程式內容看起來沒問題，可以提交這些修改了。
+
+提交修補程式中的修改[¶](#committing-the-changes-in-the-patch "永久連結至標題")
+------------------------------------------------------------------------------
+
+為了提交這些修改：
+
+/ 
+
+    $ git commit
+
+這會打開文本編輯器以便輸入提交資訊。參考 [commit message
+guidelines](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/committing-code/#committing-guidelines)
+輸入類似這樣的資訊：
+
+    Fixed #99999 -- Added a shortcut function to make toast.
+
+推送這次提交並產生一個 pull 請求[¶](#pushing-the-commit-and-making-a-pull-request "永久連結至標題")
+---------------------------------------------------------------------------------------------------
+
+在提交這次的修改之後，將其發送到你在GitHub上的分支(如果你使用的名稱不是"ticket\_99999"，用你自己的分支的名稱取代它
+):
+
+/ 
+
+    $ git push origin ticket_99999
+
+你可以開啟 [Django GitHub page](https://github.com/django/django/)
+建立一個 pull 請求。 你會在“你最近推送的分支”下看到你的分支。 單擊旁邊的
+"Compare & pull request"。
+
+本教學中請不要這麼做。不過，在接下來顯示修補程式預覽的頁面，你可以單擊
+"Create pull request"。
+
+下一步[¶](#next-steps "永久連結至標題")
+---------------------------------------
+
+恭喜，你已經學會了如何為 Django 建立 pull
+request！如需獲知更多高級技巧，參考 [Working with Git and
+GitHub](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/working-with-git/)。
+
+現在你可以活用這些技能協助改善 Django 的程式庫。
+
+### 針對新貢獻者的更多注意事項[¶](#more-information-for-new-contributors "永久連結至標題")
+
+在你開始為 Django 編寫修補程式時，這裡有些資訊，你應該看一看：
+
+-   確保你閱讀了 Django 的參考文件
+    [建立工單和提交修補程式](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/submitting-patches/)。它涵蓋了Trac
+    規則，如何建立自己的工單，修補程式期望的程式風格和其他一些重要資訊。
+-   初次提交修補程式應額外閱讀
+    [首次貢獻者文件](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/new-contributors/)。這裡有很多對新手貢獻者的建議。
+-   接下來，如果你渴望更多關於為 Django 做貢獻的資訊，可以閱讀餘下的文件
+    [為 Django
+    文件上作出貢獻](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/)。它包含了大量的有用資訊，這裡可以解決你可能遇到的所有問題。
+
+### 尋找你的第一個真正意義上的工單[¶](#finding-your-first-real-ticket "永久連結至標題")
+
+一旦你看過了之前那些資訊，你便已經具備了走出困境，編寫修正自己找到的工單的修補程式的能力。對於那些有著“容易取得”標準的工單要尤其注意。這些工單實際上常常很簡單而且對於第一次撰寫修補程式的人很有協助。一旦你熟悉了給
+Django 寫修補程式，你就可以進一步為更難且更復雜的工單寫修補程式。
+
+如果你只是想要簡單的了解（沒人會因此責備你！），那麼你可以試著看看
+[\`easy tickets that need patches\`\_\_](#id11) 和 [\`easy tickets that
+have patches which need
+improvement\`\_\_](#id11)。如果你比較擅長寫測試，那麼你也可以看看這個
+[\`easy tickets that need tests\`\_\_](#id11)。一定要記得遵循在 Django
+的文件聲明標籤和遞交修補程式中提到的關於聲明標籤的指導規則
+[聲明標籤和提交修補程式](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/submitting-patches/).
+
+### 建立完 pull request，下一步做什麼呢？[¶](#what-s-next-after-creating-a-pull-request "永久連結至標題")
+
+工單有了修補程式後，需要他人來復審。提交 pull
+請求後，為工單打上如“有修補程式”，“無需測試”之類的標籤，如此他人便可查找到該工單以便復審。從頭開始編寫修補程式固然是貢獻的一種方式，但復審已有修補程式同樣能協助
+Django。 查看 [Triaging
+tickets](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/triaging-tickets/)
+了解更多。
+
+[**
+下一步看什麼](https://docs.djangoproject.com/zh-hans/3.0/intro/whatsnext/)
+
+[使用 Django **](https://docs.djangoproject.com/zh-hans/3.0/topics/)
 
 
 

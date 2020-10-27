@@ -430,7 +430,7 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 -   [`django.contrib.admin`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#module-django.contrib.admin "django.contrib.admin: Django's admin site.")
     -- 管理員網站， 你很快就會使用它。
 -   [`django.contrib.auth`](https://docs.djangoproject.com/zh-hans/3.0/topics/auth/#module-django.contrib.auth "django.contrib.auth: Django's authentication framework.")
-    -- 認證授權系統。
+    -- 認證授權框架。
 -   [`django.contrib.contenttypes`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/contenttypes/#module-django.contrib.contenttypes "django.contrib.contenttypes: Provides generic interface to installed models.")
     -- 內容類型框架。
 -   [`django.contrib.sessions`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/sessions/#module-django.contrib.sessions "django.contrib.sessions: Provides session management for Django projects.")
@@ -444,14 +444,13 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 
 預設開啟的某些應用程式需要至少一個資料表，所以，在使用他們之前需要在資料庫中建立一些表。請執行以下命令：
 
-
     $ python manage.py migrate
 
 這個 [`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
 命令檢查 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
 設定，為其中的每個應用程式建立需要的資料表，至於具體會建立什麼，這取決於你的
 `mysite/settings.py`
-設定文件和每個應用程式的資料庫遷移文件（我們稍後會介紹這個）。這個命令所執行的每個遷移操作都會在終端中顯示出來。如果你感興趣的話，執行你資料庫的命令欄工具，並輸入
+設定文件和每個應用程式的資料庫遷移文件（我們稍後會介紹這個）。這個命令所執行的每個遷移操作都會在終端中顯示出來。如果你感興趣的話，執行你資料庫的命令列工具，並輸入
 `\dt` (PostgreSQL)，
 `SHOW TABLES;` (MariaDB,MySQL)，
 `.schema` (SQLite)或者
@@ -722,62 +721,56 @@ Django 有一個自動執行資料庫遷移並同步管理你的資料庫結構�
 ，你可以取得關於 `manage.py`
 工具的更多資訊。
 
-初試 API[¶](#playing-with-the-api "永久連結至標題")
+初次嘗試 API[¶](#playing-with-the-api "永久連結至標題")
 ---------------------------------------------------
 
-現在讓我們進入交互式 Python 命令欄，嘗試一下 Django 為你建立的各種
-API。透過以下命令打開 Python 命令欄：
-
+現在讓我們進入交互式 Python 命令欄，嘗試一下 Django 為你建立的各種的 API。
+請透過以下命令開啟 Python 命令列模式 (shell)：
 
     $ python manage.py shell
 
-我們改用這個命令而不是簡單的輸入 "Python" 是因為 `manage.py` 會設定
-`DJANGO_SETTINGS_MODULE`
-環境變數，這個變數會讓 Django 根據 `mysite/settings.py` 文件來設定 Python 套件的導入路徑。
+我們不是簡單的輸入 "Python" 而是改用上面這樣的指令是因為 `manage.py` 會設定 `DJANGO_SETTINGS_MODULE`
+的環境變數，這個變數會讓 Django 依據 `mysite/settings.py` 文件來設定 Python 套件的匯入路徑。
 
-當你成功進入命令欄後，來試試 [database
-API](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/) 吧:
+當你成功進入命令列後，來試試 [database API](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/) 吧:
 
-    >>> from polls.models import Choice, Question  # Import the model classes we just wrote.
+    >>> from polls.models import Choice, Question  # 從 polls.models 匯我我們剛寫好的兩個資料模型類別 (model classes)
 
-    # 系統中還沒有問題。
+    # 呼叫 objects.all() 來列出目前的問題 (Question) 清單。但目前系統中還沒有任何已建立的問題 (Question)。
     >>> Question.objects.all()
     <QuerySet []>
 
-    # 建立一個新的問題。
-    # 在預設的設定文件中啟用了對時區的支援，因此
-    # Django 預期 pub_date 與 tzinfo 的日期時間。使用 timezone.now()
-    # 而不是 datetime.datetime.now() 然後它就會它會做出正確的事情。
+    # 現在我們來建立一個新的問題 (Question)。在預設的設定文件中啟用了對時區的支援，
+    # 因此 Django 預期你使用的 pub_date 變數中有包含 tzinfo 的日期時間。所以我們將
+    # 使用 timezone.now() 而不是 datetime.datetime.now() 這樣才能建立正確的結果。
     >>> from django.utils import timezone
-    >>> q = Question(question_text="What's new?", pub_date=timezone.now())
+    >>> q = Question(question_text="有什麼新鮮事?", pub_date=timezone.now())
 
-    # 將物件儲存到資料庫中。 您必須明確地呼叫 save() 函式。
+    # 要能剛建立的將物件儲存到資料庫中，必須明確地呼叫 save() 函式。
     >>> q.save()
 
-    # 現在它有一個 ID.
+    # 現在這個物件有一個 ID 屬性.
     >>> q.id
     1
 
-    # 透過 Python 屬性存取模型字串值。
+    # 透過 Python 來存取模型的屬性字串值。
     >>> q.question_text
-    "What's new?"
+    "有什麼新鮮事?"
+    
     >>> q.pub_date
-    datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
+    datetime.datetime(2020, 12, 27, 13, 0, 0, 775217, tzinfo=<UTC>)
 
-    # 透過更改屬性來更改值，然後呼叫 save()函式。
-    >>> q.question_text = "What's up?"
+    # 你可以直接透過更改屬性來變更其值，然後再一次呼叫 save() 函式來儲存到資料庫中。
+    >>> q.question_text = "目前什麼情況?"
     >>> q.save()
 
     # objects.all() 顯示資料庫中的所有的問題。
     >>> Question.objects.all()
     <QuerySet [<Question: Question object (1)>]>
 
-等等。`<Question: Question object (1)>`
-對於我們了解這個物件的細節沒什麼協助。讓我們透過編輯
-`Question` 模型的程式（位於
-`polls/models.py`
-中）來修正這個問題。給 `Question` 和
-`Choice` 增加 [`__str__()`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/instances/#django.db.models.Model.__str__ "django.db.models.Model.__str__")
+到這裡我們看到輸出的結束似乎可以更好。因為`<Question: Question object (1)>`對於我們瞭解這個物件的細節並沒有什麼幫助。
+我們透過編輯 `Question` 模型的程式（位於`polls/models.py`中）來修正這個問題。為 `Question` 和 `Choice` 增加
+[`__str__()`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/instances/#django.db.models.Model.__str__ "django.db.models.Model.__str__")
 方法。
 
 polls/models.py[¶](#id4 "永久連結至程式")**
@@ -794,11 +787,10 @@ polls/models.py[¶](#id4 "永久連結至程式")**
         def __str__(self):
             return self.choice_text
 
-給模型增加 [`__str__()`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/instances/#django.db.models.Model.__str__ "django.db.models.Model.__str__")
-方法是很重要的，這不僅僅能給你在命令欄裡使用帶來方便，Django 自動產生的
-admin 裡也使用這個方法來表示物件。
+為模型增加 [`__str__()`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/instances/#django.db.models.Model.__str__ "django.db.models.Model.__str__")
+方法是很重要的，這不僅只為你在命令列裡的使用帶來方便，同時 Django 所自動產生的管理頁面中也將會使用這個方法函式來表示物件。
 
-讓我們再為此模型增加一個自定義方法：
+現在我們再為此模型增加一個自定義方法：
 
 polls/models.py[¶](#id5 "永久連結至程式")**
 
@@ -807,88 +799,85 @@ polls/models.py[¶](#id5 "永久連結至程式")**
     from django.db import models
     from django.utils import timezone
 
-
     class Question(models.Model):
         # ...
         def was_published_recently(self):
             return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 
-新加入的 `import datetime` 和
-`from django.utils import timezone`
-分別導入了 Python 的標準 [`datetime`](https://docs.python.org/3/library/datetime.html#module-datetime "(在 Python v3.8)")
-模組和 Django 中和時區相關的 [`django.utils.timezone`](https://docs.djangoproject.com/zh-hans/3.0/ref/utils/#module-django.utils.timezone "django.utils.timezone: Timezone support.")
-工具模組。如果你不太熟悉 Python 中的時區處理，看看
-[時區支援文件](https://docs.djangoproject.com/zh-hans/3.0/topics/i18n/timezones/)
-吧。
+新加入的 `import datetime` 和 `from django.utils import timezone` 分別匯入了 Python 的
+標準 [`datetime`](https://docs.python.org/3/library/datetime.html#module-datetime "(在 Python v3.8)")
+模組和 Django 中和時區相關的 [`django.utils.timezone`](https://docs.djangoproject.com/zh-hans/3.0/ref/utils/#module-django.utils.timezone "django.utils.timezone: Timezone support.") 工具模組。如果你不太熟悉 Python 中的時區處理方式，請參考
+[時區支援文件](https://docs.djangoproject.com/zh-hans/3.0/topics/i18n/timezones/) 給予的協助。
 
-儲存文件然後透過 `python manage.py shell` 命令再次打開 Python 交互式命令欄：
+請儲存剛才編輯的程式然後重新透過 `python manage.py shell` 命令再次開啟 Python 交互式命令列 (shell)：
 
     >>> from polls.models import Choice, Question
 
-    # 確認我們新增的 __str__() 有發揮功效。
+    # 以下指令可以確認我們新增的 __str__() 是否有發揮功能。
     >>> Question.objects.all()
-    <QuerySet [<Question: What's up?>]>
+    <QuerySet [<Question: 目前什麼情況?>]>
 
-    # Django 提供了一個豐富的資料庫查找 API，該 API 完全由
-    # 關鍵字參數來驅動。
+    # 在 Django 中提供了一個豐富的資料庫搜尋的 API，該 API 完全由
+    # 關鍵字參數來操作你的搜尋。
     >>> Question.objects.filter(id=1)
-    <QuerySet [<Question: What's up?>]>
+    <QuerySet [<Question: 目前什麼情況?>]>
     >>> Question.objects.filter(question_text__startswith='What')
-    <QuerySet [<Question: What's up?>]>
+    <QuerySet [<Question: 目前什麼情況?>]>
 
-    # 取得今年發佈的 question。
+    # 如果要取得今年發佈的問題 (Question) 清單，可以使用下列方式。
     >>> from django.utils import timezone
     >>> current_year = timezone.now().year
     >>> Question.objects.get(pub_date__year=current_year)
-    <Question: What's up?>
+    <Question: 目前什麼情況?>
 
-    # 要求一個不存在的 ID，這將引起異常狀況。
+    # 如果你指定了一個不存在的 ID 而對 API 提出請求，這樣將會引起程式的異常錯誤發生。
     >>> Question.objects.get(id=2)
     Traceback (most recent call last):
         ...
     DoesNotExist: Question matching query does not exist.
 
-    # 透過主鍵搜尋是最常見的情況，因此 Django 提供了一個
-    # 主鍵精確搜尋的捷徑。
+    # 由於使用主鍵 (Primary Key) 搜尋資料庫是最常見的使用情境，
+    # 因此 Django 提供了一個用主鍵能夠精確搜尋到你要的資料的捷徑。
+    
     # 以下與 Question.objects.get(id=1) 是相同的。
     >>> Question.objects.get(pk=1)
-    <Question: What's up?>
+    <Question: 目前什麼情況?>
 
-    # 確認我們的自定方法有運作。
+    # 然後呼叫我們剛寫的函式方法來確認我們的自定方法有正常運作。
     >>> q = Question.objects.get(pk=1)
     >>> q.was_published_recently()
     True
 
-    # 給 Question 幾個 Choices。 這個 create 呼叫會構造一個新的
-    # Choice 物件，執行 INSERT 語句，將 choice 新增到一個
-    # 可用選項並回傳新的 Choice 物件集合。 Django 建立
-    # 用於儲存 ForeignKey 關係的 "另一面" 的集合
-    # (例如問題的選擇)，因而可以透過 API 進行存取。
+    # 接下來我們會為問題 (Question) 建立幾個不同的選擇 (Choices)。 
     >>> q = Question.objects.get(pk=1)
 
     # 顯示相關物件集合的所有 choices -- 到目前為止還沒有。
     >>> q.choice_set.all()
     <QuerySet []>
 
-    # 建立三個 choices。
+    # 然後接著將建立三個選項 (Choices)。我們會呼叫 create 函式方法來
+    # 構造一個新的 Choice 物件。它會執行 INSERT 語句，把選項 (choice)   
+    # 新增到一個可在問題 (Question) 中選用的選項 (Choice)，並回傳
+    # 新的 Choice 物件集合 (set)。Django 會建立用於儲存 ForeignKey 
+    # 關係的 "相對面" 的集合(例如問題的選擇)，所以可以透過 API 進行存取。
     >>> q.choice_set.create(choice_text='Not much', votes=0)
     <Choice: Not much>
     >>> q.choice_set.create(choice_text='The sky', votes=0)
     <Choice: The sky>
     >>> c = q.choice_set.create(choice_text='Just hacking again', votes=0)
 
-    # Choice 物件可以透過 API 存取其相關的 Question 物件。
+    # 這個 Choice 物件可以透過 API 存取其相關的 Question 物件。
     >>> c.question
     <Question: What's up?>
 
-    # 反之亦然：Question 物件可以存取 Choice 物件。
+    # 反之亦然； Question 物件可以存取 Choice 物件。
     >>> q.choice_set.all()
     <QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
     >>> q.choice_set.count()
     3
 
     # API 會根據您的需要自動遵循關係。
-    # 使用雙下劃線分隔關係。
+    # 使用雙底線分隔關係。
     # 這可以根據需要進行任意深度的工作；沒有限制。
     # 查詢今年 pub_date 為任何 Question 的所有 Choice
     # (重複使用我們上面建立的 'current_year' 變數).
@@ -901,7 +890,7 @@ polls/models.py[¶](#id5 "永久連結至程式")**
 
 閱讀
 [開啟關聯物件](https://docs.djangoproject.com/zh-hans/3.0/ref/models/relations/)
-文件可以獲取關於資料庫關聯的更多內容。想知道關於雙下劃線的更多用法，參見
+文件可以獲取關於資料庫關聯的更多內容。想知道關於雙底線的更多用法，參見
 [查找欄位](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/#field-lookups-intro)
 文件。資料庫 API 的所有細節可以在 [資料庫 API
 參考](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/)
@@ -912,31 +901,30 @@ polls/models.py[¶](#id5 "永久連結至程式")**
 
 設計哲學
 
-為你的員工或客戶產生一個用戶增加，修改和刪除內容的管理是一項缺乏創造性和乏味的工作。因此，Django
-全自動地根據模型建立管理界面。
+為你的員工或客戶建立一個用戶增加、修改和刪除內容的管理頁面是一項缺乏創造性和乏味的工作。因此， Django 將
+全自動地依據資料庫模型來建立管理界面。
 
-Django
-產生於一個公眾頁面和內容發佈者頁面完全分離的新聞類網站的開發過程中。網站管理人員使用管理系統來增加新聞、事件和體育時訊等，這些增加的內容被顯示在公眾頁面上。Django
-透過為網站管理人員建立統一的內容編輯界面解決了這個問題。
+Django 是誔生於一個使用者公開網頁和後台內容發佈者管理頁面完全分離的新聞類網站的開發過程中。網站的管理人員
+使用管理系統來增加新聞、事件和體育時訊內容等，這些增加的內容被顯示在對使用者的公開網頁上。而 Django 透過
+為網站管理人員建立統一的內容編輯界面來解決上述的問題。
 
-管理界面不是為了網站的開啟者，而是為管理者準備的。
+管理界面是為網站管理者所提供的，而不是為了網站的一般公開瀏覽的使用者。
 
 ### 建立一個管理員帳號[¶](#creating-an-admin-user "永久連結至標題")
 
-首先，我們得建立一個能登錄管理頁面的用戶。請執行下面的命令：
-
+首先，我們得建立一個能登入管理者的用戶頁面。請執行下面的命令：
 
     $ python manage.py createsuperuser
 
-鍵入你想要使用的使用者，然後按下 Enter 鍵：
+輸入你想要使用的網站管理者名稱 (例如 admin)，然後按下 Enter 鍵：
 
     Username: admin
 
-然後提示你輸入想要使用的郵件地址：
+然後系統會提示你輸入網站管理者所使用的郵件地址：
 
     Email address: admin@example.com
 
-最後一步是輸入密碼。你會被要求輸入兩次密碼，第二次的目的是為了確認第一次輸入的確實是你想要的密碼。
+最後一步是輸入管理者密碼。它會要求你輸入兩次密碼，第二次的目的是為了確認與第一次輸入密碼符合以確認這是你想要設定的密碼。
 
     Password: **********
     Password (again): *********
@@ -944,41 +932,38 @@ Django
 
 ### 啟動開發伺服器[¶](#start-the-development-server "永久連結至標題")
 
-Django
-的管理界面預設就是啟用的。讓我們啟動開發伺服器，看看它到底是什麼樣子。
+Django 的管理界面預設就是啟用的。讓我們啟動開發伺服器，看看它到底是什麼樣子。
 
 如果開發伺服器未啟動，用以下命令啟動它：
 
-
     $ python manage.py runserver
 
-現在，打開瀏覽器，轉到你本地域名稱的 "/admin/" 目錄， -- 例如
+現在，打開瀏覽器，指向到你本地網域名稱的 "/admin/" 目錄， -- 例如
 "[http://127.0.0.1:8000/admin/](http://127.0.0.1:8000/admin/)"
-。你應該會看見管理員登錄界面：
+。你應該會看見管理員登入界面：
 
 ***
 
 由於
 [翻譯功能](https://docs.djangoproject.com/zh-hans/3.0/topics/i18n/translation/)
-預設為打開狀態，因此如果您設定了 [`LANGUAGE_CODE`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-LANGUAGE_CODE)，則登錄畫面將會以指定的語言顯示(如果
-Django 有 適當的翻譯)。
+預設為打開狀態，因此如果您設定了 [`LANGUAGE_CODE`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-LANGUAGE_CODE)，則登入畫面將會以指定的語言顯示(如果
+Django 有 適當的翻譯)。我們在此章節最前面已提及過，在台灣台北時區，請設定 `TIME_ZONE = 'Asia/Taipei'` 以及 `LANGUAGE_CODE = 'zh-Hant'`。
 
 ### 進入管理網站頁面[¶](#enter-the-admin-site "永久連結至標題")
 
-現在，試著使用你在上一步中建立的超級用戶來登錄。然後你將會看到 Django
-管理頁面的索引頁：
+現在，試著使用你在上一步中建立的管理者用戶來登入。然後你將會看到 Django 管理頁面的索引頁：
 
 ***
 
-你將會看到幾種可編輯的內容：群組和使用者。它們是由
+你將會看到幾種可編輯的內容：使用者和群組。它們是由
 [`django.contrib.auth`](https://docs.djangoproject.com/zh-hans/3.0/topics/auth/#module-django.contrib.auth "django.contrib.auth: Django's authentication framework.")
-提供的，這是 Django 開發的認證框架。
+提供的，這是 Django 開發的認證授權框架。
 
 ### 向管理頁面中加入投票應用程式[¶](#make-the-poll-app-modifiable-in-the-admin "永久連結至標題")
 
-但是我們的投票應用程式在哪呢？它沒在索引頁面裡顯示。
+但是我們的投票應用程式在哪呢？它沒有顯示在索引頁面裡。
 
-只需要再做一件事：我們得告訴管理員，問題 `Question` 物件需要一個管理接口。打開 `polls/admin.py` 文件，把它編輯成下面這樣：
+只需要再做一件事：我們得告訴管理員，問題 `Question` 物件需要一個管理介面。打開 `polls/admin.py` 文件，輸入下列的程式碼，將它編輯成下面這樣：
 
 polls/admin.py[¶](#id6 "永久連結至程式")**
 
@@ -990,52 +975,46 @@ polls/admin.py[¶](#id6 "永久連結至程式")**
 
 ### 體驗便捷的管理功能[¶](#explore-the-free-admin-functionality "永久連結至標題")
 
-現在我們向管理頁面注冊了問題 `Question`
-類別。Django 知道它應該被顯示在索引頁裡：
+現在我們對管理頁面注冊了問題 `Question` 類別。Django 知道它應該被顯示在索引頁裡：
 
 ***
 
-點擊 "Questions" 。現在看到是問題 "Questions" 物件的欄表 "change list"
+點選 "Questions" 。現在看到是問題 "Questions" 物件的列表 "change list"
 。這個界面會顯示所有資料庫裡的問題 Question
-物件，你可以選擇一個來修改。這裡現在有我們在上一部分中建立的 “What's
-up?” 問題。
+物件，你可以選擇一個來修改。現在這裡有我們在前面建立的 “現在什麼情況?” 這個問題。
 
 ***
 
-點擊 “What's up?” 來編輯這個問題（Question）物件：
+點選 “What's up?” 來編輯這個問題（Question）物件：
 
 ***
 
 注意事項：
 
--   這個表單是從問題 `Question`
-    模型中自動產生的
+-   這個表單是從問題 `Question` 模型中自動產生的
 -   不同的欄位類型（日期時間欄位 [`DateTimeField`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField "django.db.models.DateTimeField")
     、字串欄位 [`CharField`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.CharField "django.db.models.CharField")）會產生對應的
     HTML 輸入控件。每個類型的欄位都知道它們該如何在管理頁面裡顯示自己。
 -   每個日期時間欄位 [`DateTimeField`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField "django.db.models.DateTimeField")
     都有 JavaScript
-    寫的快捷按鈕。日期有轉到今天（Today）的快捷按鈕和一個彈出式日曆界面。時間有設為現在（Now）的快捷按鈕和一個欄出常用時間的方便的彈出式欄表。
+    寫的快捷按鈕。日期有顯示成今天（Today）的快捷按鈕和一個彈出式日曆界面。時間有設為現在（Now）的快捷按鈕和一個方便的列出常用時間的彈出式列表。
 
 頁面的底部提供了幾個選項：
 
--   儲存（Save） - 儲存改變，然後回傳物件欄表。
+-   儲存（Save）- 儲存改變，然後回傳物件欄表。
 -   儲存並繼續編輯（Save and continue editing） -
     儲存改變，然後重新載入當前物件的修改界面。
 -   儲存並新增（Save and add another） -
     儲存改變，然後增加一個新的空物件並載入修改界面。
--   刪除（Delete） - 顯示一個確認刪除頁面。
+-   刪除（Delete）- 顯示一個確認刪除頁面。
 
 如果顯示的 “發佈日期(Date Published)” 和你在 [教學
 1](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)
 裡建立它們的時間不一致，這意味著你可能沒有正確的設定 [`TIME_ZONE`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TIME_ZONE)
 。改變設定，然後重新載入頁面看看是否顯示了正確的值。
 
-透過點擊 “今天(Today)” 和 “現在(Now)” 按鈕改變 “發佈日期(Date
-Published)”。然後點擊 “儲存並繼續編輯(Save and add
-another)”按鈕。然後點擊右上角的
-“歷史(History)”按鈕。你會看到一個列出了所有透過 Django
-管理頁面對當前物件進行的改變的頁面，其中列出了時間戳和進行修改操作的使用者：
+透過點選 “今天(Today)” 和 “現在(Now)” 按鈕改變 “發佈日期 (Date Published)”。然後點選 “儲存並繼續編輯 (Save and add another)” 按鈕。然後點選右上角的
+“歷史(History)”按鈕。你會看到一個列出了所有透過 Django 管理頁面對當前物件進行的改變的頁面，其中列出了時間戳記和進行修改操作的使用者：
 
 ***
 

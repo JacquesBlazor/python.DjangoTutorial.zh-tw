@@ -508,9 +508,9 @@ Principle](https://docs.djangoproject.com/zh-hans/3.0/misc/design-philosophies/#
 的遷移程式是由你的模型文件自動產生的，它本質上是個歷史記錄，Django
 可以用它來進行資料庫的滾動更新，透過這種方式使其能夠和當前的模型相符合。
 
-在這個投票應用程式中，需要建立兩個模型：問題 `Question` 和選項 `Choice`。`Question`
-模型包括問題描述和發佈時間。`Choice`
-模型有兩個欄位，選項描述和當前得票數。每個選項屬於一個問題。
+在這個投票應用程式中，需要建立兩個模型：問題 `Question` 和選項 `Choice`。問題 `Question`
+模型包括問題描述 (question_text) 和發佈時間 (pub_date)。選項 `Choice`
+模型有兩個欄位，選項描述 (choice_text) 和當前得票數 (votes)。每個選項 `Choice` 屬於一個問題 `Question`。
 
 這些概念可以透過一個 Python 類別來描述。按照下面的例子來編輯
 `polls/models.py` 文件：
@@ -520,15 +520,15 @@ polls/models.py[¶](#id2 "永久連結至程式")**
     from django.db import models
 
 
-    class Question(models.Model):
-        question_text = models.CharField(max_length=200)
-        pub_date = models.DateTimeField('date published')
+    class Question(models.Model):  # 問題模型
+        question_text = models.CharField(max_length=200)  # 問題描述
+        pub_date = models.DateTimeField('date published')  # 發佈時間
 
 
-    class Choice(models.Model):
+    class Choice(models.Model):  # 選項模型
         question = models.ForeignKey(Question, on_delete=models.CASCADE)
-        choice_text = models.CharField(max_length=200)
-        votes = models.IntegerField(default=0)
+        choice_text = models.CharField(max_length=200)  # 選項描述
+        votes = models.IntegerField(default=0)  # 當前得票數
 
 每個模型被表示為 [`django.db.models.Model`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/instances/#django.db.models.Model "django.db.models.Model")
 類別的子類別。每個模型有許多類別變數，它們都表示模型裡的一個資料庫欄位。

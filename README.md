@@ -1723,7 +1723,7 @@ polls/views.py[¶](#id6 "永久連結至程式")**
         return HttpResponse(template.render(context, request))
 
 上述程式的作用是，載入 `polls/index.html`
-範本文件，並且向它傳遞一個上下文(context)。這個上下文是一個字典，它將範本內的變數映射為
+範本文件，並且向它傳遞一個內容(context)。這個內容是一個字典，它將範本內的變數映射為
 Python 物件。
 
 用你的瀏覽器開啟 "/polls/" ，你將會看見一個無序清單，列出了我們在
@@ -1733,7 +1733,7 @@ Python 物件。
 
 ### 一個快捷函數： [`render()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.render "django.shortcuts.render")[¶](#a-shortcut-render "永久連結至標題")
 
-載入範本、填入上下文再回傳由它產生的 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponse "django.http.HttpResponse")
+載入範本、填入內容再回傳由它產生的 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponse "django.http.HttpResponse")
 物件是一個非常常用的操作流程。於是 Django
 提供了一個快捷函數，我們用它來重寫 `index()` 視圖：
 
@@ -1756,7 +1756,7 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 `HttpResponse` ）。
 
 此 [`render()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.render "django.shortcuts.render")
-函數將對網頁的請求物件做為其第一個參數、一個範本名稱做為第二個參數，以及一個字典做為選擇性的第三個參數。它會將你所傳遞的上下文實現在範本後回傳一個
+函數將對網頁的請求物件做為其第一個參數、一個範本名稱做為第二個參數，以及一個字典做為選擇性的第三個參數。它會將你所傳遞的內容實現在範本後回傳一個
 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponse "django.http.HttpResponse")
 物件。
 
@@ -1841,7 +1841,7 @@ polls/views.py[¶](#id10 "永久連結至程式")**
 ----------------------------------------------------------
 
 回過頭去看看我們的 `detail()`
-視圖。它向範本傳遞了上下文變數 `question` 。下面是 `polls/detail.html` 範本裡正式的程式：
+視圖。它向範本傳遞了內容變數 `question` 。下面是 `polls/detail.html` 範本裡正式的程式：
 
 polls/templates/polls/detail.html[¶](#id11 "永久連結至程式")**
 
@@ -1861,9 +1861,8 @@ Django 嘗試對 `question`
 obj[int] 操作）。
 
 方法（函數）呼叫發生在 [`{% for %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
-循環中：`question.choice_set.all`
-被解釋為 Python 程式 `question.choice_set.all()`，它會回傳一個可迭代的 `Choice`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
-標籤內部使用。
+迴圈中：`question.choice_set.all`
+被解釋為 Python 程式 `question.choice_set.all()`，它會回傳一個可迭代的 [`Choice`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)物件，且該物件可以在[`{% for %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)標籤內部使用。
 
 查看
 [範本指南](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/)

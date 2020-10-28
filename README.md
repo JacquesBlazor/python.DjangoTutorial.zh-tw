@@ -1905,7 +1905,7 @@ URL 呢？舉個例子，`polls` 應用有
 `{% url %}` 標籤到底對應哪一個應用的
 URL 呢？
 
-答案是：在根 URLconf 中增加命名空間。在 `polls/urls.py` 文件中稍作修改，加上 `app_name` 設定命名空間：
+答案是在 URLconf 中增加命名空間。在 `polls/urls.py` 文件中稍作修改，加上 `app_name` 設定命名空間：
 
 polls/urls.py[¶](#id12 "永久連結至程式")**
 

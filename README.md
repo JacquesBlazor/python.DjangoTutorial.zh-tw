@@ -1566,7 +1566,7 @@ polls/views.py[¶](#id2 "永久連結至程式")**
         return HttpResponse("You're voting on question %s." % question_id)
 
 把這些新視圖增加進 `polls.urls`
-模組裡，只要增加幾個 [`url()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.conf.urls.url "django.conf.urls.url")
+模組裡，只要增加幾個 [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.conf.urls.url "django.conf.urls.url")
 函數呼叫就行：
 
 polls/urls.py[¶](#id3 "永久連結至程式")**
@@ -1860,7 +1860,7 @@ polls/templates/polls/detail.html[¶](#id11 "永久連結至程式")**
 [範本指南](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/)
 可以了解關於範本的更多資訊。
 
-去除範本中用程式直接編寫的 URL[¶](#removing-hardcoded-urls-in-templates "永久連結至標題")
+在範本中移除直接使用程式編寫的 URL[¶](#removing-hardcoded-urls-in-templates "永久連結至標題")
 -----------------------------------------------------------------------------------------
 
 還記得嗎，我們在 `polls/index.html`
@@ -1869,7 +1869,7 @@ polls/templates/polls/detail.html[¶](#id11 "永久連結至程式")**
     <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
 
 問題在於，這樣用程式直接編寫成緊密耦合的超連結，對於一個包含很多應用的專案來說，修改這樣的
-URLs 是十分困難的。不過，由於你在 `polls.urls` 的 [`url()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.conf.urls.url "django.conf.urls.url")
+URLs 是十分困難的。不過，由於你在 `polls.urls` 的 [`path()`](https://docs.djangoproject.com/en/3.1/ref/urls/#django.urls.path "django.conf.urls.path")
 函數中透過 name 參數為 URL 定義了名字，你可以使用 `{% url %}` 標籤替代它：
 
     <li><a href="{% url 'detail' question.id %}">{{ question.question_text }}</a></li>

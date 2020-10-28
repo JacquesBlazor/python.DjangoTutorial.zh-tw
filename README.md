@@ -1819,14 +1819,12 @@ polls/views.py[¶](#id10 "永久連結至程式")**
 
 設計哲學
 
-為什麼我們使用輔助函數 [`get_object_or_404()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.get_object_or_404 "django.shortcuts.get_object_or_404")
-而不是自己擷取 [`ObjectDoesNotExist`](https://docs.djangoproject.com/zh-hans/3.0/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist "django.core.exceptions.ObjectDoesNotExist")
-異常呢？還有，為什麼模型 API 不直接拋出 [`ObjectDoesNotExist`](https://docs.djangoproject.com/zh-hans/3.0/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist "django.core.exceptions.ObjectDoesNotExist")
-而是拋出 [`Http404`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/views/#django.http.Http404 "django.http.Http404")
-呢？
+為什麼我們要使用輔助函數 [`get_object_or_404()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.get_object_or_404 "django.shortcuts.get_object_or_404")
+而不是自己去擷取 [`ObjectDoesNotExist`](https://docs.djangoproject.com/zh-hans/3.0/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist "django.core.exceptions.ObjectDoesNotExist")
+異常呢？還有，為什麼資料模型的 API 不直接拋出 [`ObjectDoesNotExist`](https://docs.djangoproject.com/zh-hans/3.0/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist "django.core.exceptions.ObjectDoesNotExist")
+而是拋出 [`Http404`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/views/#django.http.Http404 "django.http.Http404")異常呢？
 
-因為那樣會將模型層耦合到視圖層。在 Django
-的首要設計目標之一就是保持鬆散耦合。有些受控管的耦合則於
+因為如果那樣做就會把資料模型層直接耦合到視圖層。在 Django 的首要設計目標之一就是保持鬆散耦合。有部份受控管的耦合則於
 [`django.shortcuts`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#module-django.shortcuts "django.shortcuts: Convenience shortcuts that span multiple levels of Django's MVC stack.")
 模組中採用。
 
@@ -1840,8 +1838,7 @@ polls/views.py[¶](#id10 "永久連結至程式")**
 使用範本系統[¶](#use-the-template-system "永久連結至標題")
 ----------------------------------------------------------
 
-回過頭去看看我們的 `detail()`
-視圖。它向範本傳遞了內容變數 `question` 。下面是 `polls/detail.html` 範本裡正式的程式：
+回過頭去看看我們的 `detail()` 視圖。它向範本傳遞了內容變數 `question` 。下面是 `polls/detail.html` 範本裡正式的程式：
 
 polls/templates/polls/detail.html[¶](#id11 "永久連結至程式")**
 
@@ -1852,17 +1849,12 @@ polls/templates/polls/detail.html[¶](#id11 "永久連結至程式")**
     {% endfor %}
     </ul>
 
-在範本系統中使用點符號來存取變數的屬性。在範例
-`{{ question.question_text }}` 中，首先
-Django 嘗試對 `question`
-物件使用字典尋找（也就是使用 obj.get(str)
-作業），如果失敗了就嘗試屬性尋找（也就是 obj.str
-作業），結果是成功了。如果這一作業也失敗的話，將會嘗試清單尋找（也就是
-obj[int] 操作）。
+在範本系統中使用點符號來存取變數的屬性。在範例 `{{ question.question_text }}` 中，首先 Django 嘗試對 `question`
+物件使用字典尋找（也就是使用 obj.get(str) 作業），如果失敗了就嘗試屬性尋找（也就是 obj.str 作業），結果是成功了。
+如果這一作業也失敗的話，將會嘗試清單尋找（也就是 obj[int] 操作）。
 
-方法（函數）呼叫發生在 [`{% for %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
-迴圈中：`question.choice_set.all`
-被解釋為 Python 程式 `question.choice_set.all()`，它會回傳一個可迭代的 [`Choice`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)物件，且該物件可以在[`{% for %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)標籤內部使用。
+方法（函數）呼叫在 [`{% for %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
+迴圈中發生。這段 `question.choice_set.all` 會被解釋為 Python 程式： `question.choice_set.all()`，它會回傳一個可迭代的 [`Choice`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)物件，且該物件可以在[`{% for %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)標籤內部使用。
 
 查看
 [範本指南](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/)

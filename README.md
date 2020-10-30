@@ -1979,18 +1979,13 @@ polls/templates/polls/detail.html[¶](#id1 "永久連結至程式")**
 
 -   上面的範本在每個問題 (Question) 的所有選項 (choice) 前增加一個圓形的單選選項按鈕。
     在表單中每個單選選項按鈕的 `value` 屬性是對應到其各別選項 (Choice) 的 ID。每個單選選項按鈕的 `name` 設定為明確的字串值 `"choice"`。
-    這樣的用意是當有人選擇一個單選按鈕並提交表單提交時，它將發送一個你所選擇的選項 (Choice) 的 ID。這是 HTML 表單的基本概念。
--   我們設定表單的 `         action     `，並設定
-    `         method="post"     `
-    ）是非常重要的，因為這個提交表單的行為會改變伺服器端的資料。無論何時，當你需要建立一個改變伺服器端資料的表單時，使用
-    `method="post"` 指示 [`for`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for)
-    標籤已經循環多少次。
--   由於我們建立一個 POST
-    表單（它具有修改資料的作用），所以我們需要小心跨網站請求偽造。這就要感謝由於
-    Django
-    內建了一個非常有用的防禦系統，因此你並不需要太過擔心。簡而言之，所有針對內部
-    URL 的 POST 表單都應該使用 [`{% csrf_token %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-csrf_token)
-    範本標籤。
+    這樣的用意是當有人選擇一個單選按鈕並提交表單提交時，它將發送一個那個人所選擇的選項 (Choice) 的 ID。這是 HTML 表單的基本概念。
+-   我們設定表單的 `action`，並設定 `method="post"` 是非常重要的，因為這個提交表單的行為會改變伺服器端的資料。總而言之，當你需要建立一個
+    改變伺服器端資料的表單時，使用 `method="post"` 來指明
+    [`for`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for) 標籤已經循環過了多少次。
+-   由於我們建立一個 POST 表單（它具有修改資料的作用），所以我們需要小心跨網站請求偽造。這就要感謝由於 Django 內建了一個非常有用的防禦系統，
+    因此你並不需要太過擔心。簡而言之，所有針對內部 URL 的 POST 表單都應該使用
+    [`{% csrf_token %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-csrf_token) 範本標籤。
 
 現在，讓我們來建立一個 Django 視圖來處理提交的資料。記住，在 [教學第 3
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)

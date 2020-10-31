@@ -248,7 +248,7 @@ mysite/news/urls.py[¶](#id4 "永久連結至程式")**
 404 視圖。) 這個過程非常快，因為路徑在載入時就編譯成了正規表達式。
 
 一旦有 URL 路徑比對成功，Django
-會調用相應的視圖函數。每個視圖函數會接受一個請求物件——包含請求元資訊——以及在比對式中獲取的參數值。
+會調用相應的視圖函數。每個視圖函數會接受一個請求物件——包含請求元資訊——以及在比對式中取得的參數值。
 
 例如，當用戶請求了這樣的 URL "/articles/2005/05/39323/"，Django 會調用
 `news.views.article_detail(request, year=2005, month=5, pk=39323)`。
@@ -261,7 +261,7 @@ mysite/news/urls.py[¶](#id4 "永久連結至程式")**
 物件，或者是拋出 [`Http404`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/views/#django.http.Http404 "django.http.Http404")
 這類異常。至於執行過程中的其它的動作則由你決定。
 
-通常來說，一個視圖的工作就是：從參數獲取資料，裝載一個範本，然後將根據獲取的資料對範本進行渲染。下面是一個
+通常來說，一個視圖的工作就是：從參數取得資料，裝載一個範本，然後將根據取得的資料對範本進行渲染。下面是一個
 `year_archive` 的視圖樣例：
 
 mysite/news/views.py[¶](#id5 "永久連結至程式")**
@@ -395,10 +395,9 @@ Django?](https://docs.djangoproject.com/zh-hans/3.0/faq/install/#faq-python-vers
 
 最新版本的 Python 可以透過開啟
 [https://www.python.org/downloads/](https://www.python.org/downloads/)
-或者操作系統的套件管理工具獲取。
+或者操作系統的套件管理工具取得。
 
-你可以在你的 shell 中輸入 `python`{.docutils .literal .notranslate}
-來確定你是否安裝過 Python；你看到的可能是像這樣子的:
+你可以在你的 shell 中輸入 `python` 來確定你是否安裝過 Python；你看到的可能是像這樣子的:
 
     Python 3.x.y
     [GCC 4.x] on linux
@@ -439,10 +438,9 @@ Django，並且他們可能不會在官方發布的穩定版中出現。
 ------------------------------------
 
 若要驗證 Django 是否能被 Python 識別，可以在 shell 中輸入
-`python`{.docutils .literal .notranslate}。 然後在 Python
-提示符下，嘗試導入 Django：
+`python`。 然後在 Python 的提示符號下，嘗試匯入 Django 套件：
 
-``` {.literal-block}
+``` 
 >>> import django
 >>> print(django.get_version())
 3.0
@@ -450,11 +448,10 @@ Django，並且他們可能不會在官方發布的穩定版中出現。
 
 當然了，你也可能安裝的是其它版本的 Django。
 
-搞定！[¶](#that-s-it "永久連結至標題")
+完成啦！[¶](#that-s-it "永久連結至標題")
 --------------------------------------
 
-搞定，現在你可以 [move onto the
-tutorial](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)。
+一切搞定啦，現在你可以 [前往 Django 的教學](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)。
 
 [** 初識
 Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
@@ -551,13 +548,12 @@ Django
     一個讓你用各種方式管理 Django 專案的命令列工具。你可以閱讀
     [django-admin and
     manage.py](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/)
-    獲取所有 `manage.py` 的細節。
+    取得所有 `manage.py` 的細節。
 -   裡面一層的 `mysite/`
     目錄套件含你的專案，它是一個純 Python
     套件。它的名字就是當你引用它內部任何東西時需要用到的 Python 套件名。
     (比如 `mysite.urls`).
--   `mysite/__init__.py`{.file .docutils .literal
-    .notranslate}：一個空文件，告訴 Python 這個目錄應該被認為是一個
+-   `mysite/__init__.py`：一個空文件，告訴 Python 這個目錄應該被認為是一個
     Python 套件。如果你是 Python 初學者，閱讀官方文件中的
     [更多關於套件的知識](https://docs.python.org/3/tutorial/modules.html#tut-packages "(在 Python v3.8)")。
 -   `mysite/settings.py`：Django
@@ -567,14 +563,12 @@ Django
 -   `mysite/urls.py`：Django
     專案的 URL 宣告，就像你網站的“目錄”。閱讀
     [URL調度器](https://docs.djangoproject.com/zh-hans/3.0/topics/http/urls/)
-    文件來獲取更多關於 URL 的內容。
--   `mysite/asgi.py`{.file .docutils .literal
-    .notranslate}：作為你的專案的執行在 ASGI
+    文件來取得更多關於 URL 的內容。
+-   `mysite/asgi.py`：作為你的專案的執行在 ASGI
     相容的Web伺服器上的入口。閱讀 [如何使用 WSGI
     進行部署](https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/wsgi/)
     了解更多細節。
--   `mysite/wsgi.py`{.file .docutils .literal
-    .notranslate}：作為你的專案的執行在 WSGI
+-   `mysite/wsgi.py`：作為你的專案的執行在 WSGI
     相容的Web伺服器上的入口。閱讀 [如何使用 WSGI
     進行部署](https://docs.djangoproject.com/zh-hans/3.0/howto/deployment/wsgi/)
     了解更多細節。
@@ -582,12 +576,7 @@ Django
 用於開發的簡易伺服器[¶](#the-development-server "永久連結至標題")
 -----------------------------------------------------------------
 
-讓我們來確認一下你的 Django
-專案是否真的建立成功了。如果你的當前目錄不是外層的 `mysite`{.file
-.docutils .literal .notranslate}
-目錄的話，請切換到此目錄，然後執行下面的命令：
-
-
+接下來我們來確認一下你的 Django 專案是否真的建立成功了。如果你的當前目錄不是最外層的 `mysite` 目錄的話，請用 `cd ` 指令切換到此目錄，然後執行下面的命令：
 
     $ python manage.py runserver
 
@@ -666,20 +655,13 @@ Vagrant 或想要向網絡上的其它電腦展示你的成果時很有用），
 
 你的應用程式可以存放在任何 [Python
 path](https://docs.python.org/3/tutorial/modules.html#tut-searchpath "(在 Python v3.8)")
-中定義的路徑。在這個教學中，我們將在你的 `manage.py`{.file .docutils
-.literal .notranslate}
-同階層目錄下建立投票應用程式。這樣它就可以作為頂層模組匯入，而不是
-`mysite` 的子模組。
+中定義的路徑。在這個教學中，我們將在你的 `manage.py` 同階層目錄下建立投票應用程式。這樣它就可以作為頂層模組匯入，而不是 `mysite` 的子模組。
 
-請確定你現在處於 `manage.py`
-所在的目錄下，然後執行這行命令來建立一個應用程式：
-
-
+請確定你現在位於 `manage.py` 所在的目錄下，然後執行下列這行命令來建立一個名為 polls (投票) 的應用程式：
 
     $ python manage.py startapp polls
 
-這將會建立一個 `polls`
-目錄，它的目錄結構大致如下：
+這行指令會為你建立一個 `polls` 目錄，它的目錄結構大致如下：
 
     polls/
         __init__.py
@@ -691,7 +673,7 @@ path](https://docs.python.org/3/tutorial/modules.html#tut-searchpath "(在 Pytho
         tests.py
         views.py
 
-這個目錄結構套件括了投票應用程式的全部內容。
+這個目錄結構包含了這個 polls 投票應用程式套件的全部內容。
 
 編寫第一個視圖[¶](#write-your-first-view "永久連結至標題")
 ----------------------------------------------------------
@@ -706,8 +688,7 @@ polls/views.py[¶](#id1 "永久連結至程式")**
     def index(request):
         return HttpResponse("Hello, world. You're at the polls index.")
 
-這是 Django 中最簡單的視圖。如果想看見效果，我們需要將一個 URL
-對映到它——這就是我們需要 URLconf 的原因了。
+這是 Django 中最簡單的視圖。如果想看見效果，我們需要將一個 URL 對映到它 —— 這就是我們需要 URLconf 的原因了。
 
 為了建立 URLconf，請在 polls 目錄裡新建一個 `urls.py` 文件。你的應用程式目錄現在看起來應該是這樣：
 
@@ -1354,7 +1335,7 @@ polls/models.py[¶](#id5 "永久連結至程式")**
 
 閱讀
 [開啟關聯物件](https://docs.djangoproject.com/zh-hans/3.0/ref/models/relations/)
-文件可以獲取關於資料庫關聯的更多內容。想知道關於雙底線的更多用法，參見
+文件可以取得關於資料庫關聯的更多內容。想知道關於雙底線的更多用法，參見
 [查找欄位](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/#field-lookups-intro)
 文件。資料庫 API 的所有細節可以在 [資料庫 API
 參考](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/)
@@ -2861,59 +2842,30 @@ Django 中，我們把這些文件統稱為“靜態文件”。
 
 對於小專案來說，這個問題沒什麼大不了的，因為你可以把這些靜態文件隨便放在哪，只要服務程式能夠找到它們就行。然而在大專案—特別是由好幾個應用組成的大專案—中，處理不同應用所需要的靜態文件的工作就顯得有點麻煩了。
 
-這就是 `django.contrib.staticfiles`{.docutils .literal .notranslate}
-存在的意義：它將各個應用的靜態文件（和一些你指明的目錄裡的文件）統一收集起來，這樣一來，在生產環境中，這些文件就會集中在一個便於分發的地方。
+這就是 `django.contrib.staticfiles` 存在的意義：它將各個應用的靜態文件（和一些你指明的目錄裡的文件）統一收集起來，這樣一來，在生產環境中，這些文件就會集中在一個便於分發的地方。
 
-從哪裡取得協助：
-
-如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
-Help\</faq/help\> 的小節。
-
-自定義 *應用* 的界面和風格[¶](#customize-your-app-s-look-and-feel "永久連結至標題")
+自定義 *應用程式* 的界面和風格[¶](#customize-your-app-s-look-and-feel "永久連結至標題")
 -----------------------------------------------------------------------------------
 
-首先，在你的 `polls`{.docutils .literal .notranslate} 目錄下建立一個名為
-`static`{.docutils .literal .notranslate} 的目錄。Django
-將在該目錄下尋找靜態文件，這種方式和 Diango 在
-`polls/templates/`{.docutils .literal .notranslate} 目錄下尋找 template
-的方式類似。
+首先，在你的 `polls` 目錄下建立一個名為 `static` 的目錄。Django 將在該目錄下尋找靜態文件，這種方式和 Diango 在
+`polls/templates/` 目錄下尋找 template 的方式類似。
 
-Django 的 [`STATICFILES_FINDERS`{.xref .std .std-setting .docutils
-.literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-STATICFILES_FINDERS)
-設定包含了一系列的尋找器，它們知道去哪裡找到 static
-文件。`AppDirectoriesFinder`{.docutils .literal .notranslate}
-是預設尋找器中的一個，它會在每個 [`INSTALLED_APPS`{.xref .std
-.std-setting .docutils .literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
-中指定的應用的子文件中尋找名稱為 `static`{.docutils .literal
-.notranslate} 的特定文件夾，就像我們在 `polls`{.docutils .literal
-.notranslate}
-中剛建立的那個一樣。管理管理採用相同的目錄結構管理它的靜態文件。
+Django 的 [`STATICFILES_FINDERS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-STATICFILES_FINDERS)
+設定包含了一系列的尋找器，它們知道去哪裡找到 static 文件。`AppDirectoriesFinder` 是預設尋找器中的一個，它會在每個 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
+中指定的應用的子文件中尋找名稱為 `static` 的特定文件夾，就像我們在 `polls` 中剛建立的那個一樣。管理管理採用相同的目錄結構管理它的靜態文件。
 
-在你剛建立的 `static`{.docutils .literal .notranslate}
-文件夾中建立一個名為 `polls`{.docutils .literal .notranslate}
-的文件夾，再在 `polls`{.docutils .literal .notranslate}
-文件夾中建立一個名為 `style.css`{.docutils .literal .notranslate}
-的文件。換句話說，你的樣式表路徑應是
-`polls/static/polls/style.css`{.docutils .literal .notranslate}。因為
-`AppDirectoriesFinder`{.docutils .literal .notranslate} 的存在，你可以在
-Django 中以 `polls/style.css`{.docutils .literal .notranslate}
-的形式引用此文件，類似你引用範本路徑的方式。
+在你剛建立的 `static` 文件夾中建立一個名為 `polls` 的文件夾，再在 `polls` 文件夾中建立一個名為 `style.css` 的文件。換句話說，你的樣式表路徑應是
+`polls/static/polls/style.css`。因為 `AppDirectoriesFinder` 的存在，你可以在 Django 中以 `polls/style.css` 的形式引用此文件，類似你引用範本路徑的方式。
 
 靜態文件命名空間
 
 雖然我們 *可以* 像管理範本文件一樣，把 static 文件直接放入
-`polls/static`{.docutils .literal .notranslate} （而不是建立另一個名為
-`polls`{.docutils .literal .notranslate}
-的子文件夾），不過這實際上是一個很蠢的做法。Django
-只會使用第一個找到的靜態文件。如果你在 *其它*
-應用中有一個相同名字的靜態文件，Django 將無法區分它們。我們需要指引
-Django 選擇正確的靜態文件，而最好的方式就是把它們放入各自的 *命名空間*
-。也就是把這些靜態文件放入 *另一個* 與應用名相同的目錄中。
+`polls/static`（而不是建立另一個名為 `polls` 的子文件夾），不過這實際上是一個很蠢的做法。Django
+只會使用第一個找到的靜態文件。如果你在 *其它* 應用中有一個相同名字的靜態文件，Django 將無法區分它們。
+我們需要引導 Django 選擇正確的靜態文件，而最好的方式就是把它們放入各自的 *命名空間*。
+也就是把這些靜態文件放入 *另一個* 與應用名相同的目錄中。
 
-將以下程式放入樣式表(`polls/static/polls/style.css`{.docutils .literal
-.notranslate})：
+將以下程式放入樣式表(`polls/static/polls/style.css`)：
 
 polls/static/polls/style.css[¶](#id1 "永久連結至程式")**
 
@@ -2921,8 +2873,7 @@ polls/static/polls/style.css[¶](#id1 "永久連結至程式")**
         color: green;
     }
 
-下一步，在 `polls/templates/polls/index.html`{.docutils .literal
-.notranslate} 的文件頭增加以下內容：
+下一步，在 `polls/templates/polls/index.html` 的文件頭增加以下內容：
 
 polls/templates/polls/index.html[¶](#id2 "永久連結至程式")**
 
@@ -2930,32 +2881,24 @@ polls/templates/polls/index.html[¶](#id2 "永久連結至程式")**
 
     <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
-`{% static %}`{.docutils .literal .notranslate}
-範本標籤會產生靜態文件的絕對路徑。
+`{% static %}` 範本標籤會產生靜態文件的絕對路徑。
 
 這就是你開發所需要做的所有事情了。
 
-啟動伺服器(如果它正在執行中，重新啟動一次):
+啟動伺服器(如果它正在執行中，請關掉它然後再重新啟動一次):
 
     $ python manage.py runserver
 
-重新載入\`\`http://localhost:8000/polls/\`\`
-，你會發現有問題的連結是綠色的 (這是Django自己的問題標注方式)
-，意思是你追加的樣式表起作用了。
+重新載入`http://localhost:8000/polls/`，你會發現有問題的連結是綠色的 (這是Django自己的問題標注方式)，意思是你追加的樣式表開始有作用了。
 
 增加一個背景圖[¶](#adding-a-background-image "永久連結至標題")
 --------------------------------------------------------------
 
 接著，我們會建立一個用於存在圖像的目錄。在
-`polls/static/polls`{.docutils .literal .notranslate} 目錄下建立一個名為
-`images`{.docutils .literal .notranslate}
-的子目錄。在這個目錄中，放一張名為 `background.gif`{.docutils .literal
-.notranslate} 的圖片。換言之，在目錄
-`polls/static/polls/images/background.gif`{.docutils .literal
-.notranslate} 中放一張圖片。
+`polls/static/polls` 目錄下建立一個名為 `images` 的子目錄。在這個目錄中，放一張名為 `background.gif` 的圖片。換言之，在目錄
+`polls/static/polls/images/background.gif` 中放一張圖片。
 
-隨後，在你的樣式表（`polls/static/polls/style.css`{.docutils .literal
-.notranslate}）中增加：
+隨後，在你的樣式表（`polls/static/polls/style.css`）中增加：
 
 polls/static/polls/style.css[¶](#id3 "永久連結至程式")**
 
@@ -2963,58 +2906,41 @@ polls/static/polls/style.css[¶](#id3 "永久連結至程式")**
         background: white url("images/background.gif") no-repeat;
     }
 
-瀏覽器重載 `http://localhost:8000/polls/`{.docutils .literal
-.notranslate}，你將在螢幕的左上角見到這張背景圖。
+瀏覽器重載 `http://localhost:8000/polls/`，你將在螢幕的左上角見到這張背景圖。
 
 警告
 
-當然，`{% static %}`{.docutils .literal .notranslate}
-範本標籤在靜態文件（例如樣式表）中是不可用的，因為它們不是由 Django
-產生的。你仍需要使用 *相對路徑*
-的方式在你的靜態文件之間互相引用。這樣之後，你就可以任意改變
-`` STATIC_URL`（由 :ttag:`static ``{.xref .std .std-setting .docutils
-.literal .notranslate} 範本標籤用於產生
-URL），而無需修改大量的靜態文件。
+當然，`{% static %}`範本標籤在靜態文件（例如樣式表）中是不可用的，因為它們不是由 Django
+產生的。你仍需要使用 *相對路徑* 的方式在你的靜態文件之間互相引用。這樣之後，你就可以任意改變
+`` STATIC_URL`（由 :ttag:`static `` 範本標籤用於產生 URL），而無需修改大量的靜態文件。
 
 這些只是 **基礎** 。更多關於設定和框架的資料，參考
-[靜態文件解惑](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/)
-和
-[靜態文件指南](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/staticfiles/)。[部署靜態文件](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/deployment/)
+[靜態文件解惑](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/)和
+[靜態文件指南](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/staticfiles/)。
+[部署靜態文件](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/deployment/)
 介紹了如何在真實伺服器上使用靜態文件。
 
-當你熟悉靜態文件後，閱讀 [此教學的第 7
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+當你熟悉靜態文件後，閱讀 [此教學的第 7 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
 來學習如何自定義 Django 自動產生管理網頁的過程。
 
-[** 編寫你的第一個 Django 應用，第 5
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+[** 編寫你的第一個 Django 應用，第 5 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
 
-[編寫你的第一個 Django 應用，第 7 部分
-**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+[編寫你的第一個 Django 應用，第 7 部分**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
 
 編寫你的第一個 Django 應用，第 7 部分[¶](#writing-your-first-django-app-part-7 "永久連結至標題")
 ================================================================================================
 
-這篇教學承接 [教學第 6
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
-結束的地方。我們繼續修改在線投票應用，這次我們專注於自定義我們在 [教學第
-2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
-初見過的 Django 自動產生管理的過程。
-
-從哪裡取得協助：
-
-如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
-Help\</faq/help\> 的小節。
+這篇教學承接 [教學第 6 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
+結束的地方。我們繼續修改在線投票應用，這次我們專注於自定義我們在 [教學第 2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
+初次看過的 Django 自動產生管理的過程。
 
 自定義管理表單[¶](#customize-the-admin-form "永久連結至標題")
 -------------------------------------------------------------
 
-透過 `admin.site.register(Question)` 模型，Django
-能夠構建一個預設的表單用於顯示。通常來說，你期望能自定義表單的外觀和工作方式。你可以在注冊模型時將這些設定告訴
-Django。
+透過 `admin.site.register(Question)` 模型，Django 能夠構建一個預設的表單用於顯示。
+通常來說，你期望能自定義表單的外觀和工作方式。你可以在注冊模型時將這些設定告訴 Django。
 
-讓我們透過重排欄表單上的欄位來看看它是怎麼工作的。用以下內容替換
-`admin.site.register(Question)`：
+讓我們透過重排欄表單上的欄位來看看它是怎麼工作的。用以下內容替換 `admin.site.register(Question)`：
 
 polls/admin.py[¶](#id1 "永久連結至程式")**
 
@@ -3028,14 +2954,11 @@ polls/admin.py[¶](#id1 "永久連結至程式")**
 
     admin.site.register(Question, QuestionAdmin)
 
-你需要遵循以下流程—建立一個模型管理類，接著將其作為第二個參數傳給
-`admin.site.register()`
-—在你需要修改模型的管理管理選項時這麼做。
+你需要遵循以下流程—建立一個模型管理類，接著將其作為第二個參數傳給 `admin.site.register()` — 在你需要修改模型的管理管理選項時這麼做。
 
 以上修改使得 "Publication date" 欄位顯示在 "Question" 欄位之前：
 
-![Fields have been
-reordered
+![Fields have been reordered
 
 這在只有兩個欄位時並不特別引人注意，但對於擁有數十個欄位的表單來說，為表單選擇一個直觀的排序方法就是個很有用的細節。
 
@@ -3066,10 +2989,7 @@ polls/admin.py[¶](#id2 "永久連結至程式")**
 
 好了，現在我們有了投票的管理頁。不過，一個 `Question`，但管理頁卻沒有顯示多個選項。
 
-好了。
-
-有兩個方法可以解決這個問題。第一個就是仿照我們向管理注冊
-`Question` ：
+好了。有兩個方法可以解決這個問題。第一個就是仿照我們向管理注冊 `Question` ：
 
 polls/admin.py[¶](#id3 "永久連結至程式")**
 
@@ -3079,23 +2999,18 @@ polls/admin.py[¶](#id3 "永久連結至程式")**
     # ...
     admin.site.register(Choice)
 
-現在 "Choices" 在 Django
-管理頁中是一個可用的選項了。“增加選項”的表單看起來像這樣：
+現在 "Choices" 在 Django 管理頁中是一個可用的選項了。“增加選項” 的表單看起來像這樣：
 
 ***
 
-在這個表單中，"Question" 欄位是一個包含資料庫中所有投票的選擇框。Django
-知道要將 [`ForeignKey`
-的形式顯示。此時，我們只有一個投票。
+在這個表單中，"Question" 欄位是一個包含資料庫中所有投票的選擇框。Django 知道要將 `ForeignKey` 的形式顯示。此時，我們只有一個投票。
 
-同時也注意下 "Question" 旁邊的“增加”按鈕。每個使用
-`ForeignKey`
-關聯到另一個物件的物件會自動取得這個功能。當你點擊“增加”按鈕時，你會見到一個包含“增加投票”的表單。如果你在這個對話框中增加了一個投票，並點擊了“儲存”，Django
-會將其儲存至資料庫，並動態地在你正在查看的“增加選項”表單中取得它。
+同時也注意下 "Question" 旁邊的“增加”按鈕。每個使用 `ForeignKey` 關聯到另一個物件的物件會自動取得這個功能。當你點選 “增加”按鈕時，
+你會見到一個包含“增加投票”的表單。如果你在這個對話框中增加了一個投票，並點選了 “儲存”，Django 會將其儲存至資料庫，並動態地在你正在查看的“增加選項”表單中取得它。
 
-不過，這是一種很低效地增加“選項”的方法。更好的辦法是在你建立“投票”物件時直接增加好幾個選項。讓我們實現它。
+不過，這是一種效率很低效地增加 “選項” 的方法。更好的辦法是在你建立 “投票” 物件時直接增加好幾個選項。讓我們來實現它。
 
-移除呼叫 `register()` 的注冊程式：
+移除呼叫 `register()` 的註冊程式：
 
 polls/admin.py[¶](#id4 "永久連結至程式")**
 
@@ -3118,26 +3033,21 @@ polls/admin.py[¶](#id4 "永久連結至程式")**
 
     admin.site.register(Question, QuestionAdmin)
 
-這會告訴 Django：“`Choice` 管理頁面編輯。預設提供 3
-個足夠的選項欄位。”
+這會告訴 Django：“`Choice` 管理頁面編輯。預設提供 3 個足夠的選項欄位。”
 
 載入“增加投票”頁面來看看它看起來的樣子：
 
 ***
 
-它看起來像這樣：有三個關聯的選項位置—由 `extra`
-定義，且每次你回傳任意已建立的物件的“修改”頁面時，你會見到三個新的位置。
+它看起來像這樣：有三個關聯的選項位置—由 `extra` 定義，且每次你回傳任意已建立的物件的“修改”頁面時，你會見到三個新的位置。
 
 在三個位置的末端，你會看到一個“增加新選項”的按鈕。如果你單擊它，一個新的位置會被增加。如果你想移除已有的位置，可以點擊位置右上角的X。注意，你不能移除原始的
 3 個位置。以下圖片顯示了一個已增加的位置：
 
 ***
 
-不過，仍然有點小問題。它佔據了大量的螢幕區域來顯示所有關聯的
-`Choice`
-物件的欄位。對於這個問題，Django
-提供了一種表格式的單行顯示關聯物件的方法。要使用它，只需按如下形式修改
-`ChoiceInline` 申明：
+不過，仍然有點小問題。它佔據了大量的螢幕區域來顯示所有關聯的 `Choice` 物件的欄位。對於這個問題，Django 提供了一種表格式的單行顯示關聯物件的方法。要使用它，只需按如下形式修改
+`ChoiceInline` 宣告：
 
 polls/admin.py[¶](#id5 "永久連結至程式")**
 
@@ -3159,10 +3069,8 @@ polls/admin.py[¶](#id5 "永久連結至程式")**
 
 ***
 
-預設情況下，Django 顯示每個物件的 `str()`
-回傳的值。但有時如果我們能夠顯示單個欄位，它會更有協助。為此，使用
-[`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display")
-管理選項，它是一個包含要顯示的欄位名的元組，在更改欄表頁中以欄的形式顯示這個物件：
+預設情況下，Django 顯示每個物件的 `str()` 回傳的值。但有時如果我們能夠顯示單個欄位，它會更有協助。為此，使用
+[`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display") 管理選項，它是一個包含要顯示的欄位名的元組，在更改欄表頁中以欄的形式顯示這個物件：
 
 polls/admin.py[¶](#id6 "永久連結至程式")**
 
@@ -3381,30 +3289,20 @@ Python 套件，也就是說你可以將已有的 Python 套件或 Django
 
 假設你現在建立了一個新的專案，並且需要一個類似我們之前做的投票應用。你該如何復用這個應用呢？慶幸的是，其實你已經知道了一些。在
 [教學
-1](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)，我們使用過
-`include`{.docutils .literal .notranslate} 從專案級別的 URLconf 分割出
+1](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)，我們使用過 `include` 從專案級別的 URLconf 分割出
 polls。在本教學中，我們將進一步使這個應用易用於新的專案中，並發布給其他人安裝使用。
 
-套件？應用？
+套件？應用程式？
 
-一個
-[package](https://docs.python.org/3/glossary.html#term-package "(在 Python v3.8)")
-提供了一組關聯的 Python
-程式的簡單復用方式。一個套件（“模組”）包含了一個或多個 Python 程式文件。
+一個[套件(package)](https://docs.python.org/3/glossary.html#term-package "(在 Python v3.8)") 提供了一組關聯的 Python
+程式的簡單反覆使用的方式。一個套件（“模組 module”）則包含了一個或多個 Python 程式文件。
 
-一個套件透過 `import foo.bar`{.docutils .literal .notranslate} 或
-`from foo import bar`{.docutils .literal .notranslate}
-的形式導入。一個目錄（例如 `polls`{.docutils .literal
-.notranslate}）要成為一個套件，它必須包含一個特定的文件
-`__init__.py`{.docutils .literal .notranslate}，即便這個文件是空的。
+一個套件透過 `import foo.bar` 或 `from foo import bar` 的形式導入。一個目錄（例如 `polls`）要成為一個套件，它必須包含一個特定的文件
+`__init__.py`，即便這個文件是空的。
 
-Django *應用* 僅僅是專用於 Django 專案的 Python 套件。應用會按照 Django
-規則，建立好 `models`{.docutils .literal .notranslate},
-`tests`{.docutils .literal .notranslate}, `urls`{.docutils .literal
-.notranslate}, 以及 `views`{.docutils .literal .notranslate} 等子模組。
+Django *應用程式* 僅僅是專用於 Django 專案的 Python 套件。應用會按照 Django 規則，建立好 `models`, `tests`, `urls`, 以及 `views` 等子模組。
 
-稍後，我們將解釋術語 *包裝* ——為了方便其它人安裝 Python
-套件的處理流程。我知道，這可能會使你感到一點點迷惑。
+稍後，我們將解釋術語 *包裝* ——為了方便其它人安裝 Python 套件的處理流程。我知道，這可能會使你感到一點點迷惑。
 
 你的專案和可復用應用[¶](#your-project-and-your-reusable-app "永久連結至標題")
 -----------------------------------------------------------------------------
@@ -3444,25 +3342,17 @@ Django *應用* 僅僅是專用於 Django 專案的 Python 套件。應用會按
             admin/
                 base_site.html
 
-1
+目錄 `polls` 現在可以被複製到一個新的 Django 工程，且立刻被重覆使用。不過現在還不是發佈它的時候。為了這樣做，我們需要包裝這個應用，便於其他人安裝它。
 
-目錄 `polls`{.docutils .literal .notranslate} 現在可以被拷貝至一個新的
-Django
-工程，且立刻被復用。不過現在還不是發布它的時候。為了這樣做，我們需要包裝這個應用，便於其他人安裝它。
-
-安裝必須環境[¶](#installing-some-prerequisites "永久連結至標題")
+安裝前置需求環境[¶](#installing-some-prerequisites "永久連結至標題")
 ----------------------------------------------------------------
 
-目前，包裝 Python
-程式需要工具，有許多工具可以完成此項工作。在此教學中，我們將使用
+目前，包裝 Python 程式需要有工具，有許多工具可以完成此項工作。在此教學中，我們會使用
 [setuptools](https://pypi.org/project/setuptools/)
-來包裝我們的程式。這是推薦的包裝工具（與 `發布`{.docutils .literal
-.notranslate} 分支合並）。我們仍舊使用
-[pip](https://pypi.org/project/pip/)
-來安裝和卸載這個工具。現在，你需要安裝這兩個套件。如果你需要協助，你可以參考
-[如何透過 pip 安裝
-Django](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#installing-official-release)，你可以透過相同的方式安裝
-`setuptools`{.docutils .literal .notranslate}。
+來包裝我們的程式。這是推薦的包裝工具（與 `發佈` 分支合並）。我們仍舊使用
+[pip](https://pypi.org/project/pip/) 來安裝和卸載這個工具。現在，你需要安裝這兩個套件。如果你需要協助，你可以參考
+[如何透過 pip 安裝 Django](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#installing-official-release)，你可以透過相同的方式安裝
+`setuptools`。
 
 包裝你的應用[¶](#packaging-your-app "永久連結至標題")
 -----------------------------------------------------
@@ -3483,20 +3373,14 @@ Python 的 *包裝*
     前綴，這是一個很常用也很有用的避免套件名衝突的方法。同時也有助於他人在尋找
     Django 應用時確認你的 app 是 Django 獨有的。
 
-    應用標籤（指用點分隔的套件名的最後一部分）在 [`INSTALLED_APPS`{.xref
-    .std .std-setting .docutils .literal
-    .notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
+    應用標籤（指用點分隔的套件名的最後一部分）在 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
     中 *必須* 是獨一無二的。避免使用任何與 Django [contrib
     packages](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/)
-    文件中相同的標籤名，例如 `auth`{.docutils .literal
-    .notranslate}，`admin`{.docutils .literal
-    .notranslate}，`messages`{.docutils .literal .notranslate}。
+    文件中相同的標籤名，例如 `auth`，`admin`，`messages`。
 
-2.  將 `polls`{.docutils .literal .notranslate} 目錄移入
-    `django-polls`{.docutils .literal .notranslate} 目錄。
+2.  將 `polls` 目錄移入 `django-polls` 目錄。
 
-3.  建立一個名為 `django-polls/README.rst`{.docutils .literal
-    .notranslate} 的文件，包含以下內容：
+3.  建立一個名為 `django-polls/README.rst` 的文件，包含以下內容：
 
     django-polls/README.rst[¶](#id1 "永久連結至程式")**
 
@@ -3530,17 +3414,13 @@ Python 的 *包裝*
 
         5. Visit http://127.0.0.1:8000/polls/ to participate in the poll.
 
-4.  建立一個 `django-polls/LICENSE`{.docutils .literal .notranslate}
-    文件。選擇一個非本教學使用的授權協議，但是要足以說明發布程式沒有授權證書是
-    *不可能的* 。Django 和很多相容 Django 的應用是以 BSD
-    授權協議發布的；不過，你可以自己選擇一個授權協議。只要確定你選擇的協議能夠限制未來會使用你的程式的人。
+4.  建立一個 `django-polls/LICENSE` 文件。選擇一個非本教學使用的授權協議，但是要足以說明發布程式沒有授權證書是
+    *不可能的* 。Django 和很多相容 Django 的應用是以 BSD 授權協議發布的；不過，你可以自己選擇一個授權協議。只要確定你選擇的協議能夠限制未來會使用你的程式的人。
 
-5.  下一步我們將建立 ``` setup.cfg``和``setup.py ```{.docutils .literal
-    .notranslate}
+5.  下一步我們將建立 ``` setup.cfg``和``setup.py ```
     文件用於說明如何構建和安裝應用的細節。關於此文件的完整介紹超出了此教學的範圍，但是
     [setuptools docs](https://setuptools.readthedocs.io/en/latest/)
-    有詳細的介紹。建立文件 `django-polls/setup.py`{.docutils .literal
-    .notranslate} 包含以下內容：
+    有詳細的介紹。建立文件 `django-polls/setup.py` 包含以下內容：
 
     django-polls/setup.cfg[¶](#id2 "永久連結至程式")**
 
@@ -3581,12 +3461,8 @@ Python 的 *包裝*
 
 6.  預設套件中只包含 Python
     模組和套件。為了包含額外文件，我們需要建立一個名為
-    `MANIFEST.in`{.docutils .literal .notranslate} 的文件。上一步中關於
-    setuptools
-    的文件詳細介紹了這個文件。為了包含範本、`README.rst`{.docutils
-    .literal .notranslate} 和我們的 `LICENSE`{.docutils .literal
-    .notranslate} 文件，建立文件 `django-polls/MANIFEST.in`{.docutils
-    .literal .notranslate} 包含以下內容：
+    `MANIFEST.in` 的文件。上一步中關於 setuptools
+    的文件詳細介紹了這個文件。為了包含範本、`README.rst` 和我們的 `LICENSE` 文件，建立文件 `django-polls/MANIFEST.in` 包含以下內容：
 
     django-polls/MANIFEST.in[¶](#id4 "永久連結至程式")**
 
@@ -3596,22 +3472,19 @@ Python 的 *包裝*
         recursive-include polls/templates *
 
 7.  在應用中包含詳細文件是可選的，但我們推薦你這樣做。建立一個空目錄
-    `django-polls/docs`{.docutils .literal .notranslate}
-    用於未來編寫文件。額外增加一行至
-    `django-polls/MANIFEST.in`{.docutils .literal .notranslate}
+    `django-polls/docs` 用於未來編寫文件。額外增加一行至
+    `django-polls/MANIFEST.in`
 
         recursive-include docs *
 
-    注意，現在 `docs`{.docutils .literal .notranslate}
+    注意，現在 `docs`
     目錄不會被加入你的應用套件，除非你往這個目錄加幾個文件。許多 Django
     應用也提供他們的在線文件透過類似
     [readthedocs.org](https://readthedocs.org/) 這樣的網站。
 
-8.  試著構建你自己的應用套件透過 `ptyhon setup.py sdist`{.docutils
-    .literal .notranslate} （在
-    ``` django-polls``目錄內）。這將建立一個名為 ``dist ```{.docutils
-    .literal .notranslate} 的目錄並構建你自己的應用套件，
-    `django-polls-0.1.tar.gz`{.docutils .literal .notranslate}。
+8.  試著構建你自己的應用套件透過 `ptyhon setup.py sdist` （在
+    ``` django-polls``目錄內）。這將建立一個名為 ``dist ``` 的目錄並構建你自己的應用套件，
+    `django-polls-0.1.tar.gz`。
 
 更多關於包裝的資訊，見 Python 的
 [關於包裝和發布專案的教學](https://packaging.python.org/tutorials/packaging-projects/)。
@@ -3619,13 +3492,13 @@ Python 的 *包裝*
 使用你自己的套件名[¶](#using-your-own-package "永久連結至標題")
 ---------------------------------------------------------------
 
-由於我們把 `polls`{.docutils .literal .notranslate}
+由於我們把 `polls`
 目錄移出了專案，所以它無法工作了。我們現在要透過安裝我們的新
-`django-polls`{.docutils .literal .notranslate} 應用來修正這個問題。
+`django-polls` 應用來修正這個問題。
 
 作為用戶庫安裝
 
-以下步驟將 `django-polls`{.docutils .literal .notranslate}
+以下步驟將 `django-polls`
 以用戶庫的形式安裝。與安裝整個系統的軟件套件相比，用戶安裝具有許多優點，例如可在沒有管理員開啟權的系統上使用，以及防止應用套件影響系統服務和其他用戶。
 
 Note that per-user installations can still affect the behavior of system
@@ -3646,16 +3519,14 @@ robust solution (see below).
 發布你的應用[¶](#publishing-your-app "永久連結至標題")
 ------------------------------------------------------
 
-現在，你已經對 `django-polls`{.docutils .literal .notranslate}
-完成了包裝和測試，準備好向世界分享它！如果這不是一個例子應用，你現在就可以這樣做。
+現在，你已經對 `django-polls` 完成了包裝和測試，準備好向世界分享它！如果這不是一個例子應用，你現在就可以這樣做。
 
 -   透過郵件將你的套件發送給朋友。
 -   將這個套件上傳至你的網站。
--   將你的套件發布至公共倉庫，例如 [the Python Package Index
-    (PyPI)](https://pypi.python.org/pypi)。
+-   將你的套件發布至共享倉庫，例如 [the Python Package Index(PyPI)](https://pypi.python.org/pypi)。
     [packaging.python.org](https://packaging.python.org/) 有一個不錯的
     [教學](https://packaging.python.org/tutorials/packaging-projects/#uploading-the-distribution-archives)
-    說明如何發布至公共倉庫。
+    說明如何發佈至共享倉庫。
 
 Installing Python packages with a virtual environment[¶](#installing-python-packages-with-a-virtual-environment "永久連結至標題")
 ---------------------------------------------------------------------------------------------------------------------------------
@@ -3682,10 +3553,8 @@ each with its own copy of the libraries and package namespace.
 ====================================================
 
 如果你已經讀完了
-[介紹文件](https://docs.djangoproject.com/zh-hans/3.0/intro/)，且對繼續使用
-Django
-感興趣。不過，你讀的是整體文件的精簡版（實際上，如果你逐字閱讀了此文件，你已經閱讀了整體文件的
-5%）。
+[介紹文件](https://docs.djangoproject.com/zh-hans/3.0/intro/)，且對繼續使用 Django 感興趣。
+不過，你讀的是整體文件的精簡版（實際上，如果你逐字閱讀了此文件，你已經閱讀了整體文件的 5%）。
 
 那麼下一步做什麼？
 
@@ -3752,70 +3621,56 @@ Django的主要文件以“塊”的形式劃分，用於滿足不同的需求�
     [發布說明](https://docs.djangoproject.com/zh-hans/3.0/releases/) 和
     [內部文件](https://docs.djangoproject.com/zh-hans/3.0/internals/)
     ，用於向那些想向 Django 提交程式的專業人士。還有一份文件
-    [不適合放到其它地方的一點內容](https://docs.djangoproject.com/zh-hans/3.0/misc/)
-    。
+    [不適合放到其它地方的一點內容](https://docs.djangoproject.com/zh-hans/3.0/misc/)。
 
 這個文件是如何更新的[¶](#how-documentation-is-updated "永久連結至標題")
 -----------------------------------------------------------------------
 
-就像 Django
-的源碼每天都被更新和提升一樣，我們的文件也會持續優化。我們因為以下幾個原因優化文件：
+就像 Django 的原始碼每天都被更新和更新一樣，我們也會持續改進為它編寫的文件。我們因為以下幾個原因會改善文件內容：
 
--   更正內容，如更正語法/拼寫錯誤。
--   向已有的需要被擴展的某個章節增加介紹資訊或例子。
--   記錄尚未記錄的 Django 功能。
-    （這些功能的欄表正在縮小，但仍然存在。）
--   在新特性被增加時，或 Django 的 API 或行為有變化時，會增加新文件。
+-   內容更正，例如更正語法/或拼寫錯誤。
+-   對已有的需要被擴展的某個章節增加更多細節的介紹資訊或例子。
+-   在記錄裡尚未列出的 Django 功能。
+    （這些功能的列表正在縮小，但仍然存在。）
+-   在增加新功能時，或 Django 的 API 或行為有變化時，會增加新的文件。
 
-Django
-的文件以和它的程式一樣，以程式版本管理系統方式進行管理。它被儲存在 git
-倉庫的 [docs](https://github.com/django/django/blob/master/docs)
-目錄內。每份在線文件都是倉庫內的一份獨立文本文件。
+Django 的文件以和它的程式一樣，以程式版本管理系統方式進行管理。它被儲存在 git 倉庫的 [docs](https://github.com/django/django/blob/master/docs)
+目錄內。每份線上的文件都是倉庫內的一份獨立文本文件。
 
-從哪裡獲取這個[¶](#where-to-get-it "永久連結至標題")
+從哪裡取得這個文件[¶](#where-to-get-it "永久連結至標題")
 ----------------------------------------------------
 
 你可以以好幾種形式閱讀 Django 的文件。他們按照優先順序排欄：
 
 ### 在網絡上[¶](#on-the-web "永久連結至標題")
 
-Django 最新的在線版文件位於
-[https://docs.djangoproject.com/en/dev/](https://docs.djangoproject.com/en/dev/)。這些網頁由
-Django 的源碼控制系統中的純文本文件自動產生。這意味著它們展示了 Django
-“最新最好”
+Django 最新的線上版文件位於
+[https://docs.djangoproject.com/en/dev/](https://docs.djangoproject.com/en/dev/)
+。這些網頁由Django 的原始碼控制系統中的純本字文件自動產生。這意味著它們展示了 Django “最新最好”
 的修改——它們包含最新的更正和補充，並討論了最新的Django功能，這些功能只可供Django開發版的用戶使用。（參見以下關於“不同版本之間的差異”的介紹。）
 
-為提高文件質量，你可以選擇在 [工單系統](https://code.djangoproject.com/)
-中提交變更，修正以及建議，為此我們將十分欣喜。 Django
-的開發者們會積極的監控工單系統，並使用你的反饋為大家改善文件。
+為提高文件品質，你可以選擇在 [工單系統](https://code.djangoproject.com/) 中提交變更，修正以及建議，為此我們將十分欣喜。 Django 的開發者們
+會積極的監控工單系統，並使用你的反饋為大家改善文件。
 
-值得一提的是，工單(ticket)應該明確地關聯到文件，而不是詢問籠統的技術支援問題。
-如果你需要針對你的 Django 設定尋求協助，嘗試聯系
+值得一提的是，工單(ticket)應該明確地關聯到文件，而不是詢問籠統的技術支援問題。如果你需要針對你的 Django 設定尋求協助，嘗試聯系
 [django-users](https://docs.djangoproject.com/zh-hans/3.0/internals/mailing-lists/#django-users-mailing-list)
-郵件組 或者 [\#django IRC channel](irc://irc.freenode.net/django) 。
+郵件群組 或者 [\#django IRC channel](irc://irc.freenode.net/django) 。
 
-### 純文本形式[¶](#in-plain-text "永久連結至標題")
+### 純文字格式[¶](#in-plain-text "永久連結至標題")
 
-離線閱讀，或僅僅是為了方便，你可以閱讀 Djano 文件的純文本形式。
+離線閱讀，或僅僅是為了方便，你可以閱讀 Djano 文件的純文字的格式。
 
-如果你正在使用的是 Django
-的某個正式發布版，注意有一個程式壓縮套件，包含了 `docs/`{.docutils
-.literal .notranslate} 目錄，內含這個版本的完整文件。
+如果你正在使用的是 Django 的某個正式發佈版，請注意有一個程式壓縮套件，包含了 `docs/` 目錄，內含這個版本的完整文件。
 
-如果你正在使用開發版的 Django （又名“trunk”），注意目錄
-`docs/`{.docutils .literal .notranslate} 包含所有的文件。你可以透過 git
-獲取最新的修改。
+如果你正在使用開發版的 Django （又名“trunk”），注意目錄 `docs/` 包含所有的文件。你可以透過 git 取得最新的修改。
 
-一種沒啥技術含量的利用純文本文件的方式是使用 Unix 的 `grep`{.docutils
-.literal .notranslate}
-工具在文件中全域中搜索一個短語。舉個例子，接下來會向你展示 Django
-文件中所有提到這個特定短語 "max\_length" 的地方：
+一種沒啥技術含量的利用純文本文件的方式是使用 Unix 的 `grep` 工具在文件中全域中搜索一個短語。舉個例子，接下來會向你展示 Django 文件中所有提到這個特定短語 "max\_length" 的地方：
 
     $ grep -r max_length /path/to/django/docs/
 
 ### 以本地網頁形式閱讀[¶](#as-html-locally "永久連結至標題")
 
-經過幾步操作，你可以取得一份網頁文件的拷貝：
+經過幾個步驟的操作，你可以取得一份網頁文件的拷貝：
 
 -   Django 文件使用了一個叫做 [Sphinx](https://www.sphinx-doc.org/)
     的系統將純文本轉換為網頁。你可以透過 Sphinx 的官方網站或
@@ -3823,8 +3678,7 @@ Django 的源碼控制系統中的純文本文件自動產生。這意味著它�
 
         $ python -m pip install Sphinx
 
--   接著，使用其中的 `Makefile`{.docutils .literal .notranslate}
-    工具將文件轉換為網頁：
+-   接著，使用其中的 `Makefile` 工具將文件轉換為網頁：
 
         $ cd path/to/django/docs
         $ make html
@@ -3836,8 +3690,7 @@ Django 的源碼控制系統中的純文本文件自動產生。這意味著它�
         cd path\to\django\docs
         make.bat html
 
--   這個 HTML 文件將會被放置在 `docs/_build/html`{.docutils .literal
-    .notranslate}。
+-   這個 HTML 文件將會被放置在 `docs/_build/html`。
 
 版本之間的差異[¶](#differences-between-versions "永久連結至標題")
 -----------------------------------------------------------------
@@ -3845,8 +3698,7 @@ Django 的源碼控制系統中的純文本文件自動產生。這意味著它�
 The text documentation in the master branch of the Git repository
 contains the "latest and greatest" changes and additions. These changes
 include documentation of new features targeted for Django's next
-[feature
-release](https://docs.djangoproject.com/zh-hans/3.0/internals/release-process/#term-feature-release).
+[feature release](https://docs.djangoproject.com/zh-hans/3.0/internals/release-process/#term-feature-release).
 For that reason, it's worth pointing out our policy to highlight recent
 changes and additions to Django.
 
@@ -3958,31 +3810,25 @@ on Windows docs for additional guidance.
 在本教學中，你需要安裝好 Git，用 Git 下載 Django
 的最新開發版本並且為你的修改產生修補程式文件。
 
-要檢查你是否已經安裝 Git，命令欄輸入 `git`{.docutils .literal
-.notranslate}。如果提示這個命令無法找到，你必須下載並安裝它，參考
+要檢查你是否已經安裝 Git，命令欄輸入 `git`。如果提示這個命令無法找到，你必須下載並安裝它，參考
 [\`Git's download page\`\_\_](#id11) 。
 
-如果你還不熟悉 Git, 你可以在命令欄下輸入 `git help`{.docutils .literal
-.notranslate} 了解更多關於 Git 命令的使用方法 (確保已安裝)
+如果你還不熟悉 Git, 你可以在命令欄下輸入 `git help` 了解更多關於 Git 命令的使用方法 (確保已安裝)
 
 取得一個 Django 開發版本的副本[¶](#getting-a-copy-of-django-s-development-version "永久連結至標題")
 ---------------------------------------------------------------------------------------------------
 
-為 Django 做貢獻的第一步就是獲取源程式副本。首先， fork Github 上的
-Django 專案
-\<https://github.com/django/django/fork\>。接下來，在命令欄中，使用
-`cd` 命令切換至某個你想存放 Django
-原始碼的目錄。
+為 Django 做貢獻的第一步就是取得原始程式碼的副本。首先， fork Github 上的 Django 專案\<https://github.com/django/django/fork\>。
+接下來，在命令列中，使用 `cd` 命令切換至某個你想存放 Django 原始碼的目錄。
 
 使用下面的命令來下載 Django 的源碼庫：
 
     $ git clone https://github.com/YourGitHubName/django.git
 
-低速寬帶連接？
+低速寬帶連線？
 
-你可以在用命令 `git clone`{.docutils .literal .notranslate}
-下載倉庫的時候加上參數 `--depth 1`{.docutils .literal .notranslate}
-來跳過 Django 的提交歷史，這大約能把下載大小從250MB減少到70MB
+你可以在用命令 `git clone`
+下載倉庫的時候加上參數 `--depth 1` 來跳過 Django 的提交歷史，這大約能把下載大小從250MB減少到70MB
 
 你現在已經將Django拷貝到本地，可以像安裝其他軟件套件一樣使用
 [\`\`](#id1)pip\`\`進行安裝。 最便捷的方式是透過 *virtual environment*，
@@ -3990,7 +3836,7 @@ Django 專案
 的一個內置特性，它可以讓你在一個目錄中保持獨立的軟件套件環境而不影響其他的專案。
 
 將你的虛擬環境都放在一個位置是明智的做法，例如將它們放置在你主目錄下的
-`.virtualenvs/`{.docutils .literal .notranslate} 中。
+`.virtualenvs/` 中。
 
 透過執行以下命令建立一個虛擬環境：
 
@@ -4002,7 +3848,7 @@ Django 專案
 
     $ source ~/.virtualenvs/djangodev/bin/activate
 
-如果 `source`{.docutils .literal .notranslate} 命令不可用，你可以試試：
+如果 `source` 命令不可用，你可以試試：
 
     $ . ~/.virtualenvs/djangodev/bin/activate
 
@@ -4016,8 +3862,7 @@ terminal window.
     ...\> %HOMEPATH%\.virtualenvs\djangodev\Scripts\activate.bat
 
 當前啟用的虛擬環境的名稱會被展示在命令欄，這可以讓你搞清楚你正在使用哪一個虛擬環境。你透過
-`pip`{.docutils .literal .notranslate}
-安裝的任何軟件套件如果在安裝時顯示了該名稱，則都會被安裝到該虛擬環境中，而且這些軟件套件不會影響到其他虛擬環境，也不會與其他系統級的軟件套件發生衝突。
+`pip` 安裝的任何軟件套件如果在安裝時顯示了該名稱，則都會被安裝到該虛擬環境中，而且這些軟件套件不會影響到其他虛擬環境，也不會與其他系統級的軟件套件發生衝突。
 
 下一步安裝之前複製的 Django 副本：
 
@@ -4059,15 +3904,13 @@ tests, and it takes at least a few minutes to run, depending on the
 speed of your computer.
 
 當Django的測試套件被執行時，您將看到一個代表測試執行狀態的字串流。
-其中字串 `E`{.docutils .literal .notranslate} 表示測試中出現異常，
-`F`{.docutils .literal .notranslate}
-表示測試中的一個斷言失敗，這兩種情況都被認為測試結果失敗。而
-`x`{.docutils .literal .notranslate} 和 `s`{.docutils .literal
-.notranslate} 分別表示與期望結果不同和跳過測試，逗點則表示測試被透過了。
+其中字串 `E` 表示測試中出現異常，
+`F` 表示測試中的一個斷言失敗，這兩種情況都被認為測試結果失敗。而
+`x` 和 `s` 分別表示與期望結果不同和跳過測試，逗點則表示測試被透過了。
 
 缺失外部依賴庫通常會導致測試被跳過；查看 [Running all the
 tests](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/unit-tests/#running-unit-tests-dependencies)
-獲取依賴庫欄表，如果你修改了測試程式，請同時安裝相關依賴庫（本教學無需額外依賴庫）。某些測試使用了特定的資料庫後端，如果當前測試設置並未使用此資料庫後端，那麼這些相關的測試也會被跳過。SQLite
+取得相依的套件庫列表，如果你修改了測試程式，請同時安裝相關依賴庫（本教學無需額外依賴庫）。某些測試使用了特定的資料庫後端，如果當前測試設置並未使用此資料庫後端，那麼這些相關的測試也會被跳過。SQLite
 是預設的資料庫後端。如果想使用其他後端進行測試，查看 [Using another
 settings
 module](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/unit-tests/#running-unit-tests-settings)。
@@ -4077,7 +3920,7 @@ module](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writin
 如果測試失敗或出現錯誤，回頭確認以上執行操作是否正確. 查看 [Running the
 unit
 tests](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-code/unit-tests/#running-unit-tests)
-獲取更多資訊。
+取得更多資訊。
 
 注意最新版本 Django
 分支不總是穩定的。當在分支上開發時，你可以查看程式持續集成構建頁面的資訊
@@ -4131,12 +3974,10 @@ bug 發生。
 ### 為工單 \#99999 寫測試[¶](#writing-a-test-for-ticket-99999 "永久連結至標題")
 
 為了解決這次的工單問題，我們將在最上層的 django 模組中增加一個函數
-`make_toast()`{.docutils .literal
-.notranslate}。首先我們來寫一個測試用例，用於測試該函數，並且驗證一下它的輸出項是否正確。
+`make_toast()`。首先我們來寫一個測試用例，用於測試該函數，並且驗證一下它的輸出項是否正確。
 
-前往Django的 `tests/shortcuts/`{.docutils .literal .notranslate}
-文件夾，建立一個名為 `test_make_toast.py`{.docutils .literal
-.notranslate} 的新文件。增加如下程式:
+前往Django的 `tests/shortcuts/`
+文件夾，建立一個名為 `test_make_toast.py` 的新文件。增加如下程式:
 
     from django.shortcuts import make_toast
     from django.test import SimpleTestCase
@@ -4146,7 +3987,7 @@ bug 發生。
         def test_make_toast(self):
             self.assertEqual(make_toast(), 'toast')
 
-上述測試是用來檢測 `make_toast()`{.docutils .literal .notranslate}
+上述測試是用來檢測 `make_toast()`
 函數是否會回傳 [\`\`](#id1)'toast'\` [\`](#id3)的。
 
 但這種測試看起來有點困難……
@@ -4160,13 +4001,11 @@ bug 發生。
 -   深入理解 Python（一本針對 Python
     初學者的免費在線書籍），包含了不錯的 [\`introduction to Unit
     Testing\`\_\_](#id11)。
--   讀到這裡，你還想深入了解的話，可以查看 Python [`unittest`{.xref .py
-    .py-mod .docutils .literal
-    .notranslate}](https://docs.python.org/3/library/unittest.html#module-unittest "(在 Python v3.8)")。
+-   讀到這裡，你還想深入了解的話，可以查看 Python [`unittest`](https://docs.python.org/3/library/unittest.html#module-unittest "(在 Python v3.8)")。
 
 ### 執行你的新測試[¶](#running-your-new-test "永久連結至標題")
 
-由於我們還沒有對 `django.shortcuts`{.docutils .literal .notranslate}
+由於我們還沒有對 `django.shortcuts`
 進行任何修改，這次測試將會失敗。現在讓我們來執行一下
 `shortcuts` 目錄中的所有測試，以便確定它們真的都會產生失敗的結果。使用
 `cd` 命令進入Django的 `tests/` 資料夾，然後執行:
@@ -4213,7 +4052,7 @@ Django下的 `tests/` 目錄並執行：
 ----------------------------------------------------
 
 這是一項新功能，所以應該為它建立一個說明，打開文件
-`docs/topics/http/shortcuts.txt`{.docutils .literal .notranslate}
+`docs/topics/http/shortcuts.txt`
 ，然後在文件末尾追加下記內容:
 
     ``make_toast()``
@@ -4232,7 +4071,7 @@ Features"下面增加一個說明:
 
     * The new :func:`django.shortcuts.make_toast` function returns ``'toast'``.
 
-更多關於編寫文件和 `versionadded`{.docutils .literal .notranslate}
+更多關於編寫文件和 `versionadded`
 的解釋和資訊，請參考
 [編寫文件](https://docs.djangoproject.com/zh-hans/3.0/internals/contributing/writing-documentation/)。這個頁面還介紹了怎麼在本地重新產生一份文件，方便你在本地預覽文件。
 
@@ -4308,8 +4147,7 @@ Features"下面增加一個說明:
     +    def test_make_toast(self):
     +        self.assertEqual(make_toast(), 'toast')
 
-當你檢查完修補程式後，敲擊 `q`{.docutils .literal .notranslate}
-鍵回傳到命令欄。如果修補程式內容看起來沒問題，可以提交這些修改了。
+當你檢查完修補程式後，敲擊 `q` 鍵回傳到命令欄。如果修補程式內容看起來沒問題，可以提交這些修改了。
 
 提交修補程式中的修改[¶](#committing-the-changes-in-the-patch "永久連結至標題")
 ------------------------------------------------------------------------------

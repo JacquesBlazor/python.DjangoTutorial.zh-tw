@@ -32,20 +32,14 @@
 -   [編寫你的第一個 Django
     修補程式](https://docs.djangoproject.com/zh-hans/3.0/intro/contributing/)
 
-參見
+參考
 
-如果你初次了解
-[Python](https://python.org/)，可能想知道它是怎樣一門語言。Django 是
-100% 由 Python 編寫的，所以熟悉 Python 可以加深對 Django 的理解。
+如果你是剛開始認識 [Python](https://python.org/)，可能會想知道它是怎麼樣的一門語言。Django 是 100% 由 Python 語言編寫而成的，所以熟悉 Python 可以加深你對 Django 的理解。
 
-如果你毫無編程經驗，可能需要從 [適合零編程經驗者的 Python
-學習資源](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers)
-起步
+如果你完全沒有程式設計的經驗，你可能會需要先從 [適合零編程經驗者的 Python 學習資源](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers) 著手。
 
-如果你已經了解過一門其他的編程語言，並且向快速上手Python，我們向你推薦
-[Dive Into
-Python](https://diveinto.org/python3/table-of-contents.html)。如果不太適合你的話，還有其它很多
-[books about Python](https://wiki.python.org/moin/PythonBooks)。
+如果你已經了解過一門其他的編程語言，並且向快速上手Python，我們向你推薦 [Dive Into Python](https://diveinto.org/python3/table-of-contents.html)。
+如果它們不太適合你的話，還有其它很多 [有關 Python 的書籍](https://wiki.python.org/moin/PythonBooks)。
 
 [** Django 文件](https://docs.djangoproject.com/zh-hans/3.0/)
 
@@ -55,12 +49,9 @@ Python](https://diveinto.org/python3/table-of-contents.html)。如果不太適�
 初識 Django[¶](#django-at-a-glance "永久連結至標題")
 ====================================================
 
-Django
-最初被設計用於具有快速開發需求的新聞類網站，目的是要實現簡單快捷的網站開發。以下內容簡要介紹了如何使用
-Django 實現一個資料庫驅動的 Web 應用。
+Django 最初被設計用於具有快速開發需求的新聞類網站，目的是要實現簡單快捷的網站開發。以下內容簡要介紹了如何使用 Django 實現一個資料庫驅動的 Web 應用程式。
 
-為了讓您充分理解 Django
-的工作原理，這份文件為您詳細描述了相關的技術細節，不過這並不是一份入門教學或者是參考文件（我們當然也為您準備了這些）。如果您想要馬上開始一個專案，可以從
+為了讓您充分理解 Django 的工作原理，這份文件為您詳細描述了相關的技術細節，不過這並不是一份入門教學或者是參考文件（我們當然也為您準備了這些）。如果您想要馬上開始一個專案，可以從
 [實例教學](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)
 開始入手，或者直接開始閱讀詳細的
 [參考文件](https://docs.djangoproject.com/zh-hans/3.0/topics/) 。
@@ -505,26 +496,20 @@ Django
 —— 即一個 Django 專案實例需要的設定項集合，套件括資料庫設定、Django
 設定和應用程式設定。
 
-打開命令列，`cd`
-到一個你想放置你程式的目錄，然後執行以下命令：
-
-
+打開命令列，使用命令列 `cd` 切換到一個你想放置你程式的目錄，然後執行以下命令：
 
     $ django-admin startproject mysite
 
 這行程式將會在當前目錄下建立一個 `mysite` 目錄。如果命令失敗了，參考 [執行 django-admin
 時遇到的問題](https://docs.djangoproject.com/zh-hans/3.0/faq/troubleshooting/#troubleshooting-django-admin)，也許可以提供協助。
 
-注解
+注釋
 
-你得避免使用 Python 或 Django
-的內部保留字來命名你的專案。具體地說，你得避免使用像 `django` (會和 Django 自己產生衝突)或 `test` (會和 Python 的內置組件產生衝突)這樣的名字。
+你應該避免使用 Python 或 Django 的內部保留字來命名你的專案。比較具體的意思是，你得避免使用像 `django` (這會和 Django 自己產生衝突) 或 `test` (這會和 Python 的內置組件產生衝突) 這樣的名字。
 
 我的程式該放在哪？
 
-如果你曾經是原生 PHP
-程式設計師（沒有使用過現代框架），你可能會習慣於把程式放在 Web
-伺服器的文件根目錄(諸如 `/var/www`)。當使用 Django 時不需要這樣做。把所有 Python 程式放在 Web
+如果你曾經是原生 PHP 程式設計師（沒有使用過現代框架），你可能會習慣於把程式放在 Web 伺服器的文件根目錄(諸如 `/var/www`)。當使用 Django 時不需要這樣做。把所有 Python 程式放在 Web
 伺服器的根目錄不是個好主意，因為這樣會有風險。比如會提高人們在網站上看到你的程式的可能性。這不利於網站的安全。
 
 把你的程式放在文件根目錄 **以外** 的某些地方吧，比如 /home/mycode。
@@ -620,17 +605,13 @@ Web 框架方面是專家，在 Web 伺服器方面並不是。)
 預設情況下，[`runserver`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-runserver)
 命令會將伺服器設置為監聽本機內部 IP 的 8000 連接埠。
 
-如果你想更換伺服器的監聽連接埠，請使用命令列參數。舉個例子，下面的命令會使伺服器監聽
-8080 連接埠：
-
+如果你想更換伺服器的監聽連接埠，請使用命令列參數。舉個例子，下面的命令會使伺服器監聽 8080 連接埠：
 
 
     $ python manage.py runserver 8080
 
 如果你想要修改伺服器監聽的IP，在連接埠之前輸入新的。比如，為了監聽所有伺服器的公開IP（在你執行
 Vagrant 或想要向網絡上的其它電腦展示你的成果時很有用），使用：
-
-
 
     $ python manage.py runserver 0:8000
 
@@ -747,25 +728,18 @@ mysite/urls.py[¶](#id3 "永久連結至程式")**
 當套件括其它 URL 模式時你應該總是使用 `include()` ， `admin.site.urls`
 是唯一例外。
 
-你現在把 `index` 視圖增加進了
-URLconf。透過以下命令驗證是否正常工作：
-
-
+你現在把 `index` 視圖增加進了 URLconf。透過以下命令驗證是否正常工作：
 
     $ python manage.py runserver
 
-用你的瀏覽器開啟 <http://localhost:8000/polls/>，你應該能夠看見 "*Hello,
-world. You're at the polls index.*" ，這是你在 `index` 視圖中定義的。
+用你的瀏覽器開啟 <http://localhost:8000/polls/>，你應該能夠看見 "*Hello, world. You're at the polls index.*" ，這是你在 `index` 視圖中定義的。
 
-無法找到頁面 Page Not Found?
+無法找到頁面 (Page Not Found)?
 
-如果你在這裡得到了一個錯誤頁面，檢查一下你是不是開啟
-http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
+如果你在瀏覽頁面時得到了如上面的錯誤頁面，檢查一下你是不是開啟 http://localhost:8000/polls/ 頁面而不是 http://localhost:8000/。
 
 函數 [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path")
-具有四個參數，兩個必要參數：`route` 和
-`view`，兩個可選參數：`kwargs`
-和 `name`。現在，是時候來研究這些參數的含義了。
+具有四個參數，兩個必要參數：`route` 和 `view`，兩個可選參數：`kwargs` 和 `name`。現在，是時候來研究這些參數的含義了。
 
 ### [`path()`](https://docs.djangoproject.com/zh-hans/3.0/ref/urls/#django.urls.path "django.urls.path") 參數： `route`[¶](#path-argument-route "永久連結至標題")
 
@@ -891,7 +865,7 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 
 預設開啟的某些應用程式需要至少一個資料表，所以，在使用他們之前需要在資料庫中建立一些表。請執行以下命令：
 
-    `$ python manage.py migrate`
+    $ python manage.py migrate
 
 這個 [`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
 命令檢查 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
@@ -1963,10 +1937,7 @@ polls/templates/polls/detail.html[¶](#id1 "永久連結至程式")**
     在表單中每個單選選項按鈕的 `value` 屬性是對應到其各別選項 (choice) 的 ID。每個單選選項按鈕的 `name` 設定為明確的字串值 `"choice"`。
     這樣的用意是當有人選擇一個單選按鈕並提交表單提交時，它將會傳送一個 POST 資料 `choice=#`，而其中的 `#` 即是被選擇的選項 (choice) 的 ID。
     這是 HTML 表單的基本概念。
--   我們設定表單的 `action` 為 `\{%  url 'polls:vote' question.id %\}`，並設定 `method="post"`。使用 `method="post"`
-    （與其相對的是 `method="get"`）是非常重要的，因為這個提交表單的行為會改變伺服器端的資料。
-    無論何時，當你需要建立一個改變伺服器端資料的表單時，使用`method="post"`。這不是 Django 的特定技巧；這是優秀的網站開發技巧。
--   我們設定表單的 `action`{為`{%  url 'polls:vote' question.id %}`，並設定 `method="post"`。使用 `method="post"`
+-   我們設定表單的 `action` 為 `{%  url 'polls:vote' question.id %}`，並設定 `method="post"`。使用 `method="post"`
     （與其相對的是 `method="get"`）是非常重要的，因為這個提交表單的行為會改變伺服器端的資料。
     無論何時，當你需要建立一個改變伺服器端資料的表單時，使用`method="post"`。這不是 Django 的特定技巧；這是優秀的網站開發技巧。
 -   而 `forloop.counter` 表示 [`for`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-for) 標籤已經循環多少次。
@@ -1974,8 +1945,7 @@ polls/templates/polls/detail.html[¶](#id1 "永久連結至程式")**
     因此你並不需要太過擔心。簡而言之，所有針對內部 URL 的 POST 表單都應該使用 
     [`{% csrf_token %}`](https://docs.djangoproject.com/zh-hans/3.0/ref/templates/builtins/#std:templatetag-csrf_token) 範本標籤。
 
-現在，讓我們來建立一個 Django 視圖來處理提交的資料。記住，在 [教學第 3
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+現在，讓我們來建立一個 Django 視圖來處理提交的資料。記住，在 [教學第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
 中，我們為投票應用建立了一個 URLconf ，包含這一行：
 
 polls/urls.py[¶](#id2 "永久連結至程式")**
@@ -2604,15 +2574,11 @@ polls/views.py[¶](#id6 "永久連結至程式")**
             pub_date__lte=timezone.now()
         ).order_by('-pub_date')[:5]
 
-`Question.objects.filter(pub_date__lte=timezone.now())`
-的值比'現在時間'還小於或等於的一個查詢集(queryset) — 意即早於或等於
-`timezone.now`。
+`Question.objects.filter(pub_date__lte=timezone.now())` 的值比'現在時間'還小於或等於的一個查詢集(queryset) — 意即早於或等於 `timezone.now`。
 
 ### 測試新視圖[¶](#testing-our-new-view "永久連結至標題")
 
-啟動伺服器、在瀏覽器中載入網站、建立一些發佈時間在過去和將來的
-`Questions`
-會顯示出來，現在你可以對自己感到滿意了。*你不想每次修改可能與這相關的程式時都重復這樣做*
+啟動伺服器、在瀏覽器中載入網站、建立一些發佈時間在過去和將來的 `Questions` 會顯示出來，現在你可以對自己感到滿意了。*你不想每次修改可能與這相關的程式時都重復這樣做*
 — 所以讓我們基於以上 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
 會話中的內容，再編寫一個測試。
 

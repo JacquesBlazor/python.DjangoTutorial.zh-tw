@@ -2837,7 +2837,7 @@ polls/static/polls/style.css[¶](#id1 "永久連結至程式")**
         color: green;
     }
 
-下一步，在 `polls/templates/polls/index.html` 的文件頭增加以下內容：
+下一步，在 `polls/templates/polls/index.html` 的文件頂部增加以下內容：
 
 polls/templates/polls/index.html[¶](#id2 "永久連結至程式")**
 

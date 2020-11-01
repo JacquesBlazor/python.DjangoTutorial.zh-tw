@@ -378,7 +378,7 @@ Django 的資料庫 API。你可以用其他的資料庫抽象層，像是直接
 安裝 Python[¶](#install-python "永久連結至標題")
 ------------------------------------------------
 
-作為一個 Python Web 框架，Django 需要執行在 Python 程式語言直譯器下。更多細節請參見
+作為一個 Python Web 框架，Django 需要在 Python 程式語言直譯器下執行。更多細節請參見
 [我應該使用哪個版本的 Python 來配合
 Django?](https://docs.djangoproject.com/zh-hans/3.0/faq/install/#faq-python-version-support)。Python
 包含了一個名為 [SQLite](https://sqlite.org/) 的輕量級資料庫，所以你暫時可以不需要自己建置一個資料庫。

@@ -421,7 +421,7 @@ installation information](https://docs.djangoproject.com/zh-hans/3.0/topics/inst
 驗證[¶](#verifying "永久連結至標題")
 ------------------------------------
 
-若要驗證 Django 是否能被 Python 識別，可以在 shell 中輸入 `python`。 然後在 Python 的提示符號下，嘗試匯入 Django 套件：
+若要驗證 Django 是否能被 Python 識別，可以在 shell 中輸入 `python`。 然後在 Python 的提示符下，嘗試匯入 Django 套件：
 
 ``` 
 >>> import django
@@ -450,29 +450,19 @@ Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 -   一個讓人們查看和投票的公開網站。
 -   一個讓你能增加、修改和刪除投票的管理網站。
 
-我們假設你已經閱讀了 [安裝 Django](https://docs.djangoproject.com/zh-hans/3.0/intro/install/)。透過在命令提示字元輸入以下命令（由 \$ 前置提示符號，相當於在 Windows 下是目前路徑加 >）你可以得知 Django 已確認安裝好了，並且安裝的是哪個版本，。
+我們假設你已經閱讀了 [安裝 Django](https://docs.djangoproject.com/zh-hans/3.0/intro/install/)。透過在命令提示字元輸入以下命令（由 \$ 前置提示符，這相當於在 Windows 下是目前路徑加 >，例如 C:\Users\username\>），你可以得知 Django 已確認安裝好了，並且你所安裝的是哪個版本：
 
     $ python -m django --version
 
-如果這行命令輸出了一個版本號碼，證明你已經安裝了此版本的
-Django；如果你得到的是一個“No module named
-django”的錯誤提示，則表示你尚未安裝。
+如果這個命令輸出了一個版本號碼，可以證明你已經安裝了此版本的 Django；但如果你得到的是一個 “No module named django” 的錯誤提示，則表示你的系統上尚未安裝 Django。
 
-這個教學是為了 Django 3.0 寫的，它支援 Python 3.6 和後續版本。如果
-Django
-的版本不符合，你可以透過頁面右下角的版本切換器切換到對應你版本的教學，或更新至最新版本。如果你正在使用一個較舊版本的
+這個教學是為了 Django 3.0 寫的，它支援 Python 3.6 和後續版本。如果 Django 的版本不符合，你可以透過頁面右下角的版本切換器切換到對應你版本的教學，或更新至最新版本。如果你正在使用一個較舊版本的
 Python，在 [我應該使用哪個版本的 Python 來配合
 Django?](https://docs.djangoproject.com/zh-hans/3.0/faq/install/#faq-python-version-support)
 查找一個合適的 Django 版本。
 
-你可以查看文件 [如何安裝
-Django](https://docs.djangoproject.com/zh-hans/3.0/topics/install/)
-來取得關於移除舊版本，安裝新版本的流程和建議。
+你可以閱讀文件 [如何安裝 Django](https://docs.djangoproject.com/zh-hans/3.0/topics/install/) 來取得關於移除舊版本以及安裝新版本的流程和建議。
 
-從哪裡取得協助：
-
-如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
-Help\</faq/help\> 的版塊。
 
 建立專案[¶](#creating-a-project "永久連結至標題")
 -------------------------------------------------
@@ -773,10 +763,6 @@ URL 模式。
 結尾的地方繼續講起。我們將建立資料庫，建立您的第一個模型，並主要說明
 Django 提供的自動產生的管理頁面。
 
-從哪裡取得協助：
-
-如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
-Help\</faq/help\> 的小節。
 
 資料庫設定[¶](#database-setup "永久連結至標題")
 -----------------------------------------------
@@ -1446,12 +1432,8 @@ polls/admin.py[¶](#id6 "永久連結至程式")**
 結尾的地方繼續講起。我們將繼續編寫投票應用，並且專注於如何建立公有界面 —
 也被稱為“視圖”。
 
-從哪裡取得協助：
 
-如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
-Help\</faq/help\> 的小節。
-
-概況[¶](#overview "永久連結至標題")
+概觀[¶](#overview "永久連結至標題")
 -----------------------------------
 
 Django 中的「視圖」是 Django
@@ -1892,10 +1874,6 @@ polls/templates/polls/index.html[¶](#id14 "永久連結至程式")**
 這一篇從 [教學第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
 結尾的地方繼續講起。我們將繼續編寫投票應用，專注於表單處理並且精簡我們的程式。
 
-從哪裡取得協助：
-
-如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
-Help\</faq/help\> 的小節。
 
 編寫一個簡單的表單[¶](#write-a-minimal-form "永久連結至標題")
 -------------------------------------------------------------
@@ -2203,10 +2181,6 @@ context 變數決定一個合適的名字。然而對於 ListView，自動產生
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
 結尾的地方繼續講起。我們在前幾章成功的構建了一個在線投票應用，在這一部分裡我們將為它建立一些自動化測試。
 
-從哪裡取得協助：
-
-如果你在閱讀本教學的過程中有任何疑問，可以前往FAQ的:doc:Getting
-Help\</faq/help\> 的小節。
 
 自動化測試簡介[¶](#introducing-automated-testing "永久連結至標題")
 ------------------------------------------------------------------
@@ -3714,10 +3688,9 @@ Django 做貢獻，你可能期望閱讀更多關於這些不同工具的資料�
 
 從哪裡取得協助：
 
-如果你在使用本教學時遇到困難, 你可以發資訊給
+如果你在使用本教學時遇到困難, 你可以發個訊息給
 [django-developers](https://docs.djangoproject.com/zh-hans/3.0/internals/mailing-lists/#django-developers-mailing-list)
-中的人或登陸 [\`\#django-dev on irc.freenode.net\`\_\_](#id11) 向其他
-Django 使用者尋求協助。
+中的人或登入 [\`\#django-dev on irc.freenode.net\`\_\_](#id11) 向其他 Django 使用者尋求協助。
 
 ### 這個指南涵蓋哪些內容？[¶](#what-does-this-tutorial-cover "永久連結至標題")
 
@@ -3725,7 +3698,7 @@ Django 使用者尋求協助。
 修補程式，在本教學完畢時，你將對相關工具及流程有一個基本的認識。特別的，我們將覆蓋以下內容：
 
 -   安裝 Git。
--   下載一份Django開發版的拷貝。
+-   下載一份 Django 開發版的拷貝。
 -   執行 Django 的測試套件。
 -   為你的修補程式寫一個測試。
 -   為你的修補程式編寫程式。
@@ -3738,15 +3711,14 @@ Django 使用者尋求協助。
 的剩餘部分。它包含了大量資訊。任何想成為 Django
 的正式貢獻者的人都必須閱讀它。如果你有問題，它也許會給你答案。
 
-必須Python 3！
+必須是 Python 3 的版本！
 
-目前的 Django 版本不再支援 Python 2.7。你可以在 [Python
-下載頁](https://www.python.org/downloads/)
+目前的 Django 版本不再支援 Python 2.7。你可以在 [Python 下載頁](https://www.python.org/downloads/)
 或透過操作系統的套件管理器下載 Python 3。
 
 對於 Windows 用戶
 
-See
+參考
 [安裝Python](https://docs.djangoproject.com/zh-hans/3.0/howto/windows/#install-python-windows)
 on Windows docs for additional guidance.
 

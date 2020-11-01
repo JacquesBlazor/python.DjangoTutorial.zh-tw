@@ -1268,7 +1268,7 @@ polls/models.py[¶](#id5 "永久連結至程式")**
     >>> q.was_published_recently()
     True
 
-    # 接下來我們會為問題 (Question) 建立幾個不同的選擇 (Choices)。 
+    # 接下來我們會為問題 (Question) 建立幾個不同的選項 (Choices)。 
     >>> q = Question.objects.get(pk=1)
 
     # 顯示相關物件集合的所有 choices -- 但到目前為止還沒有任何內容。

@@ -388,10 +388,9 @@ Django?](https://docs.djangoproject.com/zh-hans/3.0/faq/install/#faq-python-vers
 或者操作系統的套件管理工具取得。
 
 你可以在你的命令提示命令列或 shell 中輸入 `python` 來確定你是否安裝過 Python 程式語言直譯器；你看到的可能是像這樣子的:
-
-    Python 3.x.y
-    [GCC 4.x] on linux
-    Type "help", "copyright", "credits" or "license" for more information.
+   
+    Python 3.7.9 (tags/v3.7.9:13c94747c7, Aug 17 2020, 18:58:18) [MSC v.1900 64 bit (AMD64)] on win32
+    Type "help", "copyright", "credits" or "license" for more information.    
     >>>
 
 設定使用的資料庫[¶](#set-up-a-database "永久連結至標題")

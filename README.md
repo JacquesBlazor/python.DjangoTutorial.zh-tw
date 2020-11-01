@@ -1241,7 +1241,7 @@ polls/models.py[¶](#id5 "永久連結至程式")**
     # 關鍵字參數來操作你的搜尋。
     >>> Question.objects.filter(id=1)
     <QuerySet [<Question: 目前什麼情況?>]>
-    >>> Question.objects.filter(question_text__startswith='What')
+    >>> Question.objects.filter(question_text__startswith='目前')
     <QuerySet [<Question: 目前什麼情況?>]>
 
     # 如果要取得今年發佈的問題 (Question) 清單，可以使用下列方式。
@@ -1271,7 +1271,7 @@ polls/models.py[¶](#id5 "永久連結至程式")**
     # 接下來我們會為問題 (Question) 建立幾個不同的選擇 (Choices)。 
     >>> q = Question.objects.get(pk=1)
 
-    # 顯示相關物件集合的所有 choices -- 到目前為止還沒有。
+    # 顯示相關物件集合的所有 choices -- 但到目前為止還沒有任何內容。
     >>> q.choice_set.all()
     <QuerySet []>
 
@@ -1280,11 +1280,11 @@ polls/models.py[¶](#id5 "永久連結至程式")**
     # 新增到一個可在問題 (Question) 中選用的選項 (Choice)，並回傳
     # 新的 Choice 物件集合 (set)。Django 會建立用於儲存 ForeignKey 
     # 關係的 "相對面" 的集合(例如問題的選擇)，所以可以透過 API 進行存取。
-    >>> q.choice_set.create(choice_text='Not much', votes=0)
-    <Choice: Not much>
-    >>> q.choice_set.create(choice_text='The sky', votes=0)
-    <Choice: The sky>
-    >>> c = q.choice_set.create(choice_text='Just hacking again', votes=0)
+    >>> q.choice_set.create(choice_text='沒什麼特別的', votes=0)
+    <Choice:沒什麼特別的>
+    >>> q.choice_set.create(choice_text='天空', votes=0)
+    <Choice: 天空>
+    >>> c = q.choice_set.create(choice_text='就只是再寫一次', votes=0)
 
     # 這個 Choice 物件可以透過 API 存取其相關的 Question 物件。
     >>> c.question
@@ -1292,20 +1292,21 @@ polls/models.py[¶](#id5 "永久連結至程式")**
 
     # 反之亦然； Question 物件可以存取 Choice 物件。
     >>> q.choice_set.all()
-    <QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+    <QuerySet [<Choice: 沒什麼特別的>, <Choice: 天空>, <Choice: 就只是再寫一次>]>
+    # 列出目前的 choice_set 物件數量。
     >>> q.choice_set.count()
     3
 
-    # API 會根據您的需要自動遵循關係。
+    # API 會根據您的需要自動依循關係。
     # 使用雙底線分隔關係。
-    # 這可以根據需要進行任意深度的工作；沒有限制。
-    # 查詢今年 pub_date 為任何 Question 的所有 Choice
+    # 這可以根據需要進行任意層級的作業；沒有任何限制。
+    # 查詢今年 pub_date (發佈日期) 為任何問題 (Question) 的所有選項 (Choice)
     # (重複使用我們上面建立的 'current_year' 變數).
     >>> Choice.objects.filter(question__pub_date__year=current_year)
-    <QuerySet [<Choice: Not much>, <Choice: The sky>, <Choice: Just hacking again>]>
+    <QuerySet [<Choice: 沒什麼特別的>, <Choice: 天空>, <Choice: 就只是再寫一次>]>
 
-    # 讓我們刪除其中一個選項。 為此我們使用 delete() 函式。
-    >>> c = q.choice_set.filter(choice_text__startswith='Just hacking')
+    # 現在我們來刪除其中一個選項。要完成這個作業我們採用 delete() 函式。
+    >>> c = q.choice_set.filter(choice_text__startswith='就只是')
     >>> c.delete()
 
 閱讀

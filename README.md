@@ -8,7 +8,7 @@
 開始[¶](#getting-started "永久連結至標題")
 ==========================================
 
-初識 Django？或為了 Web 開發？好，那你來對地方了：看看這些資料快速上手。
+初次認識 Django？或是為了開發 Web 應用程式？好的，那你來對地方了，看看這些快速上手的資料。
 
 -   [初識
     Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
@@ -891,13 +891,12 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 
 預設開啟的某些應用程式需要至少一個資料表，所以，在使用他們之前需要在資料庫中建立一些表。請執行以下命令：
 
-    $ python manage.py migrate
+    `$ python manage.py migrate`
 
 這個 [`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
 命令檢查 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
-設定，為其中的每個應用程式建立需要的資料表，至於具體會建立什麼，這取決於你的
-`mysite/settings.py`
-設定文件和每個應用程式的資料庫遷移文件（我們稍後會介紹這個）。這個命令所執行的每個遷移操作都會在終端中顯示出來。如果你感興趣的話，執行你資料庫的命令列工具，並輸入
+設定，為其中的每個應用程式建立需要的資料表，至於具體會建立什麼，這取決於你的 `mysite/settings.py` 設定文件和每個應用程式的
+資料庫遷移文件（我們稍後會介紹這個）。這個命令所執行的每個遷移操作都會在終端中顯示出來。如果你感興趣的話，執行你資料庫的命令列工具，並輸入
 `\dt` (PostgreSQL)，
 `SHOW TABLES;` (MariaDB,MySQL)，
 `.schema` (SQLite)或者
@@ -1964,7 +1963,7 @@ polls/templates/polls/detail.html[¶](#id1 "永久連結至程式")**
     在表單中每個單選選項按鈕的 `value` 屬性是對應到其各別選項 (choice) 的 ID。每個單選選項按鈕的 `name` 設定為明確的字串值 `"choice"`。
     這樣的用意是當有人選擇一個單選按鈕並提交表單提交時，它將會傳送一個 POST 資料 `choice=#`，而其中的 `#` 即是被選擇的選項 (choice) 的 ID。
     這是 HTML 表單的基本概念。
--   我們設定表單的 `action` 為 `{%  url 'polls:vote' question.id %}`，並設定 `method="post"`。使用 `method="post"`
+-   我們設定表單的 `action` 為 `\{%  url 'polls:vote' question.id %\}`，並設定 `method="post"`。使用 `method="post"`
     （與其相對的是 `method="get"`）是非常重要的，因為這個提交表單的行為會改變伺服器端的資料。
     無論何時，當你需要建立一個改變伺服器端資料的表單時，使用`method="post"`。這不是 Django 的特定技巧；這是優秀的網站開發技巧。
 -   我們設定表單的 `action`{為`{%  url 'polls:vote' question.id %}`，並設定 `method="post"`。使用 `method="post"`

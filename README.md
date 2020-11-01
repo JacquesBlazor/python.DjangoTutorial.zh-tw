@@ -46,10 +46,10 @@
 [初識 Django
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 
-初識 Django[¶](#django-at-a-glance "永久連結至標題")
+初次認識 Django[¶](#django-at-a-glance "永久連結至標題")
 ====================================================
 
-Django 最初被設計用於具有快速開發需求的新聞類網站，目的是要實現簡單快捷的網站開發。以下內容簡要介紹了如何使用 Django 實現一個資料庫驅動的 Web 應用程式。
+Django 最初被設計用於具有快速開發需求的新聞類網站，目的是要實現簡單便捷的網站開發。以下內容簡要介紹了如何使用 Django 實現一個資料庫驅動的 Web 應用程式。
 
 為了讓您充分理解 Django 的工作原理，這份文件為您詳細描述了相關的技術細節，不過這並不是一份入門教學或者是參考文件（我們當然也為您準備了這些）。如果您想要馬上開始一個專案，可以從
 [實例教學](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)
@@ -89,7 +89,7 @@ mysite/news/models.py[¶](#id1 "永久連結至程式")**
 應用資料模型[¶](#install-it "永久連結至標題")
 ---------------------------------------------
 
-接下來，執行Django命令欄實用程式以自動建立資料庫表：
+接下來，執行 Django 命令列實用程式以自動建立資料庫表：
 
     $ python manage.py makemigrations
     $ python manage.py migrate
@@ -825,7 +825,7 @@ bindings](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database-in
 SQLite 以外的其它資料庫
 
 如果你使用了 SQLite
-以外的資料庫，請確認在使用前已經建立了資料庫。你可以透過在你的資料庫交互式命令欄中使用
+以外的資料庫，請確認在使用前已經建立了資料庫。你可以透過在你的資料庫交互式命令列中使用
 "`CREATE DATABASE database_name;`"
 命令來完成這件事。
 
@@ -1144,7 +1144,7 @@ Django 有一個自動執行資料庫遷移並同步管理你的資料庫結構�
 初次嘗試 API[¶](#playing-with-the-api "永久連結至標題")
 ---------------------------------------------------
 
-現在讓我們進入交互式 Python 命令欄，嘗試一下 Django 為你建立的各種的 API。
+現在讓我們進入交互式 Python 命令列，嘗試一下 Django 為你建立的各種的 API。
 請透過以下命令開啟 Python 命令列模式 (shell)：
 
     $ python manage.py shell
@@ -1288,7 +1288,7 @@ polls/models.py[¶](#id5 "永久連結至程式")**
 
     # 這個 Choice 物件可以透過 API 存取其相關的 Question 物件。
     >>> c.question
-    <Question: What's up?>
+    <Question: 目前什麼情況?>
 
     # 反之亦然； Question 物件可以存取 Choice 物件。
     >>> q.choice_set.all()
@@ -1405,7 +1405,7 @@ polls/admin.py[¶](#id6 "永久連結至程式")**
 
 ***
 
-點選 “What's up?” 來編輯這個問題（Question）物件：
+點選 “目前什麼情況?” 來編輯這個問題（Question）物件：
 
 ***
 
@@ -1417,7 +1417,7 @@ polls/admin.py[¶](#id6 "永久連結至程式")**
     HTML 輸入控件。每個類型的欄位都知道它們該如何在管理頁面裡顯示自己。
 -   每個日期時間欄位 [`DateTimeField`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField "django.db.models.DateTimeField")
     都有 JavaScript
-    寫的快捷按鈕。日期有顯示成今天（Today）的快捷按鈕和一個彈出式日曆界面。時間有設為現在（Now）的快捷按鈕和一個方便的列出常用時間的彈出式列表。
+    寫的便捷按鈕。日期有顯示成今天（Today）的便捷按鈕和一個彈出式日曆界面。時間有設為現在（Now）的便捷按鈕和一個方便的列出常用時間的彈出式列表。
 
 頁面的底部提供了幾個選項：
 
@@ -1469,7 +1469,7 @@ Django 中的「視圖」是 Django
 應用程式中網頁的「樣式(type)」，通常具有特定功能並具有特定範本。例如，在一個部落格應用中，你可能會建立如下幾個視圖：
 
 -   部落格首頁 — 顯示最近的幾項內容。
--   項目 “詳情” 頁 — 單個項目的永久連結頁面。
+-   項目 “細節” 頁 — 單個項目的永久連結頁面。
 -   以年為單位的歸檔頁 — 顯示取得的年份裡各個月份建立的內容。
 -   以月為單位的歸檔頁 — 顯示取得的月份裡各天建立的內容。
 -   以天為單位的歸檔頁 — 顯示取得天裡建立的所有內容。
@@ -1478,7 +1478,7 @@ Django 中的「視圖」是 Django
 而在我們的投票應用中，我們需要下欄幾個視圖：
 
 -   問題 “索引” 頁 — 顯示最近的幾個投票問題。
--   問題 “詳情” 頁 — 顯示一個問題本文，不帶結果，但有一個投票表單。
+-   問題 “細節” 頁 — 顯示一個問題本文，不帶結果，但有一個投票表單。
 -   問題 “結果” 頁 — 顯示某個投票的結果。
 -   投票行為 — 用於對特定問題的特定選擇的投票處理。
 
@@ -1681,15 +1681,13 @@ polls/views.py[¶](#id6 "永久連結至程式")**
 Python 物件。
 
 用你的瀏覽器開啟 "/polls/" ，你將會看見一個無序清單，列出了我們在
-[教學第 2
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
-中增加的 “What's up” 投票問題，連結指向這個投票的詳情頁。
+[教學第 2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
+中增加的 “目前什麼情況?” 投票問題，連結指向這個投票的細節頁面。
 
-### 一個快捷函數： [`render()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.render "django.shortcuts.render")[¶](#a-shortcut-render "永久連結至標題")
+### 一個便捷函數： [`render()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.render "django.shortcuts.render")[¶](#a-shortcut-render "永久連結至標題")
 
 載入範本、填入內容再回傳由它產生的 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponse "django.http.HttpResponse")
-物件是一個非常常用的操作流程。於是 Django
-提供了一個快捷函數，我們用它來重寫 `index()` 視圖：
+物件是一個非常常用的作業流程。因此 Django 提供了一個便捷函數，我們用它來重新編寫 `index()` 視圖：
 
 polls/views.py[¶](#id7 "永久連結至程式")**
 
@@ -1717,7 +1715,7 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 拋出 404 錯誤[¶](#raising-a-404-error "永久連結至標題")
 -------------------------------------------------------
 
-現在，我們來處理投票詳情視圖 —
+現在，我們來處理投票細節視圖 —
 它會顯示指定投票的問題本文。下面是這個視圖的程式：
 
 polls/views.py[¶](#id8 "永久連結至程式")**
@@ -1747,11 +1745,11 @@ polls/templates/polls/detail.html[¶](#id9 "永久連結至程式")**
 
 這樣你就能測試了。
 
-### 一個快捷函數： [`get_object_or_404()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.get_object_or_404 "django.shortcuts.get_object_or_404")[¶](#a-shortcut-get-object-or-404 "永久連結至標題")
+### 一個便捷函數： [`get_object_or_404()`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/shortcuts/#django.shortcuts.get_object_or_404 "django.shortcuts.get_object_or_404")[¶](#a-shortcut-get-object-or-404 "永久連結至標題")
 
 嘗試用 [`get()`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/querysets/#django.db.models.query.QuerySet.get "django.db.models.query.QuerySet.get")
 函數取得一個物件，如果不存在就拋出 [`Http404`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/views/#django.http.Http404 "django.http.Http404")
-錯誤也是一個普遍的流程。Django 也提供了一個快捷函數，下面是修改後的詳情
+錯誤也是一個普遍的流程。Django 也提供了一個便捷函數，下面是修改後的細節
 `detail()` 視圖程式：
 
 polls/views.py[¶](#id10 "永久連結至程式")**
@@ -1837,7 +1835,7 @@ URLs 是十分困難的。不過，由於你在 `polls.urls` 的 [`path()`](http
     path('<int:question_id>/', views.detail, name='detail'),
     ...
 
-如果你想改變投票詳情視圖的 URL，例如想改成
+如果你想改變投票細節視圖的 URL，例如想改成
 `polls/specifics/12/`
 ，你不用在範本裡修改任何東西（包括其它範本），只要在
 `polls/urls.py` 裡稍微修改一下就行：
@@ -2086,7 +2084,7 @@ F()](https://docs.djangoproject.com/zh-hans/3.0/ref/models/expressions/#avoiding
 
 這些視圖反映基本的 Web 開發中的一個常見情況：根據 URL
 中的參數從資料庫中取得資料、載入範本文件然後回傳實現後的範本。
-由於這種情況特別常見，Django 提供一種快捷方式，叫做 “通用視圖” 系統。
+由於這種情況特別常見，Django 提供一種便捷方式，叫做 “通用視圖” 系統。
 
 通用視圖將常見的模式抽象化，可以使你在編寫應用時甚至不需要編寫 Python
 程式。
@@ -2587,7 +2585,7 @@ polls/tests.py[¶](#id7 "永久連結至程式")**
 
     from django.urls import reverse
 
-然後我們寫一個公用的快捷函數用於建立投票問題，再為視圖建立一個測試類別：
+然後我們寫一個公用的便捷函數用於建立投票問題，再為視圖建立一個測試類別：
 
 polls/tests.py[¶](#id8 "永久連結至程式")**
 
@@ -2660,7 +2658,7 @@ polls/tests.py[¶](#id8 "永久連結至程式")**
 
 讓我們更詳細地看下以上這些內容。
 
-首先是一個快捷函數 `create_question`，它封裝了建立投票的流程，減少了重復程式。
+首先是一個便捷函數 `create_question`，它封裝了建立投票的流程，減少了重復程式。
 
 `test_no_questions`
 方法裡沒有建立任何投票，它檢查回傳的網頁上有沒有 "No polls are
@@ -3776,10 +3774,10 @@ on Windows docs for additional guidance.
 在本教學中，你需要安裝好 Git，用 Git 下載 Django
 的最新開發版本並且為你的修改產生修補程式文件。
 
-要檢查你是否已經安裝 Git，命令欄輸入 `git`。如果提示這個命令無法找到，你必須下載並安裝它，參考
+要檢查你是否已經安裝 Git，命令列輸入 `git`。如果提示這個指令無法找到，你必須下載並安裝它，參考
 [\`Git's download page\`\_\_](#id11) 。
 
-如果你還不熟悉 Git, 你可以在命令欄下輸入 `git help` 了解更多關於 Git 命令的使用方法 (確保已安裝)
+如果你還不熟悉 Git, 你可以在命令列下輸入 `git help` 了解更多關於 Git 命令的使用方法 (確保已安裝)
 
 取得一個 Django 開發版本的副本[¶](#getting-a-copy-of-django-s-development-version "永久連結至標題")
 ---------------------------------------------------------------------------------------------------
@@ -3827,7 +3825,7 @@ terminal window.
 
     ...\> %HOMEPATH%\.virtualenvs\djangodev\Scripts\activate.bat
 
-當前啟用的虛擬環境的名稱會被展示在命令欄，這可以讓你搞清楚你正在使用哪一個虛擬環境。你透過
+當前啟用的虛擬環境的名稱會被展示在命令列，這可以讓你搞清楚你正在使用哪一個虛擬環境。你透過
 `pip` 安裝的任何軟件套件如果在安裝時顯示了該名稱，則都會被安裝到該虛擬環境中，而且這些軟件套件不會影響到其他虛擬環境，也不會與其他系統級的軟件套件發生衝突。
 
 下一步安裝之前複製的 Django 副本：
@@ -4113,13 +4111,12 @@ Features"下面增加一個說明:
     +    def test_make_toast(self):
     +        self.assertEqual(make_toast(), 'toast')
 
-當你檢查完修補程式後，敲擊 `q` 鍵回傳到命令欄。如果修補程式內容看起來沒問題，可以提交這些修改了。
+當你檢查完修補程式後，輸入 `q` 鍵回傳到命令列。如果修補程式內容看起來沒問題，可以提交這些修改了。
 
 提交修補程式中的修改[¶](#committing-the-changes-in-the-patch "永久連結至標題")
 ------------------------------------------------------------------------------
 
 為了提交這些修改：
-
 
     $ git commit
 

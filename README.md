@@ -426,7 +426,7 @@ installation information](https://docs.djangoproject.com/zh-hans/3.0/topics/inst
 ``` 
 >>> import django
 >>> print(django.get_version())
-3.0
+3.1.2
 ```
 
 當然了，你也可能安裝的是其它版本的 Django。

@@ -450,9 +450,7 @@ Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 -   一個讓人們查看和投票的公開網站。
 -   一個讓你能增加、修改和刪除投票的管理網站。
 
-我們假定你已經閱讀了 [安裝
-Django](https://docs.djangoproject.com/zh-hans/3.0/intro/install/)。你能知道
-Django 已被安裝，且安裝的是哪個版本，透過在命令提示列輸入命令（由 \$ 前置符號）。
+我們假設你已經閱讀了 [安裝 Django](https://docs.djangoproject.com/zh-hans/3.0/intro/install/)。透過在命令提示字元輸入以下命令（由 \$ 前置提示符號，相當於在 Windows 下是目前路徑加 >）你可以得知 Django 已確認安裝好了，並且安裝的是哪個版本，。
 
     $ python -m django --version
 

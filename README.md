@@ -10,7 +10,7 @@
 
 初次認識 Django？或是為了開發 Web 應用程式？好的，那你來對地方了，看看這些快速上手的資料。
 
--   [初識
+-   [初次認識
     Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 -   [快速安裝指南](https://docs.djangoproject.com/zh-hans/3.0/intro/install/)
 -   [編寫你的第一個 Django 應用，第 1
@@ -34,7 +34,7 @@
 
 參考
 
-如果你是剛開始認識 [Python](https://python.org/)，可能會想知道它是怎麼樣的一門語言。Django 是 100% 由 Python 語言編寫而成的，所以熟悉 Python 可以加深你對 Django 的理解。
+如果你是第一次認識 [Python 程式語言](https://python.org/)，可能會想知道它是怎麼樣的一門電腦語言。Django 是 100% 由 Python 語言編寫而成的，所以熟悉 Python 可以加深你對 Django 的理解。
 
 如果你完全沒有程式設計的經驗，你可能會需要先從 [適合零編程經驗者的 Python 學習資源](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers) 著手。
 
@@ -43,7 +43,7 @@
 
 [** Django 文件](https://docs.djangoproject.com/zh-hans/3.0/)
 
-[初識 Django
+[初次認識 Django
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 
 初次認識 Django[¶](#django-at-a-glance "永久連結至標題")
@@ -373,42 +373,37 @@ Django 的資料庫 API。你可以用其他的資料庫抽象層，像是直接
 快速安裝指南[¶](#quick-install-guide "永久連結至標題")
 ======================================================
 
-開始用 Django 前，需要先進行安裝。我們寫了 :doc:\`
-完整安裝指南\</topics/install\>\`
-羅欄了各種安裝方法和情況；它會指導你完成一個簡易安裝，只要你按照指示操作，就可以執行得起來。
+開始用 Django 前，需要先進行安裝。我們寫了 完整安裝指南並且列出了各種安裝方法和情況。它會引導你完成一個簡易的安裝，只要你依照指示操作，就可以執行得起來。
 
 安裝 Python[¶](#install-python "永久連結至標題")
 ------------------------------------------------
 
-作為一個 Python Web 框架，Django 需要 Python。更多細節請參見
+作為一個 Python Web 框架，Django 需要執行在 Python 程式語言直譯器下。更多細節請參見
 [我應該使用哪個版本的 Python 來配合
 Django?](https://docs.djangoproject.com/zh-hans/3.0/faq/install/#faq-python-version-support)。Python
-包含了一個名為 [SQLite](https://sqlite.org/)
-的輕量級資料庫，所以你暫時不必自行設置一個資料庫。
+包含了一個名為 [SQLite](https://sqlite.org/) 的輕量級資料庫，所以你暫時可以不需要自己建置一個資料庫。
 
 最新版本的 Python 可以透過開啟
 [https://www.python.org/downloads/](https://www.python.org/downloads/)
 或者操作系統的套件管理工具取得。
 
-你可以在你的 shell 中輸入 `python` 來確定你是否安裝過 Python；你看到的可能是像這樣子的:
+你可以在你的命令提示命令列或 shell 中輸入 `python` 來確定你是否安裝過 Python 程式語言直譯器；你看到的可能是像這樣子的:
 
     Python 3.x.y
     [GCC 4.x] on linux
     Type "help", "copyright", "credits" or "license" for more information.
     >>>
 
-設置資料庫[¶](#set-up-a-database "永久連結至標題")
+設定使用的資料庫[¶](#set-up-a-database "永久連結至標題")
 --------------------------------------------------
 
-此步驟僅在你打算使用諸如 PostgreSQL, MariaDB, MySQL, 或者 Oracle
-這些大型資料庫引擎時需要。要安裝這種資料庫, 請參考 [database
-installation
-information](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database-installation)。
+此步驟僅在你打算使用類似像 PostgreSQL, MariaDB, MySQL, 或者 Oracle 這些大型資料庫引擎時才會需要。如果你要安裝這類型資料庫, 請參考 [database
+installation information](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database-installation)。
 
 安裝 Django[¶](#install-django "永久連結至標題")
 ------------------------------------------------
 
-安裝 Django有以下三種方式：
+安裝 Django 有以下三種方式：
 
 -   [Install an official
     release](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#installing-official-release)
@@ -418,20 +413,16 @@ information](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#database
 -   [Install the latest development
     version](https://docs.djangoproject.com/zh-hans/3.0/topics/install/#installing-development-version)
     這個選擇是針對那些想要體驗最新和最好的特性的愛好者們，並不怕執行全新程式。你在開發版中可能會遇到新的
-    bug，可以報告給社區團隊協助 Django
-    開發。此外，第三方發行的軟件套件也可能不與開發版進行相容。
+    bug，可以報告給社區團隊協助 Django 開發。此外，第三方發行的軟體套件也可能不與開發版進行相容。
 
-請始終參考與你所使用的版本對應的 Django 文件！
+請同時參考與你所使用的版本對應的 Django 文件！
 
-如果採用了前兩種方式進行安裝，你需要注意在文件中標明
-**在開發版中新增**。這個標記表示這個特性僅適用開發版
-Django，並且他們可能不會在官方發布的穩定版中出現。
+如果採用了前兩種方式進行安裝，你需要注意在文件中標明 **在開發版中新增**。這個標記表示這個特性僅適用開發版 Django，並且他們可能不會在官方發布的穩定版中出現。
 
 驗證[¶](#verifying "永久連結至標題")
 ------------------------------------
 
-若要驗證 Django 是否能被 Python 識別，可以在 shell 中輸入
-`python`。 然後在 Python 的提示符號下，嘗試匯入 Django 套件：
+若要驗證 Django 是否能被 Python 識別，可以在 shell 中輸入 `python`。 然後在 Python 的提示符號下，嘗試匯入 Django 套件：
 
 ``` 
 >>> import django
@@ -446,7 +437,7 @@ Django，並且他們可能不會在官方發布的穩定版中出現。
 
 一切搞定啦，現在你可以 [前往 Django 的教學](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)。
 
-[** 初識
+[** 初次認識
 Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 
 [編寫你的第一個 Django 應用，第 1 部分

@@ -1994,8 +1994,7 @@ polls/views.py[¶](#id3 "永久連結至程式")**
 
 -   如果在 `request.POST['choice']` ， POST
     將引發一個 [`KeyError`](https://docs.python.org/3/library/exceptions.html#KeyError "(在 Python v3.8)")
-    。上面的程式檢查 [`KeyError` 將重新顯示
-    Question 表單和一個錯誤資訊。
+    。上面的程式檢查 `KeyError` 將重新顯示 Question 表單和一個錯誤資訊。
 
 -   在增加 Choice 的得票數之後，程式回傳一個
     [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")

@@ -105,7 +105,7 @@ migrations 的程式腳本文件。[`migrate`](https://docs.djangoproject.com/zh
 API](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/)
 來存取你的資料。這些 API 是動態建立的，不需要另外撰寫程式：
 
-    # 匯入我們從 "news" app 所建立的模型 (models)
+    # 匯入我們從 "新聞"("news") app 所建立的模型 (models)
     >>> from news.models import Article, Reporter
 
     # 剛開始還沒有任何的 reporters (記者) 在系統裡

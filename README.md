@@ -8,9 +8,9 @@
 開始[¶](#getting-started "永久連結至標題")
 ==========================================
 
-初次認識 Django？或是為了開發 Web 應用程式？好的，那你來對地方了，看看這些快速上手的資料。
+想要快速瞭解 Django 是什麼？或是為了開發 Web 應用程式？好的，那你來對地方了，看看這些快速上手的資料。
 
--   [初次認識
+-   [快速導覽
     Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 -   [快速安裝指南](https://docs.djangoproject.com/zh-hans/3.0/intro/install/)
 -   [編寫你的第一個 Django 應用，第 1
@@ -43,9 +43,9 @@
 
 [** Django 文件](https://docs.djangoproject.com/zh-hans/3.0/)
 
-[初次認識 Django**](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
+[快速導覽 Django**](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 
-初次認識 Django[¶](#django-at-a-glance "永久連結至標題")
+快速導覽 Django[¶](#django-at-a-glance "永久連結至標題")
 ====================================================
 
 Django 最初被設計用於具有快速開發需求的新聞類網站，目的是要實現簡單便捷的網站開發。以下內容簡要介紹了如何使用 Django 實現一個資料庫驅動的 Web 應用程式。
@@ -55,16 +55,15 @@ Django 最初被設計用於具有快速開發需求的新聞類網站，目的�
 開始入手，或者直接開始閱讀詳細的
 [參考文件](https://docs.djangoproject.com/zh-hans/3.0/topics/) 。
 
-設計模型[¶](#design-your-model "永久連結至標題")
+設計你的模型[¶](#design-your-model "永久連結至標題")
 ------------------------------------------------
 
-Django 無需資料庫就可以使用，它提供了
-[物件關聯映射器](https://en.wikipedia.org/wiki/Object-relational_mapping)
+雖然你可以在沒有安裝與設定資料庫的情況下就開始使用 Django，因為它內建了
+[物件關聯映射器 (object-relational mapper)](https://en.wikipedia.org/wiki/Object-relational_mapping)。
 透過此技術，你可以使用 Python 程式來描述資料庫結構。
 
-你可以使用強大的
-[資料-模型語句](https://docs.djangoproject.com/zh-hans/3.0/topics/db/models/)
-來描述你的資料模型，這解決了數年以來在資料庫模式中的難題。以下是一個簡明的例子：
+然而你也可以透過很多豐富的 [資料-模型語法 (data-model syntax)](https://docs.djangoproject.com/zh-hans/3.0/topics/db/models/)
+的來描述你的資料模型 – 至少已解決了數年以來在定義資料庫結構 (database-schema) 中的難題。以下是一個簡單的例子：
 
 mysite/news/models.py[¶](#id1 "永久連結至程式")**
 
@@ -85,103 +84,104 @@ mysite/news/models.py[¶](#id1 "永久連結至程式")**
         def __str__(self):
             return self.headline
 
-應用資料模型[¶](#install-it "永久連結至標題")
+安裝並應用資料模型[¶](#install-it "永久連結至標題")
 ---------------------------------------------
 
-接下來，執行 Django 命令列實用程式以自動建立資料庫表：
+接下來，執行下列 Django 命令列工具程式來自動建立資料庫表：
 
     $ python manage.py makemigrations
     $ python manage.py migrate
 
-該 [`makemigrations`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-makemigrations)
-命令查找所有可用的models，為任意一個在資料庫中不存在對應資料表的model建立
-migrations 腳本文件。[`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
-命令則執行這些 migrations 自動建立資料庫表。還提供可選的
-[更豐富的控制模式](https://docs.djangoproject.com/zh-hans/3.0/topics/migrations/)。
+此 [`makemigrations`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-makemigrations)
+命令會尋找所有可用的模型 (models)，為在資料庫中任意一個不存在對應資料表的模型 (model) 建立
+migrations 的程式腳本文件。[`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
+命令則執行這些 migrations 程式腳本文件來自動建立資料庫的資料表，同時也提供可選用的
+[更豐富的資料結構控制](https://docs.djangoproject.com/zh-hans/3.0/topics/migrations/)。
 
 享用便捷的 API[¶](#enjoy-the-free-api "永久連結至標題")
 -------------------------------------------------------
 
 接下來，你就可以使用一套便捷而豐富的 [Python
 API](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/)
-開啟你的資料。API是動態建立的，不需要程式產生：
+來存取你的資料。這些 API 是動態建立的，不需要另外撰寫程式：
 
-    # Import the models we created from our "news" app
+    # 匯入我們從 "news" app 所建立的模型 (models) 
     >>> from news.models import Article, Reporter
 
-    # No reporters are in the system yet.
+    # 開啟時還沒有任何的 reporters (記者) 在系統裡
     >>> Reporter.objects.all()
     <QuerySet []>
 
-    # Create a new Reporter.
+    # 現在來建立一個新的 Reporter
     >>> r = Reporter(full_name='John Smith')
 
-    # Save the object into the database. You have to call save() explicitly.
+    # 然後將該物件儲存到資料庫裡. 這裡你必須明確地呼叫 save() 函式來完成這個動作
     >>> r.save()
 
-    # Now it has an ID.
+    # 現在我們的物件就有一個 ID
     >>> r.id
     1
 
-    # Now the new reporter is in the database.
+    # 接著可以看到這個新建立的 reporter 是存在於資料庫的
     >>> Reporter.objects.all()
     <QuerySet [<Reporter: John Smith>]>
 
-    # Fields are represented as attributes on the Python object.
+    # 所有的欄位以 Python 物件的屬性來表示
     >>> r.full_name
     'John Smith'
 
-    # Django provides a rich database lookup API.
+    # Django 提供了豐富的資料庫搜尋 API
     >>> Reporter.objects.get(id=1)
     <Reporter: John Smith>
     >>> Reporter.objects.get(full_name__startswith='John')
     <Reporter: John Smith>
     >>> Reporter.objects.get(full_name__contains='mith')
     <Reporter: John Smith>
+    # 如果在資料庫搜尋不存在的物件 Django 也提供了明確的錯誤資訊
     >>> Reporter.objects.get(id=2)
     Traceback (most recent call last):
         ...
     DoesNotExist: Reporter matching query does not exist.
 
-    # Create an article.
+    # 然後我們來建立一個 article (文章)
     >>> from datetime import date
     >>> a = Article(pub_date=date.today(), headline='Django is cool',
     ...     content='Yeah.', reporter=r)
     >>> a.save()
 
-    # Now the article is in the database.
+    # 現在 article 已建立並存在資料庫裡
     >>> Article.objects.all()
     <QuerySet [<Article: Django is cool>]>
 
-    # Article objects get API access to related Reporter objects.
+    # 你可以透過 Article 物件的 API 來存取這篇 Article 相對應的 Reporter 物件
     >>> r = a.reporter
     >>> r.full_name
     'John Smith'
 
-    # And vice versa: Reporter objects get API access to Article objects.
+    # 反之亦同: 你可以透過 Reporter 物件的 API 來存取其相對應的 Article 物件
     >>> r.article_set.all()
     <QuerySet [<Article: Django is cool>]>
 
-    # The API follows relationships as far as you need, performing efficient
-    # JOINs for you behind the scenes.
-    # This finds all articles by a reporter whose name starts with "John".
+    # 此 API 會依據你的需要依循相互關聯性, 在底層
+    # 替你執行有效率的 JOINs (聯結)
+    # 下列指令會找到這位名字開頭是 "John" 的 reporter 的所有 articles
     >>> Article.objects.filter(reporter__full_name__startswith='John')
     <QuerySet [<Article: Django is cool>]>
 
-    # Change an object by altering its attributes and calling save().
+    # 使用物件的屬性來變更物件內容並呼叫 save() 儲存到資料庫中
     >>> r.full_name = 'Billy Goat'
     >>> r.save()
 
-    # Delete an object with delete().
+    # 用物件的 delete() 方法(函式) 來刪除物件
     >>> r.delete()
 
-一個動態管理接口：並非徒有其表[¶](#a-dynamic-admin-interface-it-s-not-just-scaffolding-it-s-the-whole-house "永久連結至標題")
+一個動態的管理界面：並非只是簡易支架而是整棟房子[¶](#a-dynamic-admin-interface-it-s-not-just-scaffolding-it-s-the-whole-house "永久連結至標題")
 -----------------------------------------------------------------------------------------------------------------------------
 
 當你的模型完成定義，Django 就會自動產生一個專業的生產級
-[管理接口](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/)
+[管理界面](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/)
 ——一個允許認證用戶增加、更改和刪除物件的 Web 網站。你只需在 admin
-網站上注冊你的模型即可：
+網站上註冊你的資料模型即可：
 
 mysite/news/models.py[¶](#id2 "永久連結至程式")**
 
@@ -201,24 +201,21 @@ mysite/news/admin.py[¶](#id3 "永久連結至程式")**
 
     admin.site.register(models.Article)
 
-這樣設計所遵循的理念是，網站編輯人員可以是你的員工、你的客戶、或者就是你自己——而你大概不會樂意去廢半天勁建立一個只有內容管理功能的管理管理界面。
+這樣設計所遵循的理念是，網站編輯人員可以是你的員工、你的客戶、或者就是你自己——而你大概不會樂意去花了半天的時間來建立一個只有內容管理功能的管理管理界面。
 
 建立 Django
-應用的典型流程是，先建立資料模型，然後搭建管理網站，之後你的員工（或者客戶）就可以向網站裡填充資料了。後面我們會談到如何展示這些資料。
+典型的應用流程是，先建立資料模型，然後建立管理網站，接著你的員工（或者客戶）就可以在網站裡輸入資料了。後面我們會談到如何顯示這些資料。
 
-規劃 URLs[¶](#design-your-urls "永久連結至標題")
+設計規劃 URLs[¶](#design-your-urls "永久連結至標題")
 ------------------------------------------------
 
-簡潔優雅的 URL 規劃對於一個高質量 Web 應用來說至關重要。Django
-推崇優美的 URL 設計，所以不要把諸如 `.php`
-之類的冗餘的後綴放到 URL 裡。
+簡潔優雅的 URL 規劃對於一個高品質的 Web 應用來說非常重要。Django 推崇優美的 URL 設計，所以不要把諸如 `.php`
+之類的多餘的後綴放到 URL 裡。
 
 為了設計你自己的
 [URLconf](https://docs.djangoproject.com/zh-hans/3.0/topics/http/urls/)
-，你需要建立一個叫做 URLconf 的 Python
-模組。這是網站的目錄，它包含了一張 URL 和 Python
-回調函數之間的映射表。URLconf 也有利於將 Python 程式與 URL
-進行解耦（譯注：使各個模組分離，獨立）。
+，你需要建立一個叫做 URLconf 的 Python 模組。這是網站的目錄，它包含了一張 URL 和 Python
+回呼函數之間的映射表。URLconf 也有利於將 Python 程式與 URL 進行解耦合（譯註：使各個模組分離且各自獨立）。
 
 下面這個 URLconf 適用於前面 `Reporter` 的例子：
 
@@ -234,15 +231,12 @@ mysite/news/urls.py[¶](#id4 "永久連結至程式")**
         path('articles/<int:year>/<int:month>/<int:pk>/', views.article_detail),
     ]
 
-上述程式將 URL 路徑映射到了 Python
-回調函數（“視圖”）。路徑字串使用參數標籤從URL中“捕獲”相應值。當用戶請求頁面時，Django
-依次遍歷路徑，直至初次比對到了請求的 URL。(如果無比對項，Django 會調用
-404 視圖。) 這個過程非常快，因為路徑在載入時就編譯成了正規表達式。
+上述程式將 URL 路徑對映到了 Python 回呼函數（“視圖”）。路徑字串使用參數標籤從URL中“捕獲”相應值。當用戶請求頁面時，Django
+依次遍歷路徑，直至初次比對到請求的 URL。(如果沒有符合項目，Django 會呼叫 404 視圖。) 這個過程非常快，因為路徑在載入時就編譯成了正規表達式。
 
-一旦有 URL 路徑比對成功，Django
-會調用相應的視圖函數。每個視圖函數會接受一個請求物件——包含請求元資訊——以及在比對式中取得的參數值。
+一旦有 URL 路徑比對成功，Django 會呼叫相應的視圖函數。每個視圖函數會接受一個請求物件 — 包含請求資訊元素以及在比對式中取得的參數值。
 
-例如，當用戶請求了這樣的 URL "/articles/2005/05/39323/"，Django 會調用
+例如，當用戶請求了這樣的 URL "/articles/2005/05/39323/"，Django 會呼叫
 `news.views.article_detail(request, year=2005, month=5, pk=39323)`。
 
 編寫視圖[¶](#write-your-views "永久連結至標題")
@@ -253,7 +247,7 @@ mysite/news/urls.py[¶](#id4 "永久連結至程式")**
 物件，或者是拋出 [`Http404`](https://docs.djangoproject.com/zh-hans/3.0/topics/http/views/#django.http.Http404 "django.http.Http404")
 這類異常。至於執行過程中的其它的動作則由你決定。
 
-通常來說，一個視圖的工作就是：從參數取得資料，裝載一個範本，然後將根據取得的資料對範本進行渲染。下面是一個
+通常來說，一個視圖的工作就是：從參數取得資料，載入一個範本，然後將根據取得的資料對範本進行渲染。下面是一個
 `year_archive` 的視圖樣例：
 
 mysite/news/views.py[¶](#id5 "永久連結至程式")**
@@ -435,8 +429,7 @@ installation information](https://docs.djangoproject.com/zh-hans/3.0/topics/inst
 
 一切搞定啦，現在你可以 [前往 Django 的教學](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)。
 
-[** 初次認識
-Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
+[** 快速導覽 Django](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 
 [編寫你的第一個 Django 應用，第 1 部分
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)

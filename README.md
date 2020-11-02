@@ -108,7 +108,7 @@ API](https://docs.djangoproject.com/zh-hans/3.0/topics/db/queries/)
     # 匯入我們從 "news" app 所建立的模型 (models)
     >>> from news.models import Article, Reporter
 
-    # 開啟時還沒有任何的 reporters (記者) 在系統裡
+    # 剛開始還沒有任何的 reporters (記者) 在系統裡
     >>> Reporter.objects.all()
     <QuerySet []>
 

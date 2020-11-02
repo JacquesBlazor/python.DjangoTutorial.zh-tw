@@ -38,13 +38,12 @@
 
 如果你完全沒有程式設計的經驗，你可能會需要先從 [適合零編程經驗者的 Python 學習資源](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers) 著手。
 
-如果你已經了解過一門其他的編程語言，並且向快速上手Python，我們向你推薦 [Dive Into Python](https://diveinto.org/python3/table-of-contents.html)。
-如果它們不太適合你的話，還有其它很多 [有關 Python 的書籍](https://wiki.python.org/moin/PythonBooks)。
+如果你已經了解過一門其他的編程語言，並且希望想能快速上手 Python 程式語言，我們推薦你可以到 [進入 Python](https://diveinto.org/python3/table-of-contents.html)。
+如果你覺得它們似乎不適合你的話，還有其它很多 [有關 Python 的書籍](https://wiki.python.org/moin/PythonBooks)。
 
 [** Django 文件](https://docs.djangoproject.com/zh-hans/3.0/)
 
-[初次認識 Django
-**](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
+[初次認識 Django**](https://docs.djangoproject.com/zh-hans/3.0/intro/overview/)
 
 初次認識 Django[¶](#django-at-a-glance "永久連結至標題")
 ====================================================

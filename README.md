@@ -36,9 +36,9 @@
 
 如果你是第一次認識 [Python 程式語言](https://python.org/)，可能會想知道它是怎麼樣的一門電腦語言。Django 是 100% 由 Python 語言編寫而成的，所以熟悉 Python 可以加深你對 Django 的理解。
 
-如果你完全沒有程式設計的經驗，你可能會需要先從 [適合零編程經驗者的 Python 學習資源](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers) 著手。
+如果你完全沒有程式設計的經驗，你可能會需要先從 [適合零程式設計經驗者的 Python 學習資源](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers) 著手。
 
-如果你已經了解過一門其他的編程語言，並且希望想能快速上手 Python 程式語言，我們推薦你可以到 [進入 Python](https://diveinto.org/python3/table-of-contents.html)。
+如果你已經了解過一門其他的程式語言，並且希望想能快速上手 Python 程式語言，我們推薦你可以到 [進入 Python](https://diveinto.org/python3/table-of-contents.html)。
 如果你覺得它們似乎不適合你的話，還有其它很多 [有關 Python 的書籍](https://wiki.python.org/moin/PythonBooks)。
 
 [** Django 文件](https://docs.djangoproject.com/zh-hans/3.0/)
@@ -3909,7 +3909,7 @@ bug 發生。
 
 但這種測試看起來有點困難……
 
-如果你之前從未處理過測試，那他們看起來會有點難以編寫。幸運的是，測試是一個計算機編程中
+如果你之前從未處理過測試，那他們看起來會有點難以編寫。幸運的是，測試是一個計算機程式語言中
 *非常* 大的一個主題，所以這裡有大量的相關資料：
 
 -   瀏覽

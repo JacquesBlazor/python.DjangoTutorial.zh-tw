@@ -2101,9 +2101,9 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 -   每個通用視圖需要知道它會作用於哪個模型。 這由 `model` 屬性提供。
 -   此 `DetailView` 通用視圖預期我們會由 URL 中擷取出命名為 `"pk"` 的主鍵值 (primary key) 出來，所以我們已經把通用視圖中的 `question_id` 改成了 `pk` 。
 
-預設情況下，通用視圖 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView") 使用一個叫做 `<app name>/<model name>_detail.html` 範本。`template_name` 列表視圖指定了
-`template_name` — 這確保 results 視圖和 detail 視圖在實現 (rendered) 時具有不同的外觀，即使它們在底層都是使用同一個
-[`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")。
+預設情況下，通用視圖 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView") 使用一個叫做 `<app name>/<model name>_detail.html` 範本。在我們的例子裡，它會使用 `"polls/question_detail.html"` 範本。
+而 `template_name` 屬性用來告訴 Django 使用指定的範本名稱而不是採用自動產生的範本名稱。我們同時也為 `results ` 列表視圖指定了 `template_name` — 這樣可以確保 results 視圖和 detail 視圖在實現 (rendered) 頁面時具有不同的外觀，即使它們在底層的工作都是使用同一個
+[`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView") 的範本。
 
 相同地，[`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView") 用一個叫做 `<app name>/<model name>_list.html` 來告訴 [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView") 使用我們建立的已經存在的 `"polls/index.html"` 範本。
 

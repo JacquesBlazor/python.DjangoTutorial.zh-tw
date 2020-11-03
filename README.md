@@ -2107,7 +2107,7 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 
 相同地，[`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView") 會使用一個預設名稱為 `<app name>/<model name>_list.html` 這樣的範本。我們也使用了 `template_name` 屬性來告訴 [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView") 請改採用我們現有已經存在的 `"polls/index.html"` 範本。
 
-在此教學之前的文件中，我們都會給範本文件提供一個包含 `question` 和 `latest_question_list ` 的內容 (context) 變數。而對於 `DetailView` 範本來說 — 因為我們使用了 Django 的模型 (Question 資料模型)，所以原來的 `question` 變數會由自動提供給 `DetailView` 範本使用，同時 Django 也能夠為內容 (context) 變數決定一個合適的名字。然而對於 ListView 範本來說，自動產生的內容 (context) 變數是 `question_list`，要取代這個變數的話，因此我們就需要提供 `context_object_name ` 屬性，表示我們想使用 `latest_question_list` 做為內容 (context) 變數。另一種替代方案是，你可以改變你的範本來符合新的預設的內容 (context) 變數 — 但是，不妨直接告訴 Django 使用你想要使用的變數名稱的方法則更為直覺而簡潔。
+在此教學之前的文件中，我們都會給範本文件提供一個包含 `question` 和 `latest_question_list ` 的內容 (context) 變數。而對於 `DetailView` 範本來說 — 因為我們使用了 Django 的模型 (Question 資料模型)，所以原來的 `question` 變數會由自動提供給 `DetailView` 範本使用，同時 Django 也能夠為內容 (context) 變數決定一個合適的名字。然而對於 ListView 範本來說，自動產生的內容 (context) 變數是 `question_list`，因此要取代這個變數的話，我們就需要提供 `context_object_name ` 屬性，表示我們想使用 `latest_question_list` 做為內容 (context) 變數。另一種替代方案是，你可以改變你的範本來符合新的預設的內容 (context) 變數 — 但是，不妨直接告訴 Django 使用你想要使用的變數名稱的方法則更為直覺而簡潔。
 
 啟動伺服器，試用一下新的基於通用視圖的投票應用程式。
 

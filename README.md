@@ -1970,12 +1970,10 @@ polls/views.py[¶](#id3 "永久連結至程式")**
 
     其中的 `3` 是 `question.id` 的值。因此被導向的 URL 會呼叫 `results ` 視圖來顯示最終的頁面。
 
-正如在 [教學第 3
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+正如在 [教學第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
 中提到的，`request` 是一個 [`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
 物件。更多關於 [`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
-物件的內容，請參見
-[請求和回應的說明文件](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/)。
+物件的內容，請參見 [請求和回應的說明文件](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/)。
 
 當有人對問題 (Question) 的選項 (choice) 進行投票後， `vote()` 視圖將請求重新導向到問題 (Question) 的結果 (results) 界面。現在我們來開始編寫這個視圖：
 
@@ -2021,31 +2019,29 @@ polls/templates/polls/results.html[¶](#id5 "永久連結至程式")**
 
 我們（在 [教學第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)中）所開發的 `detail()` 視圖和剛才才撰寫的 `detail()` 視圖都很簡短 — 並且像前面所提到的那樣，存在著重複的程式碼。而用來顯示一個投票列表的 `index()` 視圖的程式碼的內容也和它們類似。
 
-這些視圖反映基本的 Web 開發中的一個常見情況：根據 URL 中的參數從資料庫中取得資料、載入範本文件然後回傳實現後的範本。
-由於這種情況特別常見，Django 提供一種便捷方式，叫做 “通用視圖” 系統。
+這些視圖反映基本的 Web 開發中的一個常見情況：根據 URL 中的參數從資料庫中取得資料、載入範本文件然後回傳實現 (rendered) 後的範本。
+由於這種情況特別常見，Django 提供一種便捷方式，叫做 “通用視圖 (generic views)” 系統。
 
-通用視圖將常見的模式抽象化，可以使你在編寫應用時甚至不需要編寫 Python 程式。
+通用視圖將常見的樣式抽象化，可以讓你在編寫應用程式時甚至不需要編寫 Python 程式。
 
-讓我們將我們的投票應用轉換成使用通用視圖系統，這樣我們可以刪除許多我們的程式。我們僅僅需要做以下幾步來完成轉換，我們將：
+讓我們將我們的投票應用轉換成使用通用視圖系統，這樣我們可以刪除許多自己寫的程式。我們僅僅需要依以下幾個步驟來完成轉換，我們將：
 
 1.  轉換 URLconf。
 2.  刪除一些舊的、不再需要的視圖。
-3.  基於 Django 的通用視圖引入新的視圖。
+3.  基於 Django 的通用視圖導入新的視圖。
 
 請繼續閱讀來了解詳細資訊。
 
 為什麼要重構程式？
 
-一般來說，當編寫一個 Django
-應用時，你應該先評估一下通用視圖是否可以解決你的問題，你應該在一開始使用它，而不是進行到一半時重構程式。本教學目前為止是有意將重點放在以
-“艱難的方式” 編寫視圖，這是為了將重點放在核心概念上。
+一般來說，當編寫一個 Django 應用程式時，你應該先評估一下通用視圖是否可以解決你的問題，而在一開始就使用它們，而不是進行到一半時再來重構你的程式。本教學目前為止是有意將焦點放在以
+“較困難的方式” 來編寫視圖，這是為了將焦點放在主要的核心觀念上。
 
-就像在使用計算機之前你需要掌握基礎數學一樣。
+這就有點像是在開始使用計算機之前你需要先能掌握基礎數學一樣。
 
 ### 改良 URLconf[¶](#amend-urlconf "永久連結至標題")
 
-首先，打開 `polls/urls.py` 這個 URLconf
-並將它修改成：
+首先，打開 `polls/urls.py` 這個 URLconf 並將它修改成：
 
 polls/urls.py[¶](#id6 "永久連結至程式")**
 
@@ -2061,12 +2057,11 @@ polls/urls.py[¶](#id6 "永久連結至程式")**
         path('<int:question_id>/vote/', views.vote, name='vote'),
     ]
 
-注意，第二個和第三個比對準則中，路徑字串中比對模式的名稱已經由 `<question_id>`。
+注意，第二個和第三個的模式比對中，路徑字串中比對模式的名稱已經從 `<question_id>` 更改為 `<pk>`。
 
-### 改良視圖[¶](#amend-views "永久連結至標題")
+### 改良後的視圖[¶](#amend-views "永久連結至標題")
 
-下一步，我們將刪除舊的 `index` 視圖，並用 Django 的通用視圖代替。打開
-`polls/views.py` 文件，並將它修改成：
+下一步，我們將刪除舊的 `index`、`detail` 和 `results` 視圖，並用 Django 的通用視圖代替。要完成這個步驟，請開啟 `polls/views.py` 文件，並將它修改成下面所顯示的這樣樣子：
 
 polls/views.py[¶](#id7 "永久連結至程式")**
 
@@ -2101,41 +2096,27 @@ polls/views.py[¶](#id7 "永久連結至程式")**
         ... # 沒有需要變更，和上面的內容相同。
 
 我們在這裡使用兩個通用視圖： [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
-和 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")
-。這兩個視圖分別抽象 “顯示一個物件欄表” 和
-“顯示一個特定類型物件的詳細資訊頁面” 這兩種概念。
+和 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")。這兩個視圖分別抽象 “顯示一個物件列表” 和 “顯示一個特定類型物件的詳細資訊頁面” 這兩種概念。
 
 -   每個通用視圖需要知道它將作用於哪個模型。 這由 `model` 屬性提供。
--   [`DetailView`
-    的主鍵值，所以我們為通用視圖把 `question_id` 。
+-   此 `DetailView` 通用視圖預期我們會由 URL 中擷取出命名為 `"pk"` 的主鍵值 (primary key) 出來，所以我們已經把通用視圖中的 `question_id` 改成了 `pk` 。
 
-預設情況下，通用視圖 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")
-使用一個叫做 `<app name>/<model name>_detail.html`
-範本。`template_name` 欄表視圖指定了
-`template_name` — 這確保 results 視圖和
-detail 視圖在實現時具有不同的外觀，即使它們在底層都是使用同一個
-[`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")
-。
+預設情況下，通用視圖 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView") 使用一個叫做 `<app name>/<model name>_detail.html` 範本。`template_name` 列表視圖指定了
+`template_name` — 這確保 results 視圖和 detail 視圖在實現 (rendered) 時具有不同的外觀，即使它們在底層都是使用同一個
+[`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")。
 
-類似地，[`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
-使用一個叫做 `<app name>/<model name>_list.html` 來告訴 [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
-使用我們建立的已經存在的 `"polls/index.html"` 範本。
+相同地，[`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView") 用一個叫做 `<app name>/<model name>_list.html` 來告訴 [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView") 使用我們建立的已經存在的 `"polls/index.html"` 範本。
 
-在之前的教學中，提供範本文件時都帶有一個包含 `question` 變數的 context。對於 `DetailView`
-變數會自動提供 — 因為我們使用 Django 的模型 (Question)，Django 能夠為
-context 變數決定一個合適的名字。然而對於 ListView，自動產生的 context
-變數是 `question_list`
-屬性，表示我們想使用 `latest_question_list`。作為一種替換方案，你可以改變你的範本來比對新的 context
-變數 — 這是一種更便捷的方法，告訴 Django 使用你想使用的變數名。
+在之前的教學中，提供範本文件時都帶有一個包含 `question` 變數的 context。對於 `DetailView` 變數會自動提供 — 因為我們使用 Django 的模型 (Question)，Django 能夠為
+context 變數決定一個合適的名字。然而對於 ListView，自動產生的 context 變數是 `question_list` 屬性，表示我們想使用 `latest_question_list`。作為一種替換方案，
+你可以改變你的範本來比對新的 context 變數 — 這是一種更便捷的方法，告訴 Django 使用你想使用的變數名。
 
-啟動伺服器，使用一下基於通用視圖的新投票應用。
+啟動伺服器，使用一下基於通用視圖的新投票應用程式。
 
-更多關於通用視圖的詳細資訊，請查看
-[通用視圖的文件](https://docs.djangoproject.com/zh-hans/3.0/topics/class-based-views/)
+更多關於通用視圖的詳細資訊，請查看 通用視圖的文件](https://docs.djangoproject.com/zh-hans/3.0/topics/class-based-views/)
 
-當你對你所寫的表單和通用視圖感到滿意後，請閱讀 [教學的第 5
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
-來了解如何測試我們的投票應用。
+當你對你所寫的表單和通用視圖感到滿意後，請閱讀 [教學的第 5 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+來了解如何測試我們的投票應用程式。
 
 [** 編寫你的第一個 Django 應用，第 3
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)

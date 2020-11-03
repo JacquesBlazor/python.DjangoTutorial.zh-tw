@@ -1890,8 +1890,8 @@ polls/templates/polls/detail.html[¶](#id1 "永久連結至程式")**
 很簡單地概要說明：
 
 -   上面的範本在每個問題 (Question) 的所有選項 (choice) 前增加一個圓形的單選選項按鈕。
-    在表單中每個單選選項按鈕的 `value` 屬性是對應到其各別選項 (choice) 的 ID。每個單選選項按鈕的 `name` 設定為明確的字串值 `"choice"`。
-    這樣的用意是當有人選擇一個單選按鈕並提交表單提交時，它將會傳送一個 POST 資料 `choice=#`，而其中的 `#` 即是被選擇的選項 (choice) 的 ID。
+    在表單中每個單選選項按鈕的 `value` 屬性是對應到各別選項 (choice) 的 ID。每個單選選項按鈕的 `name` 則是設定為明確的字串值 `"choice"`。
+    這樣的用意是當有人選擇一個單選按鈕並提交表單時，它會由用戶端傳送一個 `choice=#` 的 POST 資料給伺服器，而其中的 `#` 即是該使用者所點擇的選項 (choice) 的 ID。
     這是 HTML 表單的基本概念。
 -   我們設定表單的 `action` 為 `{%  url 'polls:vote' question.id %}`，並設定 `method="post"`。使用 `method="post"`
     （與其相對的是 `method="get"`）是非常重要的，因為這個提交表單的行為會改變伺服器端的資料。
@@ -1939,39 +1939,36 @@ polls/views.py[¶](#id3 "永久連結至程式")**
 以上程式中有些內容還未在本教學中提到過：
 
 -   [`request.POST`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.POST "django.http.HttpRequest.POST")
-    是一個類字典物件，讓你可以透過關鍵字的名字取得提交的資料。
-    這個例子中， `request.POST['choice']` 以字串形式回傳選擇的 Choice 的 ID。
+    是一個類字典物件，讓你可以透過鍵值字串名 (key name) 來取得使用者所提交到伺服器的資料。
+    在這個例子中， `request.POST['choice']` 是以字串形式回傳使用者所點選的選項 (Choice) 的 ID。
     [`request.POST`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.POST "django.http.HttpRequest.POST")
-    的值永遠是字串。
+    的值的型態永遠是字串。
 
-    注意，Django 還以同樣的方式提供 [`request.GET`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.GET "django.http.HttpRequest.GET")
-    用於開啟 GET 資料 — 但我們在程式中明確地使用 [`request.POST`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.POST "django.http.HttpRequest.POST")
-    ，以保證資料只能透過 POST 呼叫改動。
+    要注意的是 Django 也以同樣的方式提供 [`request.GET`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.GET "django.http.HttpRequest.GET")
+    用於存取 GET 資料 — 但我們在程式中明確地使用 [`request.POST`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest.POST "django.http.HttpRequest.POST")
+    ，以確保伺服器的資料只能透過我們的 POST 呼叫來做變更。
 
--   如果在 `request.POST['choice']` ， POST
-    將引發一個 [`KeyError`](https://docs.python.org/3/library/exceptions.html#KeyError "(在 Python v3.8)")
-    。上面的程式檢查 `KeyError` 將重新顯示 Question 表單和一個錯誤資訊。
+-   如果選項(`choice`) 沒有在 POST 的資料中則這個 `request.POST['choice']` 動作將會引發一個 [`KeyError`](https://docs.python.org/3/library/exceptions.html#KeyError "(在 Python v3.8)") 的錯誤。上面的程式在如果資料中沒有提供選項(`choice`) 這項資訊的話則會檢查 `KeyError` 並重新顯示問題 (question) 表單及一個錯誤訊息。
 
--   在增加 Choice 的得票數之後，程式回傳一個
+-   在累加選項 (choice) 的得票數之後，程式會回傳一個
     [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
-    而不是常用的 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponse "django.http.HttpResponse")。[`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
-    只接收一個參數：用戶將要被重定向的
-    URL（請繼續看下去，我們將會解釋如何構造這個例子中的 URL）。
+    而不是常見的 [`HttpResponse`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponse "django.http.HttpResponse")。[`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
+    只接受一個參數：即使用者將會被重導向的
+    URL 網址（請繼續閱讀下去，我們將會解釋如何建構這個例子中的 URL 網址）。
 
-    正如上面的 Python 註釋所指出的那樣，在成功處理 POST
-    資料後，你應該總是返回一個 [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")。這個技巧並非專門針對
-    Django；總體而言，這是一項很好的 Web 開發實踐。
+    正如上面在 Python 程式碼中的註釋所說明的，在成功處理完 POST
+    資料後，你應該總是回傳一個 [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect") 物件。這個技巧並非專門針對
+    Django；總體而言，這是一項很好的 Web 開發實戰經驗。
 
 -   在這個例子中，我們在 [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
-    的構造函數中使用 `reverse()` 函數。這個函數避免了我們在視圖函數中用程式直接編寫
-    URL。它需要我們給出我們想要跳轉的視圖的名字和該視圖所對應的 URL
-    模式中需要給該視圖提供的參數。 在本例中，使用在 [教學第 3
+    的建構函數中使用 `reverse()` 函數。這個函數協助我們避免了需要直接在視圖函數中用程式編寫
+    URL 網址。我們把想要移交到哪個視圖的控制權的視圖名字和該視圖所對應的 URL 樣式 (pattern) 的變數做為參數傳給了 `reverse()` 函數。 在這個例子中，使用在 [教學第 3
     部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
-    中設定的 URLconf，`reverse()` 呼叫將回傳一個這樣的字串：
+    中設定的 URLconf，呼叫這個 `reverse()` 函數將傳回一個像這樣的字串：
 
         '/polls/3/results/'
 
-    其中 `3` 視圖來顯示最終的頁面。
+    其中的 `3` 是 `question.id` 的值。因此被導向的 URL 會呼叫 `results ` 視圖來顯示最終的頁面。
 
 正如在 [教學第 3
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)

@@ -1836,8 +1836,7 @@ polls/urls.py[¶](#id12 "永久連結至程式")**
         path('<int:question_id>/vote/', views.vote, name='vote'),
     ]
 
-現在，編輯 `polls/index.html`
-文件，從：
+現在，編輯 `polls/index.html` 文件，從：
 
 polls/templates/polls/index.html[¶](#id13 "永久連結至程式")**
 
@@ -1909,7 +1908,7 @@ polls/urls.py[¶](#id2 "永久連結至程式")**
 
     path('<int:question_id>/vote/', views.vote, name='vote'),
 
-我們還建立了一個 `vote()` ：
+我們也建立了一個空殼的`vote()`樣品函數。現在我們來建立了一個真實的版本。把下列的內容新增到 `polls/views.py`：
 
 polls/views.py[¶](#id3 "永久連結至程式")**
 

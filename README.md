@@ -2061,7 +2061,7 @@ polls/urls.py[¶](#id6 "永久連結至程式")**
 
 ### 改良後的視圖[¶](#amend-views "永久連結至標題")
 
-下一步，我們將刪除舊的 `index`、`detail` 和 `results` 視圖，並用 Django 的通用視圖代替。要完成這個步驟，請開啟 `polls/views.py` 文件，並將它修改成下面所顯示的這樣樣子：
+下一步，我們將刪除舊的 `index`、`detail` 和 `results` 視圖，並用 Django 的通用視圖代替。要完成這個步驟，請開啟 `polls/views.py` 文件，並將它修改成下面所顯示的這個樣子：
 
 polls/views.py[¶](#id7 "永久連結至程式")**
 
@@ -2096,9 +2096,9 @@ polls/views.py[¶](#id7 "永久連結至程式")**
         ... # 沒有需要變更，和上面的內容相同。
 
 我們在這裡使用兩個通用視圖： [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
-和 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")。這兩個視圖分別抽象 “顯示一個物件列表” 和 “顯示一個特定類型物件的詳細資訊頁面” 這兩種概念。
+和 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView")。這兩個視圖分別把 “顯示一個物件清單” 和 “顯示一個特定類型物件的詳細資訊頁面” 這兩種概念給抽象化了。
 
--   每個通用視圖需要知道它將作用於哪個模型。 這由 `model` 屬性提供。
+-   每個通用視圖需要知道它會作用於哪個模型。 這由 `model` 屬性提供。
 -   此 `DetailView` 通用視圖預期我們會由 URL 中擷取出命名為 `"pk"` 的主鍵值 (primary key) 出來，所以我們已經把通用視圖中的 `question_id` 改成了 `pk` 。
 
 預設情況下，通用視圖 [`DetailView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView "django.views.generic.detail.DetailView") 使用一個叫做 `<app name>/<model name>_detail.html` 範本。`template_name` 列表視圖指定了

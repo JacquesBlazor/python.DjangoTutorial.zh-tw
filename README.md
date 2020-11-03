@@ -1988,14 +1988,10 @@ polls/views.py[¶](#id4 "永久連結至程式")**
         question = get_object_or_404(Question, pk=question_id)
         return render(request, 'polls/results.html', {'question': question})
 
-這和 [教學第 3
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/) 中的
-`detail()`
-視圖幾乎一模一樣。唯一的不同是範本的名字。
-我們將在稍後解決這個重複項目。
+這和 [教學第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/) 中的 `detail()` 視圖幾乎一模一樣。唯一的不同是範本的名字。
+我們將在稍後來解決這種重複的程式碼。
 
-現在，建立一個 `polls/results.html`
-範本：
+現在，建立一個 `polls/results.html` 範本：
 
 polls/templates/polls/results.html[¶](#id5 "永久連結至程式")**
 
@@ -2007,39 +2003,28 @@ polls/templates/polls/results.html[¶](#id5 "永久連結至程式")**
     {% endfor %}
     </ul>
 
-    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+    <a href="{% url 'polls:detail' question.id %}">再投一次票?</a>
 
-現在，在你的瀏覽器中開啟 `/polls/1/`
-然後為 Question
-投票。你應該看到一個投票結果頁面，並且在你每次投票之後都會更新。
-如果你提交時沒有選擇任何 Choice，你應該看到錯誤資訊。
+現在，在你的瀏覽器中開啟 `/polls/1/` 然後為該問題 (Question) 投票。你應該看到一個投票結果頁面，並且在你每次投票之後都會更新。
+如果你提交時沒有選擇任何選項 (Choice)，你應該會看到錯誤訊息。
 
-注解
+註釋
 
-我們的 `vote()` 物件，接著計算
-`vote`
-回傳。然後，對於兩個使用者，新值43計算完畢，並被儲存，但是期望值是44。
+我們的 `vote()` 程式碼的確有些小問題。它會從資料庫取得 `selected_choice` 物件，接著計算 `vote` 新的值然後儲存回資料庫。
+假設現在同時有兩個使用者幾乎在接近同一個時間點對同一個問題投票，那就很可能會導致問題發生：我們先假設目前 `vote` (投票數) 的值是 42，
+兩個使用者會先從資料庫中取得相同的值。接著也同時兩個使用者都算出新值為 43 然後接著被儲存回資料庫中，但是實際上 44 才是我們預期應該得到的值。
 
-這個問題被稱為 *競爭條件* 。如果你對此有興趣，你可以閱讀 [Avoiding race
-conditions using
-F()](https://docs.djangoproject.com/zh-hans/3.0/ref/models/expressions/#avoiding-race-conditions-using-f)
-來學習如何解決這個問題。
+這個問題被稱為 *競態條件 (race condition)* 。如果你對此有興趣，你可以閱讀 [使用 F() 來避免競態條件](https://docs.djangoproject.com/zh-hans/3.0/ref/models/expressions/#avoiding-race-conditions-using-f) 來學習如何解決這個問題。
 
-使用通用視圖：程式還是少點好[¶](#use-generic-views-less-code-is-better "永久連結至標題")
+使用通用 (generic) 視圖：少寫點程式還是比較好[¶](#use-generic-views-less-code-is-better "永久連結至標題")
 ----------------------------------------------------------------------------------------
 
-`detail()` 視圖都很精簡 —
-並且，像上面提到的那樣，存在重複項目。用來顯示一個投票欄表的
-`index()` 視圖（也在 [教學第 3
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
-中）和它們類似。
+我們（在 [教學第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)中）所開發的 `detail()` 視圖和剛才才撰寫的 `detail()` 視圖都很簡短 — 並且像前面所提到的那樣，存在著重複的程式碼。而用來顯示一個投票列表的 `index()` 視圖的程式碼的內容也和它們類似。
 
-這些視圖反映基本的 Web 開發中的一個常見情況：根據 URL
-中的參數從資料庫中取得資料、載入範本文件然後回傳實現後的範本。
+這些視圖反映基本的 Web 開發中的一個常見情況：根據 URL 中的參數從資料庫中取得資料、載入範本文件然後回傳實現後的範本。
 由於這種情況特別常見，Django 提供一種便捷方式，叫做 “通用視圖” 系統。
 
-通用視圖將常見的模式抽象化，可以使你在編寫應用時甚至不需要編寫 Python
-程式。
+通用視圖將常見的模式抽象化，可以使你在編寫應用時甚至不需要編寫 Python 程式。
 
 讓我們將我們的投票應用轉換成使用通用視圖系統，這樣我們可以刪除許多我們的程式。我們僅僅需要做以下幾步來完成轉換，我們將：
 
@@ -2076,8 +2061,7 @@ polls/urls.py[¶](#id6 "永久連結至程式")**
         path('<int:question_id>/vote/', views.vote, name='vote'),
     ]
 
-注意，第二個和第三個比對準則中，路徑字串中比對模式的名稱已經由
-`<question_id>`。
+注意，第二個和第三個比對準則中，路徑字串中比對模式的名稱已經由 `<question_id>`。
 
 ### 改良視圖[¶](#amend-views "永久連結至標題")
 

@@ -473,7 +473,7 @@ Django
 這行程式將會在當前目錄下建立一個 `mysite` 目錄。如果命令失敗了，參考 [執行 django-admin
 時遇到的問題](https://docs.djangoproject.com/zh-hans/3.0/faq/troubleshooting/#troubleshooting-django-admin)，也許可以提供協助。
 
-注釋
+註釋
 
 你應該避免使用 Python 或 Django 的內部保留字來命名你的專案。比較具體的意思是，你得避免使用像 `django` (這會和 Django 自己產生衝突) 或 `test` (這會和 Python 的內建模組產生衝突) 這樣的名字。
 
@@ -872,7 +872,7 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 就像之前說的，為了方便大多數專案，我們預設啟用了一些應用程式，但並不是每個人都需要它們。如果你不需要某個或某些應用程式，你可以在執行
 [`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
 前毫無顧慮地從 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
-裡注釋或者刪除掉它們。 [`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
+裡註釋或者刪除掉它們。 [`migrate`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-migrate)
 命令只會為在 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
 裡有宣告的應用程式進行資料庫遷移。
 

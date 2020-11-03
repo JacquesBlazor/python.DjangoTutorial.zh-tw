@@ -1962,7 +1962,7 @@ polls/views.py[¶](#id3 "永久連結至程式")**
 
 -   在這個例子中，我們在 [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
     的建構函數中使用 `reverse()` 函數。這個函數協助我們避免了需要直接在視圖函數中用程式編寫
-    URL 網址。我們把想要移交到哪個視圖的控制權的視圖名字和該視圖所對應的 URL 樣式 (pattern) 的變數做為參數傳給了 `reverse()` 函數。 在這個例子中，使用在 [教學第 3
+    URL 網址。我們把想要把控制權移交到哪個視圖的的視圖名字和該視圖所對應的 URL 樣式 (pattern) 的變數做為參數傳給了 `reverse()` 函數。 在這個例子中，使用在 [教學第 3
     部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
     中設定的 URLconf，呼叫這個 `reverse()` 函數將傳回一個像這樣的字串：
 

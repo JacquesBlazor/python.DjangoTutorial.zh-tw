@@ -1926,7 +1926,7 @@ polls/views.py[¶](#id3 "永久連結至程式")**
             # 重新顯示問題投票表單。
             return render(request, 'polls/detail.html', {
                 'question': question,
-                'error_message': "You didn't select a choice.",
+                'error_message': "你還沒有選擇一個選項。",
             })
         else:
             selected_choice.votes += 1

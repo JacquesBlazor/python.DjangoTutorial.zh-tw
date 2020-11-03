@@ -2113,7 +2113,7 @@ context 變數決定一個合適的名字。然而對於 ListView，自動產生
 
 啟動伺服器，使用一下基於通用視圖的新投票應用程式。
 
-更多關於通用視圖的詳細資訊，請查看 通用視圖的文件](https://docs.djangoproject.com/zh-hans/3.0/topics/class-based-views/)
+更多關於通用視圖的詳細資訊，請查看 [通用視圖的文件](https://docs.djangoproject.com/zh-hans/3.0/topics/class-based-views/)
 
 當你對你所寫的表單和通用視圖感到滿意後，請閱讀 [教學的第 5 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
 來了解如何測試我們的投票應用程式。

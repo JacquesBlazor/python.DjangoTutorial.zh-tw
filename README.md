@@ -1972,15 +1972,12 @@ polls/views.py[¶](#id3 "永久連結至程式")**
 
 正如在 [教學第 3
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
-中提到的，[`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
-是一個 [`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
+中提到的，`request` 是一個 [`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
 物件。更多關於 [`HttpRequest`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpRequest "django.http.HttpRequest")
 物件的內容，請參見
-[請求和回應的文件](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/)
-。
+[請求和回應的說明文件](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/)。
 
-當有人對 Question 進行投票後， `vote()`
-視圖將請求重定向到 Question 的結果界面。讓我們來編寫這個視圖：
+當有人對問題 (Question) 的選項 (choice) 進行投票後， `vote()` 視圖將請求重新導向到問題 (Question) 的結果 (results) 界面。現在我們來開始編寫這個視圖：
 
 polls/views.py[¶](#id4 "永久連結至程式")**
 

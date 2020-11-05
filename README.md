@@ -272,7 +272,7 @@ mysite/news/views.py[¶](#id5 "永久連結至程式")**
 
 Django 允許設置搜索範本路徑，這樣可以最小化範本之間的冗餘。在 Django
 設置中，你可以透過 [`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS)
-參數指定一個路徑欄表用於檢索範本。如果第一個路徑中不包含任何範本，就繼續檢查第二個，以此類推。
+參數指定一個路徑列表用於檢索範本。如果第一個路徑中不包含任何範本，就繼續檢查第二個，以此類推。
 
 讓我們假設 `news/year_archive.html`
 範本已經找到。它看起來可能是下面這個樣子：
@@ -669,7 +669,7 @@ polls/urls.py[¶](#id2 "永久連結至程式")**
     ]
 
 下一步是要在根 URLconf 文件中指定我們建立的 `polls.urls` 模組。在 `mysite/urls.py` 文件的 `urlpatterns`
-欄表裡插入一個 `include()`， 如下：
+列表裡插入一個 `include()`， 如下：
 
 mysite/urls.py[¶](#id3 "永久連結至程式")**
 
@@ -1388,7 +1388,7 @@ polls/admin.py[¶](#id6 "永久連結至程式")**
 
 頁面的底部提供了幾個選項：
 
--   儲存（Save）- 儲存改變，然後回傳物件欄表。
+-   儲存（Save）- 儲存改變，然後回傳物件列表。
 -   儲存並繼續編輯（Save and continue editing） -
     儲存改變，然後重新載入當前物件的修改界面。
 -   儲存並新增（Save and add another） -
@@ -2127,7 +2127,7 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 
 這一篇從 [教學第 4
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
-結尾的地方繼續講起。我們在前幾章成功的構建了一個網站--線上投票應用程式，現在我們將為它建立一些自動化測試。
+結尾的地方繼續講起。我們在前幾章成功的建立了一個網站--線上投票應用程式，現在我們將為它建立一些自動化測試。
 
 自動化測試簡介[¶](#introducing-automated-testing "永久連結至標題")
 ------------------------------------------------------------------
@@ -2180,55 +2180,46 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 基本的測試策略[¶](#basic-testing-strategies "永久連結至標題")
 -----------------------------------------------------------
 
-有好幾種不同的方法可以寫測試。
+有好幾種不同的方法可以撰寫測試。
 
-一些開發者遵循
-"[測試驅動](https://en.wikipedia.org/wiki/Test-driven_development)"
-的開發原則，他們在寫程式之前先寫測試。這種方法看起來有點反直覺，但事實上，這和大多數人日常的做法是相吻合的。我們會先描述一個問題，然後寫程式來解決它。「測試驅動」的開發方法只是將問題的描述抽象為了
-Python 的測試樣例。
+有一些程式開發者遵循 "[測試驅動](https://en.wikipedia.org/wiki/Test-driven_development)"
+的開發原則，他們實際上在撰寫主要程式之前先撰寫測試程式。這種方法看起來有點違反直覺，但事實上，這和大多數人日常的做法是相吻合的。他們會先描述一個問題，然後編寫程式來解決它。「測試驅動」的開發方法將問題正式化成 Python 的測試案例。
 
-更普遍的情況是，一個剛接觸自動化測試的新手更傾向於先寫程式，然後再寫測試。雖然提前寫測試可能更好，但是晚點寫並不算太遲。
+更普遍的情況是，一個新進入測試的人員會建立一些程式，然後接著才會決定這段程式應該要包含一些測試才對。也許他應該能提前先寫測試會比較好，但是至少著手開始撰寫測試永遠不算太遲。
 
-有時候很難決定從哪裡開始下手寫測試。如果你才寫了幾千行 Python
-程式，選擇從哪裡開始寫測試確實不怎麼簡單。如果是這種情況，那麼在你下次修改程式（例如加新功能，或者修正
-Bug）之前寫個測試是比較合理且有效的。
+有時候很難決定從哪裡開始下手撰寫測試。如果你已經編寫了好幾千行 Python 程式，要從中選擇出測試什麼確實不太容易。在這種情況下，在你下次修改程式的時候，例如增加新功能，或者是修正一個程式錯誤，就開始著手撰寫第一個測試是比較有成效的。
 
-所以，我們現在就開始寫吧。
+所以，那我們現在就開始寫吧。
 
-開始寫我們的第一個測試[¶](#writing-our-first-test "永久連結至標題")
+開始撰寫我們的第一個測試[¶](#writing-our-first-test "永久連結至標題")
 -------------------------------------------------------------------
 
-### 首先得有個 Bug[¶](#we-identify-a-bug "永久連結至標題")
+### 我們先識別出一個程式上的錯誤(bug)[¶](#we-identify-a-bug "永久連結至標題")
 
-幸運的是，我們的 `polls`
-應用現在就有一個小 bug 需要被修正：我們的要求是如果 Question
-是在一天之內發佈的， `Question.was_published_recently()` ，然而現在這個方法在 `Question`
-欄位比當前時間還晚時也會回傳 True（這是個 Bug）。
+幸運的是，我們的 `投票 (polls)` 應用程式現在就有一個小錯誤需要被修正：如果我們的對 `Question.was_published_recently()` 方法函式提出要求，請它回傳該 `問題 (Question)` 是否是在前一天之內發佈的，它將會回傳 `True` (這部份沒錯)，然而這個方法函式在該 `問題 (Question)` 的 `發佈日期(pub_date)` 欄位如果是在未來的時間時，也會回傳 True（這很明顯是個需要修正的錯誤）。
 
-用[`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)命令確認一下這個方法的日期的 bug：
-
+我們先採用 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 命令列，確認一下這個方法函式對一個問題的日期的欄位是在未來的時間的回應：
 
     $ python manage.py shell
 
     >>> import datetime
     >>> from django.utils import timezone
     >>> from polls.models import Question
-    >>> # 建立一個　pub_date 在未來 30 天的　Question　實例
+    >>> # 建立一個問題　(Question)　實例，它的發佈日期　(pub_date) 是在現在的 30 天之後
     >>> future_question = Question(pub_date=timezone.now() + datetime.timedelta(days=30))
     >>> # 是最近發佈的嗎？?
     >>> future_question.was_published_recently()
     True
 
-因為將來發生的是肯定不是最近發生的，所以程式明顯是錯誤的。
+因為未來的東西肯定不是 *'最近 (recent)'*，這部份顯然是錯的。
 
-### 建立一個測試來暴露這個 bug[¶](#create-a-test-to-expose-the-bug "永久連結至標題")
+### 建立一個測試來揭露這個錯誤[¶](#create-a-test-to-expose-the-bug "永久連結至標題")
 
-我們剛剛在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
-裡做的測試也就是自動化測試應該做的工作。所以我們來把它改寫成自動化的吧。
+我們剛剛在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 裡所做的測試也將會是我們可以在自動化測試做的事。所以我們來用自動化的的方執行它吧。
 
-按照慣例，Django 應用的測試應該寫在應用的 `tests.py` 開頭的文件裡尋找並執行測試程式。
+習慣上對應用程式的測試會寫在應用程式的 `tests.py` 檔案裡。系統會自動地找到所有以 `tests` 開頭的測試程式。
 
-將下面的程式寫入 `polls` 文件內：
+將下面的內容寫到 `polls` 應用程式的 `tests.py` 檔案裡：
 
 polls/tests.py[¶](#id1 "永久連結至程式")**
 
@@ -2244,25 +2235,22 @@ polls/tests.py[¶](#id1 "永久連結至程式")**
 
         def test_was_published_recently_with_future_question(self):
             """
-            was_published_recently() 對於 questions 的 pub_date　是在未來
+            對於 questions 的 pub_date　是在未來的日期則 was_published_recently() 
             會回傳 False。 
             """
             time = timezone.now() + datetime.timedelta(days=30)
             future_question = Question(pub_date=time)
             self.assertIs(future_question.was_published_recently(), False)
 
-我們建立了一個 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase")
-的子類別，並增加了一個方法，此方法建立一個 `pub_date`
-實例。然後檢查它的 `was_published_recently()` 方法的回傳值 — 它 *應該* 是 False。
+這裡我們建立了一個 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 子類別，並增加了一個方法函式，此方法函式建立一個 `pub_date` 日期是未來某天的 `Question` 實例。然後我們會檢查 `was_published_recently()` 方法函式的回傳值 — 它的回傳值 *應該* 要是 False 才對。
 
 ### 執行測試[¶](#running-tests "永久連結至標題")
 
-在終端中，我們透過輸入以下程式執行測試:
-
+在終端機畫面中，我們可以像這樣執行我們的測試:
 
     $ python manage.py test polls
 
-你將會看到執行結果:
+然後你將會看到類似這樣的結果:
 
     Creating test database for alias 'default'...
     System check identified no issues (0 silenced).
@@ -2281,30 +2269,25 @@ polls/tests.py[¶](#id1 "永久連結至程式")**
     FAILED (failures=1)
     Destroying test database for alias 'default'...
 
-不一樣的錯誤？
+你的錯誤不一樣嗎？
 
-若在此處你得到了一個 `NameError`
-錯誤，你可能漏了
-[第二步](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/#tutorial02-import-timezone)
-中將 `datetime` 的步驟。復制這些語句，然後試著重新執行測試。
+若在此處你得到了一個 `NameError` 錯誤，你可能遺漏了在教學 [第 2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/#tutorial02-import-timezone)
+的一個步驟，我們在那個時候在 `polls/model.py` 檔案裡匯入了 `datetime` 和 `timezone` 套件。從那段複製這些 imports 語法到你的程式，然後試著重新執行一次測試。
 
-發生了什麼呢？以下是自動化測試的執行過程：
+以下是自動化測試執行過程發生了那些事：
 
--   `python manage.py test polls` 應用裡的測試程式
--   它找到了 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase")
-    的一個子類別
--   它建立一個特殊的資料庫供測試使用
--   它在類別中尋找測試方法 — 以 `test`
-    開頭的方法。
--   在 `test_was_published_recently_with_future_question` 值為 30 天後的 `Question` 方法，發現
-    `was_published_recently()`。
+-   `python manage.py test polls` 將會尋找 `polls` 應用程式裡的測試程式
+-   它找到了 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 的一個子類別
+-   它建立了一個特殊的資料庫以供測試用途使用
+-   它搜尋了測試的方法函式 — 那些以 `test` 開頭命名的方法函式。
+-   在 `test_was_published_recently_with_future_question` 方法函式中，它建立了一個 `pub_date` 欄位值是未來 30 天後的 `問題 (Question)` 實例。
+-   … 接著使用 `assertIs()` 方法函式，它發現 `was_published_recently()` 回傳了 `True`，儘管我們預期它會回傳 `False`。
 
-測試系統通知我們哪些測試樣例失敗了，和造成測試失敗的程式所在的行號。
+測試系統通知我們哪些測試案例失敗了，和導致測試失敗的程式所在的行號。
 
-### 修正這個 bug[¶](#fixing-the-bug "永久連結至標題")
+### 修正這個錯誤[¶](#fixing-the-bug "永久連結至標題")
 
-我們早已知道，當 `pub_date` 應該回傳 `False`
-裡的方法，讓它只在日期是過去式的時候才回傳 `True`：
+我們已經知道這個錯誤是什麼：如果 `pub_date` 的日期是在未來時，`Question.was_published_recently()` 應該要回傳 `False`。修改 `models.py` 裡的方法函式，所以它只會在日期同時也是在過去的時候才回傳 `True`：
 
 polls/models.py[¶](#id2 "永久連結至程式")**
 
@@ -2323,27 +2306,23 @@ polls/models.py[¶](#id2 "永久連結至程式")**
     OK
     Destroying test database for alias 'default'...
 
-發現 bug 後，我們編寫了能夠暴露這個 bug 的自動化測試。在修正 bug
-之後，我們的程式順利的透過了測試。
+當識別了錯誤之後，我們編寫了一個能夠揭露這個錯誤的自動化測試，並且在修正程式錯誤之後，我們的程式順利通過了測試。
 
-將來，我們的應用可能會出現其他的問題，但是我們可以肯定的是，一定不會再次出現這個
-bug，因為只要執行一遍測試，就會立刻收到警告。我們可以認為應用的這一小部分程式永遠是安全的。
+未來我們的應用程式可能還會出現其他的問題，但是我們可以肯定的是，一定不會再不小心出現這個
+錯誤了，因為只要執行一次測試，我們就會立即收到警告。我們可以認為應用的這一小部分程式確定永遠是安全的。
 
 ### 更全面的測試[¶](#more-comprehensive-tests "永久連結至標題")
 
-我們已經搞定一小部分了，現在可以考慮全面的測試
-`was_published_recently()`
-這個方法以確定它的安全性，然後就可以把這個方法穩定下來了。事實上，在修正一個
-bug 時不小心引入另一個 bug 會是非常令人尷尬的。
+既然我們已經走到這了，我們可以更進一步穩定 `was_published_recently()` 這個方法函式。事實上，在修正一個錯誤時不小心導致另一個錯誤會是非常令人尷尬的。
 
-我們在上次寫的類別裡再增加兩個測試，來更全面的測試這個方法：
+在相同的的類別裡再增加兩個測試，來更完整的測試這個方法函式的運作情形：
 
 polls/tests.py[¶](#id3 "永久連結至程式")**
 
     def test_was_published_recently_with_old_question(self):
         """
-        was_published_recently() 對於 questions 的 pub_date 是比 1 天還早(older)的
-        會回傳 False。
+        對於 questions 的 pub_date 是比 1 天還早(older) 時  
+        則 was_published_recently() 會回傳 False。
         """
         time = timezone.now() - datetime.timedelta(days=1, seconds=1)
         old_question = Question(pub_date=time)
@@ -2351,76 +2330,64 @@ polls/tests.py[¶](#id3 "永久連結至程式")**
 
     def test_was_published_recently_with_recent_question(self):
         """
-        was_published_recently() 對於 questions 的 pub_date 是在 1 天之內的
-        會回傳 True。
+        對於 questions 的 pub_date 是在前 1 天之內的
+        則 was_published_recently() 會回傳 True。
         """
         time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
 
-現在，我們有三個測試來確保 `Question.was_published_recently()`
-方法對於過去，最近，和將來的三種情況都回傳正確的值。
+現在，我們有三個測試來確保 `Question.was_published_recently()` 方法對於過去、最近和未來的問題 (Questin) 都會回傳有明顯差異的值。
 
-再次申明，儘管 `polls`
-現在是個小型的應用，但是無論它以後變得到多麼複雜，無論他和其他程式如何交互，我們可以在一定程度上保證我們為之編寫測試的方法將按照預期的方式執行。
+再次說明，儘管 `polls` 現在是個小型的應用程式，但是無論它以後變得如何複雜，以及不管他和其他程式如何互動，現在就我們為它的方法函式所撰寫的測試而言，可以提供某些程度上的保證，就是這些方法函式將會按照我們預期的方式來執行。
 
-測試視圖[¶](#test-a-view "永久連結至標題")
+測試一個視圖[¶](#test-a-view "永久連結至標題")
 ------------------------------------------
 
-我們的投票應用是相當地沒有差別待遇的：它將會發佈任何的問題，包括那些
-`pub_date` 為未來的某一天時，這應該被解釋為這個問題 Question
-要等到所指定的時間點才發佈，而在此之前在視圖上是看不到的。
+我們的投票應用程式是相當公平無差別待遇的：它將會發佈任何的問題 (Question)，包括那些 `pub_date` 欄位的值是在未來日期的問題。我們應該改善這一點。當設定了 `pub_date` 是在未來的日期時，這應該意味著這個問題 (Question) 需要等到所指定的時間點才發佈，而在此之前在視圖上是不可見的。
 
-### 針對視圖的測試[¶](#a-test-for-a-view "永久連結至標題")
+### 一個對視圖的測試[¶](#a-test-for-a-view "永久連結至標題")
 
-修復上述 bug
-錯誤後，我們首先撰寫了測試，然後再編寫了程式進行修復。事實上，這是一個「測試驅動」開發模式的實例，但我們按什麼順序進行工作並不重要。
+當我們修正上述錯誤後，我們首先撰寫了測試，然後再編寫程式來修復它。事實上，這就是一個「測試驅動」開發模式的實際範例，但我們按什麼順序進行這些工作並是很重要。
 
-在我們的第一個測試中，我們密切關注程式的內部行為。對於此次測試，我們希望檢查其行為，就像用戶使用瀏覽器開啟我們的應用所經歷的那樣。
+在我們的第一個測試中，我們密切關注程式的內部行為。對於此次測試，我們希望檢查它的運作情況，就像使者用透過瀏覽器使用我們的應用程式所經歷的那樣。
 
-在嘗試修復任何問題之前，讓我們看一下可供使用的工具。
+在嘗試修復任何問題之前，讓我們看一下可供我們使用的工具有什麼。
 
-### Django 測試工具之 Client[¶](#the-django-test-client "永久連結至標題")
+### Django 測試用戶端[¶](#the-django-test-client "永久連結至標題")
 
-Django 提供了一個 [`Client`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.Client "django.test.Client")
-測試能模擬用戶和程式在視圖層的互動。我們可以在 `tests.py` 甚至是 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
-中使用它。
+Django 提供了一個測試 [`用戶端 (Client)`{.xref .py .py-class .docutils .literal
+](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.Client "django.test.Client") 來模擬用戶和程式在視圖層面的互動狀況。我們可以在 `tests.py` 甚至是 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 中使用它。
 
-我們將再次從 [`shell`
-中不需要做的事情。第一步是在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
-中設定測試環境:
+我們將再次從 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 命令列模式開始，但我們需要做一些在 `tests.py` 中不並需要做的事情。第一步是在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
+命令列模式中設定測試環境:
 
     $ python manage.py shell
 
     >>> from django.test.utils import setup_test_environment
     >>> setup_test_environment()
 
-[`setup_test_environment()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#django.test.utils.setup_test_environment "django.test.utils.setup_test_environment")
-安裝了一個範本實現器，使我們可以檢查 response 的一些額外的屬性，例如
-`response.context`，否則這些屬性將無法被使用。注意，這個方法並 *不會*
-設定測試資料庫，所以接下來的程式將會在當前存在的資料庫上執行，輸出的內容可能由於資料庫內容的不同而不同。如果你的
-`settings.py`
-的設定不對，你可能無法取得到期望的結果。如果你之前忘了設定，在繼續之前檢查一下。
+這個 [`setup_test_environment()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#django.test.utils.setup_test_environment "django.test.utils.setup_test_environment")
+會安裝一個範本實現器 (template renderer)，讓我們可以檢查像是 `response.context` 這類在回應 (response) 時的一些額外的屬性，否則這些屬性將無法被使用。注意，這個方法函式並 *不會* 設置一個測試資料庫，所以接下來的程式將會在當前存在的資料庫上執行，輸出的內容可能會由於你已經建立的問題 (question) 內容的不同而有所不同。如果你的 `settings.py` 中關於 `TIME_ZONE` 的設定不對，你可能會得到非預期的結果。如果你不記得之前設定了什麼，在繼續往下進行之前先檢查一下。
 
-接下來，我們需要匯入測試 client 類別（稍後在 `tests.py` 中我們將會使用 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase")
-類別，該類別裡包含了自己的 client 實例，因此不需要這一步驟）:
+接下來，我們需要匯入測試用戶 (client) 類別（稍後在 `tests.py` 中我們將會使用 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別，該類別裡包含了自己的用戶端實例，因此不需要這一步驟）:
 
     >>> from django.test import Client
     >>> # 建立用戶端實例以供我們使用
     >>> client = Client()
 
-準備好之後，我們可以請 client 為我們做一些工作:
+當這個實例建立完成後，我們可以要求用戶端為我們做一些工作:
 
     >>> # 從 '/' 取得一個回應
     >>> response = client.get('/')
     Not Found: /
-    >>> # 我們應該從該位址獲得一個 404；如果您看到一個
+    >>> # 我們應該從該網址獲得一個 404；如果你看到一個
     >>> # "Invalid HTTP_HOST header" 錯誤和一個 400 的回應，您可能
-    >>> # 忽略了前面描述的 setup_test_environment() 呼叫。
+    >>> # 忽略了呼叫前面描述的 setup_test_environment() 函式。
     >>> response.status_code
     404
-    >>> # 另一方面，我們預期應該在 '/polls/' 找到些什麼
-    >>> # 我們將會使用 'reverse()' 而不是一個直接以程式碼撰寫的 URL
+    >>> # 另一方面，我們應該預期在 '/polls/' 這裡找到個些什麼結果
+    >>> # 我們將會使用 'reverse()' 函式而不是一個直接以程式碼編寫的 URL
     >>> from django.urls import reverse
     >>> response = client.get(reverse('polls:index'))
     >>> response.status_code
@@ -2428,16 +2395,14 @@ Django 提供了一個 [`Client`](https://docs.djangoproject.com/zh-hans/3.0/top
     >>> response.content
     b'\n    <ul>\n    \n        <li><a href="/polls/1/">What&#x27;s up?</a></li>\n    \n    </ul>\n\n'
     >>> response.context['latest_question_list']
-    <QuerySet [<Question: What's up?>]>
+    <QuerySet [<Question: 現在什麼情況?>]>
 
-### 改善視圖程式[¶](#improving-our-view "永久連結至標題")
+### 改善我們的視圖程式[¶](#improving-our-view "永久連結至標題")
 
-現在的投票清單表會顯示尚未發佈的投票（即`pub_date` 的值是未來的某天)。我們來解決這個問題。
+現在的投票清單表會顯示尚未發佈的投票（意即 `pub_date` 的值是在未來)。我們來解決這個問題。
 
-在 [教學的第 4
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
-裡，我們介紹了基於 [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView")
-的視圖類別：
+在 [教學的第 4 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
+裡，我們介紹了基於 [`ListView`](https://docs.djangoproject.com/zh-hans/3.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView "django.views.generic.list.ListView") 的視圖類別：
 
 polls/views.py[¶](#id4 "永久連結至程式")**
 
@@ -2449,32 +2414,33 @@ polls/views.py[¶](#id4 "永久連結至程式")**
             """回傳最近發佈的五個問題。"""
             return Question.objects.order_by('-pub_date')[:5]
 
-我們需要修改 `get_queryset()` 來檢查日期。首先我們需要新增一行 import 語句：
+我們需要修改 `get_queryset()` 方法函式並對其進行變更，讓它同時可以透過比較 `timezone.now()` 來檢查日期。首先我們需要新增一行 import 語句：
 
 polls/views.py[¶](#id5 "永久連結至程式")**
 
     from django.utils import timezone
 
-然後我們把 `get_queryset`
-方法改寫成下面這樣：
+然後我們把 `get_queryset` 方法函式改寫成下面這樣：
 
 polls/views.py[¶](#id6 "永久連結至程式")**
 
     def get_queryset(self):
         """
-        回傳最後五個已發佈的問題（不包括計劃在
-        未來發佈的問題）。
+        回傳最後五個已發佈的問題（不包括那些
+        發佈日期在未來的問題）。
         """
         return Question.objects.filter(
             pub_date__lte=timezone.now()
         ).order_by('-pub_date')[:5]
 
-`Question.objects.filter(pub_date__lte=timezone.now())` 的值比'現在時間'還小於或等於的一個查詢集(queryset) — 意即早於或等於 `timezone.now`。
+`Question.objects.filter(pub_date__lte=timezone.now())` 回傳了所有那些在 `Question`
+ 中的 `pub_date` 的值比 '現在時間' 還小於或等於的一個查詢集(queryset) — 意即早於或等於 —
+`timezone.now`。
 
-### 測試新視圖[¶](#testing-our-new-view "永久連結至標題")
+### 測試我們的新視圖[¶](#testing-our-new-view "永久連結至標題")
 
-啟動伺服器、在瀏覽器中載入網站、建立一些發佈時間在過去和將來的 `Questions` 會顯示出來，現在你可以對自己感到滿意了。*你不想每次修改可能與這相關的程式時都重復這樣做*
-— 所以讓我們基於以上 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
+啟動伺服器、在瀏覽器中載入網站、建立一些發佈時間在過去和將來的
+`Questions` ，然後檢驗只有已經發佈的 `Questions` 會顯示出來，現在你可以對自己感到滿意了。你不想 *每次修改可能與這相關的程式時都重復這樣做* — 所以讓我們基於以上 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
 會話中的內容，再編寫一個測試。
 
 將下面的程式增加到 `polls/tests.py` ：
@@ -2483,7 +2449,7 @@ polls/tests.py[¶](#id7 "永久連結至程式")**
 
     from django.urls import reverse
 
-然後我們寫一個公用的便捷函數用於建立投票問題，再為視圖建立一個測試類別：
+然後我們寫一個公用的快捷函數用於建立投票問題，以及為視圖建立一個新的測試類別：
 
 polls/tests.py[¶](#id8 "永久連結至程式")**
 
@@ -2521,7 +2487,7 @@ polls/tests.py[¶](#id8 "永久連結至程式")**
 
         def test_future_question(self):
             """
-            帶有在未來 pub_date 的問題沒有顯示在
+            帶有在未來 pub_date 的問題不會顯示在
             索引的頁面上。
             """
             create_question(question_text="Future question.", days=30)
@@ -2531,7 +2497,7 @@ polls/tests.py[¶](#id8 "永久連結至程式")**
 
         def test_future_question_and_past_question(self):
             """
-            即使存在過去和將來的問題，也只有過去的問題
+            即使過去和將來的問題都同時存在，也只有過去的問題
             會顯示在頁面上。
             """
             create_question(question_text="Past question.", days=-30)
@@ -2554,31 +2520,23 @@ polls/tests.py[¶](#id8 "永久連結至程式")**
                 ['<Question: Past question 2.>', '<Question: Past question 1.>']
             )
 
-讓我們更詳細地看下以上這些內容。
+讓我們更詳細地看一下以上這些內容。
 
-首先是一個便捷函數 `create_question`，它封裝了建立投票的流程，減少了重復程式。
+首先是一個快捷函數 `create_question`，它在建立問題 (question) 的流程中拿掉了重復的程式。
 
-`test_no_questions`
-方法裡沒有建立任何投票，它檢查回傳的網頁上有沒有 "No polls are
-available." 這段消息和 `latest_question_list` 是否為空。注意到 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase")
-類別提供了一些額外的 assertion 方法，在這個例子中，我們使用了
+`test_no_questions` 方法函式裡沒有建立任何問題 (question)，但它檢查回傳的網頁上有沒有 "No polls are available." 這段訊息和 `latest_question_list` 是否為空。請注意 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別提供了一些額外的斷言 (assertion) 方法函式，在這個例子中，我們使用了
 [`assertContains()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains "django.test.SimpleTestCase.assertContains")
-和 [`assertQuerysetEqual()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual "django.test.TransactionTestCase.assertQuerysetEqual")
-。
+和 [`assertQuerysetEqual()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual "django.test.TransactionTestCase.assertQuerysetEqual") 函式。
 
-在 `test_past_question`
-方法中，我們建立了一個投票並檢查它是否出現在欄表中。
+在 `test_past_question` 中，我們建立了一個問題 (question) 並檢查它是否出現在列表中。
 
-在 `test_future_question`
-在未來某天的投票。資料庫會在每次呼叫測試方法前被重置，所以第一個投票已經沒了，所以主頁中應該沒有任何投票。
+在 `test_future_question` 中，我們建立了一個 `pub_date` 在未來某天的問題 (question)。資料庫會在每次呼叫測試方法前被重置，所以第一個問題 (question) 已經不復存在了，而所以在主頁中應該不會有任何問題 (question)。
 
-剩下的那些也都差不多。實際上，測試就是假裝一些管理員的輸入，然後透過用戶端的表現是否符合預期來判斷新加入的改變是否破壞了原有的系統狀態。
+依此類推。實際上，我們使用測試來描述 — 管理員的輸入和使用者的用戶經驗，及檢查每個新的變更的每個系統狀態，最終所預期的結果是發佈的 — 這樣的故事。
 
 ### 測試 `DetailView`[¶](#testing-the-detailview "永久連結至標題")
 
-我們的工作似乎已經很完美了？不，還有一個問題：就算在發佈日期時未來的那些投票不會在目錄頁
-*index* 裡出現，但是如果用戶知道或者猜到正確的 URL
-，還是可以開啟到它們。所以我們得在 `DetailView` 裡增加一些約束：
+到目前為止我們已完成的東西運作地挺好的；但是如果使用者知道或者猜到正確的 URL，即便未來 (發佈日期尚未到時) 的那些問題 (question) 不會出現在 *索引頁 (index)*，使用者還是可以存取得到該索引頁面。所以我們得增加一個類似的限制在 `DetailView` 裡：
 
 polls/views.py[¶](#id9 "永久連結至程式")**
 
@@ -2590,15 +2548,14 @@ polls/views.py[¶](#id9 "永久連結至程式")**
             """
             return Question.objects.filter(pub_date__lte=timezone.now())
 
-當然，我們將增加一些測試來檢驗 `pub_date`
-在未來的不可以：
+我們應該接著要增加一些測試來檢驗 `Question` 中的 `pub_date` 的日期如果是在過去則可以顯示出來，而 那些問題 (question) 中如果 `pub_date` 的日期是在未來的則不可以：
 
 polls/tests.py[¶](#id10 "永久連結至程式")**
 
     class QuestionDetailViewTests(TestCase):
         def test_future_question(self):
             """
-            帶有未來 pub_date 的問題的詳細視圖
+            問題中帶有 pub_date 為未來的日期的詳細視圖
             會回傳一個 404 not found。
             """
             future_question = create_question(question_text='Future question.', days=5)
@@ -2608,82 +2565,66 @@ polls/tests.py[¶](#id10 "永久連結至程式")**
 
         def test_past_question(self):
             """
-            帶有過去 pub_date 的問題的詳細視圖
-            顯示該問題的本文。
+            問題中帶有 pub_date 為過去的日期的詳細視圖
+            顯示該問題的本文文字。
             """
             past_question = create_question(question_text='Past Question.', days=-5)
             url = reverse('polls:detail', args=(past_question.id,))
             response = self.client.get(url)
             self.assertContains(response, past_question.question_text)
 
-### 更多的測試思路[¶](#ideas-for-more-tests "永久連結至標題")
+### 更多測試的想法[¶](#ideas-for-more-tests "永久連結至標題")
 
-我們應該給 `ResultsView`
-方法，並且為它建立測試。這和我們之前幹的差不多，事實上，基本就是重復一遍。
+我們應該給 `ResultsView` 也增加一個類似的 `get_queryset` 方法函式，並且為那個視圖也建立一個新的測試類別。這會和我們在先前所建立的差不多；事實上，這樣就會有許多的重復性。
 
-我們還可以從各個方面改進投票應用，但是測試會一直伴隨我們。比方說，在目錄頁上顯示一個沒有選項
-`Choices`
-的投票問題就沒什麼意義。我們可以檢查並排除這樣的投票題。測試可以建立一個沒有選項的投票，然後檢查它是否被顯示在目錄上。當然也要建立一個有選項的投票，然後確認它確實被顯示了。
+我們還可以從其他方面改善我們的投票應用程式，並且伴隨著相關的測試。比方說，在網站頁面上能夠發佈了一個沒有`選項 (Choices)` 的問題 (Question) 是有點愚蠢。所以我們的視圖可以檢查並排除顯示這樣的問題。我們的測試可以建立一個沒有選項 (Choices) 的問題 (Question)，然後接著檢查它還不會被顯示在頁面上。同時也要建立一個有選項的問題，然後驗證它確實被*發佈*了。
 
-恩，也許你想讓管理員能在目錄上看見未被發佈的那些投票，但是普通用戶看不到。不管怎麼說，如果你想要增加一個新功能，那麼同時一定要為它編寫測試。不過你是先寫程式還是先寫測試那就隨你了。
+也許已登入管理員帳號的使用者能在網站上面看見未被發佈的那些問題，但是普通使用者是看不到的。不管怎麼說，無論你要增加什麼到你的軟體以完成這項新功能，那麼也要為這個功能完成編寫它對應的測試，至於你是先寫了測試然後接著寫了程式來驗證它通過了測試，或先想辦法完成你程式上的邏輯，然後才寫測試來驗證這個邏輯是對的，那就隨你了。
 
 在未來的某個時刻，你一定會去查看測試程式，然後開始懷疑：「這麼多的測試不會使程式越來越複雜嗎？」。別著急，我們馬上就會談到這一點。
 
-當需要測試的時候，測試用例越多越好[¶](#when-testing-more-is-better "永久連結至標題")
+當需要測試的時候，測試案例越多越好[¶](#when-testing-more-is-better "永久連結至標題")
 ------------------------------------------------------------------------------------
 
-貌似我們的測試多的快要失去控制了。按照這樣發展下去，測試程式就要變得比應用的實際程式還要多了。而且測試程式大多都是重復且不優雅的，特別是在和業務程式比起來的時候，這種感覺更加明顯。
+看起來我們的測試多的快要失去控制了。按照這樣發展下去，測試程式就要變得比應用程式本身還要多了。而且測試程式大多都是重復且不優雅的，特別是在和業務程式比起來的時候，這種感覺更加明顯。
 
-**但是這沒關聯！**
+**但是這沒有關係！**
 就讓測試程式繼續肆意增長吧。大部分情況下，你寫完一個測試之後就可以忘掉它了。在你繼續開發的過程中，它會一直默默無聞地為你做貢獻的。
 
-但有時測試也需要更新。想象一下如果我們修改了視圖，只顯示有選項的那些投票，那麼只前寫的很多測試就都會失敗。*但這也明確地告訴了我們哪些測試需要被更新*，所以測試也會測試自己。
+但有時測試也需要更新。想像一下如果我們修改了視圖，只顯示有選項的那些問題，那麼目前寫的很多測試就都會失敗。*但這也明確地告訴了我們哪些測試需要被更新*，所以就這個程度而言測試也會照顧它自己。
 
-最壞的情況是，當你繼續開發的時候，發現之前的一些測試現在看來是多餘的。但是這也不是什麼問題，多做些測試也
-*不錯*。
+最壞的情況是，當你繼續開發的時候，發現之前的一些測試現在看來是多餘的。但是這也不是什麼問題，在測試這塊重覆性也是件 *好事*。
 
-如果你對測試有個整體規劃，那麼它們就幾乎不會變得混亂。下面有幾條好的建議：
+如果你對測試有個整體規劃，那麼它們就幾乎不會變得難以管控。下面有幾項好的建議：
 
--   對於每個模型和視圖都建立單獨的 `TestClass`
--   每個測試方法只測試一個功能
+-   對於每個模型和視圖都建立分開的 `TestClass`
+-   對於每個你想要測試的每組條件建立分開的測試方法
 -   給每個測試方法起個能描述其功能的名字
 
-深入程式測試[¶](#further-testing "永久連結至標題")
+更深入的測試[¶](#further-testing "永久連結至標題")
 --------------------------------------------------
 
 在本教學中，我們僅僅是了解了測試的基礎知識。你能做的還有很多，而且世界上有很多有用的工具來幫你完成這些有意義的事。
 
-舉個例子，在上述的測試中，我們已經從程式邏輯和視圖回應的角度檢查了應用的輸出，現在你可以從一個更加
-"in-browser" 的角度來檢查最終實現出的 HTML 是否符合預期，使用 Selenium
-可以很輕松的完成這件事。這個工具不僅可以測試 Django
-框架裡的程式，還可以檢查其他部分，例如說你的
-JavaScript。它假裝成是一個正在和你網站進行交互的瀏覽器，就好像有個真人在開啟網站一樣！Django
-它提供了 [`LiveServerTestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.LiveServerTestCase "django.test.LiveServerTestCase")
-來和 Selenium 這樣的工具進行交互。
+舉個例子，在上述的測試中，我們已經從程式邏輯和視圖回應的角度檢查了應用程式的輸出，現在你可以從一個更加 "in-browser" 的角度來檢查最終實現出的 HTML 是否符合預期，使用 Selenium 可以很輕松的完成這件事。這個工具不僅可以測試 Django 框架裡的程式，還可以檢查其他部分，例如你的 JavaScript。它假裝成是一個正在和你網站進行互動的瀏覽器，就好像有個真人在開啟網站一樣！Django
+提供了 [`LiveServerTestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.LiveServerTestCase "django.test.LiveServerTestCase")
+與 Selenium 這樣的工具進行整合與互動。
 
-如果你在開發一個很複雜的應用的話，你也許想在每次提交程式時自動執行測試，也就是我們所說的持續集成
-[continuous
-integration](https://en.wikipedia.org/wiki/Continuous_integration)
-，這樣就能實現質量控制的自動化，起碼是部分自動化。
+如果你在開發一個很複雜的應用程式的話，你也許想在每次提交程式時自動執行測試，也就是我們所說的持續整合 [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
+，這樣就能實現品質控制的自動化 — 至少是部分 — 自動化。
 
 一個找出程式中未被測試部分的方法是檢查程式覆蓋率。它有助於找出程式中的薄弱部分和無用部分。如果你無法測試一段程式，通常說明這段程式需要被重構或者刪除。想知道程式覆蓋率和無用程式的詳細資訊，查看文件
-[Integration with
-coverage.py](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#topics-testing-code-coverage)
-取得詳細資訊。
+[Integration with coverage.py](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#topics-testing-code-coverage) 以取得更詳細的資訊。
 
-文件 [Django
-中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/)
+文件 [Django 中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/)
 裡有關於測試的更多資訊。
 
 接下來要做什麼？[¶](#what-s-next "永久連結至標題")
 --------------------------------------------------
 
-如果你想深入了解測試，就去看 [Django
-中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/) 。
+如果你想深入了解測試，就去看 [Django 中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/) 。
 
-當你已經比較熟悉測試 Django 視圖的方法後，就可以繼續閱讀 [教學第 6
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
-，學習靜態文件管理的相關知識。
+當你已經比較熟悉測試 Django 視圖的方法後，就可以繼續閱讀 [教學第 6 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)，學習靜態文件管理的相關知識。
 
 [** 編寫你的第一個 Django 應用，第 4
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
@@ -2802,7 +2743,7 @@ polls/static/polls/style.css[¶](#id3 "永久連結至程式")**
 透過 `admin.site.register(Question)` 模型，Django 能夠構建一個預設的表單用於顯示。
 通常來說，你期望能自定義表單的外觀和工作方式。你可以在注冊模型時將這些設定告訴 Django。
 
-讓我們透過重排欄表單上的欄位來看看它是怎麼工作的。用以下內容替換 `admin.site.register(Question)`：
+讓我們透過重排列表單上的欄位來看看它是怎麼工作的。用以下內容替換 `admin.site.register(Question)`：
 
 polls/admin.py[¶](#id1 "永久連結至程式")**
 
@@ -2922,17 +2863,17 @@ polls/admin.py[¶](#id5 "永久連結至程式")**
 
 注意這裡有一個額外的“刪除？”欄，這允許移除透過“增加新選項”按鈕增加的，或是已被儲存的行。
 
-自定義管理更改欄表[¶](#customize-the-admin-change-list "永久連結至標題")
+自定義管理更改列表[¶](#customize-the-admin-change-list "永久連結至標題")
 ------------------------------------------------------------------------
 
-現在投票的管理頁看起來很不錯，讓我們對“更改欄表”頁面進行一些調整—改成一個能顯示系統中所有投票的頁面。
+現在投票的管理頁看起來很不錯，讓我們對“更改列表”頁面進行一些調整—改成一個能顯示系統中所有投票的頁面。
 
 以下是它此時的外觀：
 
 ***
 
 預設情況下，Django 顯示每個物件的 `str()` 回傳的值。但有時如果我們能夠顯示單個欄位，它會更有協助。為此，使用
-[`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display") 管理選項，它是一個包含要顯示的欄位名的元組，在更改欄表頁中以欄的形式顯示這個物件：
+[`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display") 管理選項，它是一個包含要顯示的欄位名的元組，在更改列表頁中以欄的形式顯示這個物件：
 
 polls/admin.py[¶](#id6 "永久連結至程式")**
 
@@ -2950,7 +2891,7 @@ polls/admin.py[¶](#id7 "永久連結至程式")**
         # ...
         list_display = ('question_text', 'pub_date', 'was_published_recently')
 
-現在修改投票的欄表頁看起來像這樣：
+現在修改投票的列表頁看起來像這樣：
 
 ***
 
@@ -2980,7 +2921,7 @@ polls/models.py[¶](#id8 "永久連結至程式")**
 
     list_filter = ['pub_date']
 
-這樣做增加了一個“過濾器”側邊欄，允許人們以 `pub_date` 欄位來過濾欄表：
+這樣做增加了一個“過濾器”側邊欄，允許人們以 `pub_date` 欄位來過濾列表：
 
 ***
 
@@ -2991,11 +2932,11 @@ polls/models.py[¶](#id8 "永久連結至程式")**
 
     search_fields = ['question_text']
 
-在欄表的頂部增加一個搜索框。當輸入待搜項時，Django 將搜索
+在列表的頂部增加一個搜索框。當輸入待搜項時，Django 將搜索
 `question_text`
 來查詢資料，將待搜索的欄位數限制為一個不會出問題大小，會便於資料庫進行查詢操作。
 
-現在是給你的修改欄表頁增加分頁功能的好時機。預設每頁顯示 100
+現在是給你的修改列表頁增加分頁功能的好時機。預設每頁顯示 100
 項。[`變更頁分頁`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_per_page "django.contrib.admin.ModelAdmin.list_per_page"),
 [`搜索框`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields "django.contrib.admin.ModelAdmin.search_fields"),
 [`過濾器`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter "django.contrib.admin.ModelAdmin.list_filter"),
@@ -3040,7 +2981,7 @@ mysite/settings.py[¶](#id9 "永久連結至程式")**
     ]
 
 [`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS)
-是一個包含多個系統目錄的文件欄表，用於在載入 Django
+是一個包含多個系統目錄的文件列表，用於在載入 Django
 範本時使用，是一個待搜索路徑。
 
 組織範本
@@ -3576,7 +3517,7 @@ changes and additions to Django.
     version X.Y" 來表示其屬於已經發布的某個版本。
 -   文件的修正和提升可能只會提交到最新的一個發布版本，這取決於提交者，然而，一旦一個
     Django 的版本處於
-    [不在維護欄表](https://docs.djangoproject.com/zh-hans/3.0/internals/release-process/#supported-versions-policy)
+    [不在維護列表](https://docs.djangoproject.com/zh-hans/3.0/internals/release-process/#supported-versions-policy)
     中，這個版本對應的文件將不再更新。
 -   The [main documentation Web
     page](https://docs.djangoproject.com/en/dev/) includes links to

@@ -2356,8 +2356,7 @@ polls/tests.py[¶](#id3 "永久連結至程式")**
 
 ### Django 測試用戶端[¶](#the-django-test-client "永久連結至標題")
 
-Django 提供了一個測試 [`用戶端 (Client)`{.xref .py .py-class .docutils .literal
-](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.Client "django.test.Client") 來模擬用戶和程式在視圖層面的互動狀況。我們可以在 `tests.py` 甚至是 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 中使用它。
+Django 提供了一個測試 [`用戶端 (Client)`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.Client "django.test.Client") 來模擬用戶和程式在視圖層面的互動狀況。我們可以在 `tests.py` 甚至是 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 中使用它。
 
 我們將再次從 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 命令列模式開始，但我們需要做一些在 `tests.py` 中不並需要做的事情。第一步是在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
 命令列模式中設定測試環境:

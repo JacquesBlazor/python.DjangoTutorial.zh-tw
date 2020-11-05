@@ -1962,7 +1962,7 @@ polls/views.py[¶](#id3 "永久連結至程式")**
 
 -   在這個例子中，我們在 [`HttpResponseRedirect`](https://docs.djangoproject.com/zh-hans/3.0/ref/request-response/#django.http.HttpResponseRedirect "django.http.HttpResponseRedirect")
     的建構函數中使用 `reverse()` 函數。這個函數協助我們避免了需要直接在視圖函數中用程式編寫
-    URL 網址。我們把想要把控制權移交到哪個視圖的的視圖名字和該視圖所對應的 URL 樣式 (pattern) 的變數做為參數傳給了 `reverse()` 函數。 在這個例子中，使用在 [教學第 3
+    URL 網址。我們把想要把控制權移交到哪個視圖的視圖名字和該視圖所對應的 URL 樣式 (pattern) 的變數做為參數傳給了 `reverse()` 函數。 在這個例子中，使用在 [教學第 3
     部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
     中設定的 URLconf，呼叫這個 `reverse()` 函數將傳回一個像這樣的字串：
 
@@ -2171,7 +2171,7 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 
 你可能撰寫了一段精彩的程式軟體，但是你會發現很多其他的開發者會拒絕去讀它，因為它缺少了測試。沒有了測試，他們並不相任你的程式能運作。Django 最初開發者之一的 Jacob Kaplan-Moss 曾經說過：“程式沒有包含測試註定會出錯。”
 
-其他的開發者希望在正式把你的的程式當一回事之前會想先看看你的程式跑出來的測試結果，這也是你需要撰寫測試的另一個重要原因。
+其他的開發者希望在正式把你的程式當一回事之前會想先看看你的程式跑出來的測試結果，這也是你需要撰寫測試的另一個重要原因。
 
 #### 測試有能讓團隊一起工作[¶](#tests-help-teams-work-together "永久連結至標題")
 
@@ -2215,7 +2215,7 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 
 ### 建立一個測試來揭露這個錯誤[¶](#create-a-test-to-expose-the-bug "永久連結至標題")
 
-我們剛剛在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 裡所做的測試也將會是我們可以在自動化測試做的事。所以我們來用自動化的的方執行它吧。
+我們剛剛在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 裡所做的測試也將會是我們可以在自動化測試做的事。所以我們來用自動化的方執行它吧。
 
 習慣上對應用程式的測試會寫在應用程式的 `tests.py` 檔案裡。系統會自動地找到所有以 `tests` 開頭的測試程式。
 
@@ -2315,7 +2315,7 @@ polls/models.py[¶](#id2 "永久連結至程式")**
 
 既然我們已經走到這了，我們可以更進一步穩定 `was_published_recently()` 這個方法函式。事實上，在修正一個錯誤時不小心導致另一個錯誤會是非常令人尷尬的。
 
-在相同的的類別裡再增加兩個測試，來更完整的測試這個方法函式的運作情形：
+在相同的類別裡再增加兩個測試，來更完整的測試這個方法函式的運作情形：
 
 polls/tests.py[¶](#id3 "永久連結至程式")**
 

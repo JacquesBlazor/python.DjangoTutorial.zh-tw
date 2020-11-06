@@ -2521,7 +2521,7 @@ polls/tests.py[¶](#id8 "永久連結至程式")**
 
 好了。我們來詳細的看一下我們新增了什麼內容。
 
-首先是一個和建立問題 (question) 有關的捷挳函式 `create_question`，它只是幫助我們在下面的類別中要建立問題 (question) 時，因為流程相同而需要撰寫重複的程式。
+首先是一個和建立問題 (question) 有關的捷挳函式 `create_question`，它只是幫助我們在下面的類別中，當要建立問題 (question) 時就呼叫這個捷徑函式。這樣就可以把相同而重複的程式從建立問題的重複性流程中抽離出來。
 
 `test_no_questions` 方法函式裡沒有建立任何問題 (question)，但它會檢查回傳的網頁上有沒有包含 "No polls are available." 這段字串訊息，和確認 `latest_question_list` 的內容是空的。請注意 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別提供了一些額外的斷言 (assertion) 方法函式，在這個例子中，我們使用了[`assertContains()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains "django.test.SimpleTestCase.assertContains")
 和 [`assertQuerysetEqual()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual "django.test.TransactionTestCase.assertQuerysetEqual") 兩個新的函式。

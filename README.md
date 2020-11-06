@@ -263,7 +263,7 @@ mysite/news/views.py[¶](#id5 "永久連結至程式")**
 
 這個例子使用了 Django
 [範本系統](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/)
-，它有著很多強大的功能，而且使用起來足夠簡單，即使不是程式員也可輕松使用。
+，它有著很多強大的功能，而且使用起來足夠簡單，即使不是程式員也可輕鬆使用。
 
 設計範本[¶](#design-your-templates "永久連結至標題")
 ----------------------------------------------------
@@ -2603,20 +2603,16 @@ polls/tests.py[¶](#id10 "永久連結至程式")**
 更深入的測試[¶](#further-testing "永久連結至標題")
 --------------------------------------------------
 
-在本教學中，我們僅僅是了解了測試的基礎知識。你能做的還有很多，而且世界上有很多有用的工具來幫你完成這些有意義的事。
+在本教學中，我們僅僅是了解了測試的基礎知識。你能做的還有很多，而且世界上遇有很多其他有用的工具來協助你完成這些有意義的事。
 
-舉個例子，在上述的測試中，我們已經從程式邏輯和視圖回應的角度檢查了應用程式的輸出，現在你可以從一個更加 "in-browser" 的角度來檢查最終呈現出的 HTML 是否符合預期，使用 Selenium 可以很輕松的完成這件事。這個工具不僅可以測試 Django 框架裡的程式，還可以檢查其他部分，例如你的 JavaScript。它假裝成是一個正在和你網站進行互動的瀏覽器，就好像有個真人在開啟網站一樣！Django
-提供了 [`LiveServerTestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.LiveServerTestCase "django.test.LiveServerTestCase")
-與 Selenium 這樣的工具進行整合與互動。
+舉個例子，在上述的測試中，我們已經從程式邏輯和視圖回應的觀點檢查了應用程式的輸出結果，現在你可以從一個更加由瀏覽器上("in-browser") 的角度來檢查最終呈現出的 HTML 是否符合預期，使用像 Selenium 的工具可以很輕鬆的完成這件事。這個工具不但可以測試 Django 框架裡的程式，還可以檢查其他部分，例如你的 JavaScript。它會假裝成是一個正在和你網站進行互動的瀏覽器，就好像有個真人在開啟網站一樣！Django 提供了 [`LiveServerTestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.LiveServerTestCase "django.test.LiveServerTestCase") 與 Selenium 這樣的工具進行整合與互動。
 
 如果你在開發一個很複雜的應用程式的話，你也許想在每次提交程式時自動執行測試，也就是我們所說的持續整合 [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
 ，這樣就能實現品質控制的自動化 — 至少是部分 — 自動化。
 
-一個找出程式中未被測試部分的方法是檢查程式覆蓋率。它有助於找出程式中的薄弱部分和無用部分。如果你無法測試一段程式，通常說明這段程式需要被重構或者刪除。想知道程式覆蓋率和無用程式的詳細資訊，查看文件
-[Integration with coverage.py](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#topics-testing-code-coverage) 以取得更詳細的資訊。
+一個找出程式中未被測試部分的方法是檢查程式覆蓋率。它有助於找出程式中的薄弱部分和無用部分。如果你無法測試一段程式，通常說明這段程式需要被重構或者刪除。想知道程式覆蓋率和無用程式的詳細資訊，查看文件 [與覆蓋率做整合](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#topics-testing-code-coverage) 來取得更詳細的資訊。
 
-文件 [Django 中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/)
-裡有關於測試的更多資訊。
+文件 [Django 中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/) 裡有關於測試的更多其他資訊。
 
 接下來要做什麼？[¶](#what-s-next "永久連結至標題")
 --------------------------------------------------

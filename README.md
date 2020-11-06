@@ -2368,32 +2368,33 @@ Django 提供了一個測試 [`用戶端 (Client)`](https://docs.djangoproject.c
     >>> setup_test_environment()
 
 這個 [`setup_test_environment()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#django.test.utils.setup_test_environment "django.test.utils.setup_test_environment")
-會安裝一個範本呈現器 (template renderer)，讓我們可以檢查像是 `response.context` 這類在回應 (response) 時的一些額外的屬性，否則這些屬性將無法被使用。注意，這個方法函式並 *不會* 設置一個測試資料庫，所以接下來的程式將會在當前存在的資料庫上執行，輸出的內容可能會由於你已經建立的問題 (question) 內容的不同而有所不同。如果你的 `settings.py` 中關於 `TIME_ZONE` 的設定不對，你可能會得到非預期的結果。如果你不記得之前設定了什麼，在繼續往下進行之前先檢查一下。
+會安裝一個範本呈現器 (template renderer)，讓我們可以檢查像是 `response.context` 這類在網站回應 (response) 用戶端時一些額外的屬性，否則這些屬性在你測試時將無法使用。注意，這個方法函式並 *不會* 建立與設置一個測試資料庫，所以接下來的程式會直接在當前存在的資料庫上執行，而輸出的內容會因為你所建立的問題 (question) 內容的下列的範例內容而有所不同。同時如果你的 `settings.py` 中關於 `TIME_ZONE` 的設定不正確，你可能會得到非預期的結果。如果你不記得在此之前你設定了什麼內容，可以在繼續往進行測試之前先檢查一下以免出現錯誤。
 
-接下來，我們需要匯入測試用戶 (client) 類別（稍後在 `tests.py` 中我們將會使用 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別，該類別裡包含了自己的用戶端實例，因此不需要這一步驟）:
+接著，我們需要匯入測試用戶端 (client) 類別（但稍後在 `tests.py` 中我們會改用 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別，該類別裡頭包含了自己的用戶端實例，因此不需要現在我們執行的這一個步驟）:
 
     >>> from django.test import Client
-    >>> # 建立用戶端實例以供我們使用
+    >>> # 第一步先建立用戶端實例以供我們測試用
     >>> client = Client()
 
-當這個實例建立完成後，我們可以要求用戶端為我們做一些工作:
+當這個實例建立完成後，我們可以要求用戶端為我們做一些測試的工作:
 
-    >>> # 從 '/' 取得一個回應
+    >>> # 使用用戶端實例試著從伺服器的 '/' 位址要求一個回應
     >>> response = client.get('/')
     Not Found: /
-    >>> # 我們應該從該網址獲得一個 404；如果你看到一個
-    >>> # "Invalid HTTP_HOST header" 錯誤和一個 400 的回應，您可能
-    >>> # 忽略了呼叫前面描述的 setup_test_environment() 函式。
+    >>> # 接下來我們應該會從這個網址得到一個 404 回應；但如果你看到的是
+    >>> # 一個 "Invalid HTTP_HOST header" 錯誤和 400 的回應，有可能
+    >>> # 是你忽略了先呼叫前面所描述的 setup_test_environment() 函式。
     >>> response.status_code
     404
-    >>> # 另一方面，我們應該預期在 '/polls/' 這裡找到個些什麼結果
-    >>> # 我們將會使用 'reverse()' 函式而不是一個直接以程式碼編寫的 URL
+    >>> # 另一個例子，我們預期可以在 '/polls/' 這個位址找到某些資料回應給我們
+    >>> # 這裡我們會使用 'reverse()' 函式，而不是一個直接以程式碼編寫的 URL 位址
     >>> from django.urls import reverse
     >>> response = client.get(reverse('polls:index'))
     >>> response.status_code
     200
+     >>> # 將回應的內容印出來 (如果你的內容不同是由於我們彼此輸入了不同的問題集)
     >>> response.content
-    b'\n    <ul>\n    \n        <li><a href="/polls/1/">What&#x27;s up?</a></li>\n    \n    </ul>\n\n'
+    b'\n    <ul>\n    \n        <li><a href="/polls/1/">現在什麼情況?</a></li>\n    \n    </ul>\n\n'
     >>> response.context['latest_question_list']
     <QuerySet [<Question: 現在什麼情況?>]>
 

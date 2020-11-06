@@ -1407,8 +1407,7 @@ polls/admin.py[¶](#id6 "永久連結至程式")**
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
 ，下一部分我們將會學習如何為投票應用程式增加更多視圖。
 
-[** 編寫你的第一個 Django 應用程式，第 1
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)
+[** 編寫你的第一個 Django 應用程式，第 1 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial01/)
 
 [編寫你的第一個 Django 應用程式，第 3 部分
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
@@ -1846,12 +1845,10 @@ polls/templates/polls/index.html[¶](#id14 "永久連結至程式")**
 
     <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
 
-當你對你寫的視圖感到滿意後，請閱讀 [教學的第 4
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
+當你對你寫的視圖感到滿意後，請閱讀 [教學的第 4 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
 了解基礎的表單處理和通用視圖。
 
-[** 編寫你的第一個 Django 應用，第 2
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
+[** 編寫你的第一個 Django 應用，第 2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
 
 [編寫你的第一個 Django 應用，第 4 部分
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
@@ -2114,11 +2111,9 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 當你對你所寫的表單和通用視圖感到滿意後，請繼續閱讀 [教學的第 5 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
 來了解如何測試我們的投票應用程式。
 
-[** 編寫你的第一個 Django 應用，第 3
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
+[** 編寫你的第一個 Django 應用，第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
 
-[編寫你的第一個 Django 應用，第 5 部分
-**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+[編寫你的第一個 Django 應用，第 5 部分 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
 
 編寫你的第一個 Django 應用，第 5 部分[¶](#writing-your-first-django-app-part-5 "永久連結至標題")
 ================================================================================================
@@ -2619,13 +2614,11 @@ polls/tests.py[¶](#id10 "永久連結至程式")**
 
 當你已經比較熟悉測試 Django 視圖的方法後，就可以繼續閱讀 [教學第 6 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)，學習靜態檔案管理的相關知識。
 
-[** 編寫你的第一個 Django 應用，第 4
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
+[** 編寫你的第一個 Django 應用，第 4 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
 
-[編寫你的第一個 Django 應用，第 6 部分
-**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
+[編寫你的第一個 Django 應用，第 6 部分 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
 
-編寫你的第一個 Django ]，第 6 部分[¶](#writing-your-first-django-app-part-6 "永久連結至標題")
+編寫你的第一個 Django 應用，第 6 部分[¶](#writing-your-first-django-app-part-6 "永久連結至標題")
 ================================================================================================
 
 這一篇從 [教學第 5 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
@@ -2700,11 +2693,9 @@ polls/static/polls/style.css[¶](#id3 "永久連結至程式")**
 
 當你掌握了靜態檔案後，閱讀 [此教學的第 7 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/) 來學習如何自定義 Django 自動產生管理網頁的過程。
 
-[** 編寫你的第一個 Django 應用，第 5
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+[** 編寫你的第一個 Django 應用，第 5 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
 
-[編寫你的第一個 Django 應用，第 7 部分
-**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+[編寫你的第一個 Django 應用，第 7 部分 **](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
 
 編寫你的第一個 Django 應用，第 7 部分[¶](#writing-your-first-django-app-part-7 "永久連結至標題")
 ================================================================================================

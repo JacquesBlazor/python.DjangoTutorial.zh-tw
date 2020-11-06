@@ -2282,7 +2282,7 @@ polls/tests.py[¶](#id1 "永久連結至程式")**
 -   它建立了一個特殊的資料庫以供測試用途使用
 -   它搜尋了測試的方法函式 — 那些以 `test` 開頭命名的方法函式。
 -   在 `test_was_published_recently_with_future_question` 方法函式中，它建立了一個 `pub_date` 欄位值是未來 30 天後的 `問題 (Question)` 實例。
--   … 接著使用 `assertIs()` 方法函式，它發現 `was_published_recently()` 回傳了 `True`，儘管我們預期它會回傳 `False`。
+-   … 接著使用 `assertIs()` 方法函式，它發現 `was_published_recently()` 回傳了 `True`，但是我們預期它應該要回傳 `False`。
 
 測試系統通知我們哪些測試案例失敗了，和導致測試失敗的程式所在的行號。
 

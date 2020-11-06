@@ -2628,39 +2628,31 @@ polls/tests.py[¶](#id10 "永久連結至程式")**
 編寫你的第一個 Django 應用，第 6 部分[¶](#writing-your-first-django-app-part-6 "永久連結至標題")
 ================================================================================================
 
-這一篇從 [教學第 5
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
-結尾的地方繼續講起。在上一節中我們為網路投票應用程式編寫了測試，而現在我們要為它加上樣式和圖片。
+這一篇從 [教學第 5 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+結尾的地方繼續講起。我們已經建立了一個經過測試的投票應用程式，而現在我們要為它加上一個樣式表和一個圖片。
 
-除了伺服器端所產生的 HTML 文件以外，網路應用通常需要一些額外的文件—例如圖片，腳本 (script) 和樣式表 (css, Cascading Style Sheets)—來協助呈現在網路的頁面上。在
-Django 中，我們把這些文件統稱為 “靜態文件”。
+除了伺服器端產生的 HTML 以外，網絡應用程式通常也需要提供額外的文件的服務—例如像是圖片，JavaScript 腳本或是 CSS 樣式表 — 要能呈現完整的網站頁面的這些必要元件。在 Django 中，我們把這些文件稱為 “靜態檔案 (static files)”。
 
-對於小專案來說，這個問題並不需要太在意，因為你可以把這些靜態文件隨便放在哪，只要服務程式能夠找到它們就行。然而在大專案—特別是由好幾個應用組成的大專案—中，處理不同應用所需要的靜態文件的工作就顯得有點麻煩了。
+對於小專案來說，要顯示靜態檔案相對容易，因為你可以把這些靜態檔案隨便放在你的網站伺服器能找到的位置。然而在大型的專案裡 — 特別是由好幾個應用組成的大專案中 — 處理由不同的應用程式提供的多組靜態檔案就開始變得有點棘手了。
 
-這就是 `django.contrib.staticfiles` 存在的意義：它將各個應用的靜態文件（和一些你指明的目錄裡的文件）統一收集起來，這樣一來，在生產環境中，這些文件就會集中在一個便於分發的地方。
+以上所描述的就是這個 `django.contrib.staticfiles` 類別的用途：它用來從各個應用程式中蒐集靜態檔案（和其他你特別指定的地方），然後集中放在一個單一位置。這樣當伺服器在生產環境運作時，就比較容易可以提供這些靜態檔案的服務。
 
-自定義 *應用程式* 的界面和風格[¶](#customize-your-app-s-look-and-feel "永久連結至標題")
+客製化你的 *應用程式* 的外觀和風格[¶](#customize-your-app-s-look-and-feel "永久連結至標題")
 -----------------------------------------------------------------------------------
 
-首先，在你的 `polls` 目錄下建立一個名為 `static` 的目錄。Django 將在該目錄下尋找靜態文件，這種方式和 Diango 在
-`polls/templates/` 目錄下尋找 template 的方式類似。
+首先，在你的`polls 應用程式 ` 目錄下建立一個名為 `static` 的目錄。Django 會在這個目錄下尋找靜態檔案，有點類似像是 Diango 會在 `polls/templates/` 目錄下尋找 template 檔案的方式。
 
-Django 的 [`STATICFILES_FINDERS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-STATICFILES_FINDERS)
-設定包含了一系列的尋找器，它們知道去哪裡找到 static 文件。`AppDirectoriesFinder` 是預設尋找器中的一個，它會在每個 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
-中指定的應用的子文件中尋找名稱為 `static` 的特定文件夾，就像我們在 `polls` 中剛建立的那個一樣。管理管理採用相同的目錄結構管理它的靜態文件。
+Django 的 [`STATICFILES_FINDERS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-STATICFILES_FINDERS) 設定中包含了找尋器 (finders) 的列表，可以讓 Django 知道如何從不同的來源去發掘靜態檔案。其中 `AppDirectoriesFinder` 是預設找尋器的一個，它會在每個安裝的應用程式 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS) 的應用程式資料夾，尋找一個資料夾名稱為 `static` 的子資料夾，有點類似像我們才剛在 `polls` 這個應用程式的資料夾下所建立的 `static` 的子資料夾那樣。同時在管理界面 (admin site) 中也是採用相同的目錄結構來管理它的靜態檔案。
 
-在你剛建立的 `static` 文件夾中建立一個名為 `polls` 的文件夾，再在 `polls` 文件夾中建立一個名為 `style.css` 的文件。換句話說，你的樣式表路徑應是
-`polls/static/polls/style.css`。因為 `AppDirectoriesFinder` 的存在，你可以在 Django 中以 `polls/style.css` 的形式引用此文件，類似你引用範本路徑的方式。
+在你剛建立的 `static` 資料夾中，再建立一個名為 `polls` 的資料夾，接著再在 `polls` 資料夾中建立一個名為 `style.css` 的檔案。換句話說，你的樣式表的檔案路徑會是 `polls/static/polls/style.css`。由於 
+`AppDirectoriesFinder` 的靜態檔案找尋器的運作方式，你可以在 Django 中以 `polls/style.css` 的形式引用這個文件，和先前你如何引用範本路徑的方式類似。
 
-靜態文件命名空間
+靜態檔案命名空間
 
-雖然我們 *可以* 像管理範本文件一樣，把 static 文件直接放入
-`polls/static`（而不是建立另一個名為 `polls` 的子文件夾），不過這實際上是一個很蠢的做法。Django
-只會使用第一個找到的靜態文件。如果你在 *其它* 應用中有一個相同名字的靜態文件，Django 將無法區分它們。
-我們需要引導 Django 選擇正確的靜態文件，而最好的方式就是把它們放入各自的 *命名空間*。
-也就是把這些靜態文件放入 *另一個* 與應用名相同的目錄中。
+就像範本文件一樣，我們 *也許* 可以將靜態檔案直接放在 `polls/static` 資料夾裡（而不是建立另一個 `polls` 的子資料夾），不過這實際上可能是一個不好的做法。Django 只會挑選第一個找到名稱符合的靜態檔案。而如果你在 *另一個不同的* 應用程式中有一個相同名字的靜態檔案，Django 將會沒辦法區分它們。我們要能幫
+Django 指出正確的靜態檔案，而最好的方式就是將他們 *命名空間* 化。也就是把這些靜態檔案放入 *另一個* 與他自己的應用名稱相同的目錄中。
 
-將以下程式放入樣式表(`polls/static/polls/style.css`)：
+將以下程式碼放入樣式表(`polls/static/polls/style.css`)：
 
 polls/static/polls/style.css[¶](#id1 "永久連結至程式")**
 
@@ -2676,22 +2668,20 @@ polls/templates/polls/index.html[¶](#id2 "永久連結至程式")**
 
     <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
-`{% static %}` 範本標籤會產生靜態文件的絕對路徑。
+這個 `{% static %}` 範本標籤會產生靜態檔案的絕對 URL 路徑。
 
-這就是你開發所需要做的所有事情了。
+這就是你在開發時所需要做的所有事情了。
 
-啟動伺服器(如果它正在執行中，請關掉它然後再重新啟動一次):
+啟動伺服器(如果它正在執行中，重新啟動一次):
 
     $ python manage.py runserver
 
-重新載入`http://localhost:8000/polls/`，你會發現有問題的連結是綠色的 (這是Django自己的問題標注方式)，意思是你追加的樣式表開始有作用了。
+打開瀏覽器重新載入 `http://localhost:8000/polls/` 網頁頁面，你會發現問題 (Question) 的連結變成綠色的 (這是 Django 風格!)，這樣就表示你的樣式表有正確地被載入了。
 
 增加一個背景圖[¶](#adding-a-background-image "永久連結至標題")
 --------------------------------------------------------------
 
-接著，我們會建立一個用於存在圖像的目錄。在
-`polls/static/polls` 目錄下建立一個名為 `images` 的子目錄。在這個目錄中，放一張名為 `background.gif` 的圖片。換言之，在目錄
-`polls/static/polls/images/background.gif` 中放一張圖片。
+接著，我們會為圖片建立一個子目錄。在 `polls/static/polls` 目錄下建立一個名為 `images` 的子目錄。在這個目錄中，放一張名為 `background.gif` 的圖片。換言之，將你的圖片放在 `polls/static/polls/images/background.gif`。
 
 隨後，在你的樣式表（`polls/static/polls/style.css`）中增加：
 
@@ -2701,26 +2691,21 @@ polls/static/polls/style.css[¶](#id3 "永久連結至程式")**
         background: white url("images/background.gif") no-repeat;
     }
 
-瀏覽器重載 `http://localhost:8000/polls/`，你將在螢幕的左上角見到這張背景圖。
+打開瀏覽器重新載入 `http://localhost:8000/polls/` 網頁頁面，你應該會在螢幕的左上角看到這張背景圖。
 
 警告
 
-當然，`{% static %}`範本標籤在靜態文件（例如樣式表）中是不可用的，因為它們不是由 Django
-產生的。你仍需要使用 *相對路徑* 的方式在你的靜態文件之間互相引用。這樣之後，你就可以任意改變
-`` STATIC_URL`（由 :ttag:`static `` 範本標籤用於產生 URL），而無需修改大量的靜態文件。
+當然，`{% static %}` 範本標籤在不是由 Django 產生的靜態檔案（例如樣式表）中是不能使用的。你應該總是使用 *相對路徑* 的方式在你的靜態檔案之間互相引用。這樣之後你就可以任意改變` STATIC_URL`（用於 `static` 範本標籤來產生它的 URL 位址），而不需要修改大量的靜態檔案的路徑。
 
-這些只是 **基礎** 。更多關於設定和框架的資料，參考
-[靜態文件解惑](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/)和
-[靜態文件指南](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/staticfiles/)。
-[部署靜態文件](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/deployment/)
-介紹了如何在真實伺服器上使用靜態文件。
+這些只是 **基礎** 。更多關於設定和框架的資料，參考 [靜態檔案問題集](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/) 和 [靜態檔案參考文件](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/staticfiles/)。[部署靜態檔案](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/deployment/) 討論了如何在實際的伺服器上使用靜態檔案。
 
-當你熟悉靜態文件後，閱讀 [此教學的第 7 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
-來學習如何自定義 Django 自動產生管理網頁的過程。
+當你掌握了靜態檔案後，閱讀 [此教學的第 7 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/) 來學習如何自定義 Django 自動產生管理網頁的過程。
 
-[** 編寫你的第一個 Django 應用，第 5 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
+[** 編寫你的第一個 Django 應用，第 5
+部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
 
-[編寫你的第一個 Django 應用，第 7 部分**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
+[編寫你的第一個 Django 應用，第 7 部分
+**](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial07/)
 
 編寫你的第一個 Django 應用，第 7 部分[¶](#writing-your-first-django-app-part-7 "永久連結至標題")
 ================================================================================================

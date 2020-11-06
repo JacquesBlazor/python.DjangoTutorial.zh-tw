@@ -2219,7 +2219,7 @@ polls/views.py[¶](#id7 "永久連結至程式")**
 
 習慣上對應用程式的測試會寫在應用程式的 `tests.py` 檔案裡。系統會自動地找到所有以 `tests` 開頭的測試程式。
 
-將下面的內容寫到 `polls` 應用程式的 `tests.py` 檔案裡：
+打開 `polls` 應用程式的 `tests.py` 檔案，然後將下面的內容加到檔案的後面：
 
 polls/tests.py[¶](#id1 "永久連結至程式")**
 
@@ -2235,14 +2235,14 @@ polls/tests.py[¶](#id1 "永久連結至程式")**
 
         def test_was_published_recently_with_future_question(self):
             """
-            對於 questions 的 pub_date　是在未來的日期則 was_published_recently() 
+            對於 questions 的 pub_date 是在未來的日期則 was_published_recently() 
             會回傳 False。 
             """
             time = timezone.now() + datetime.timedelta(days=30)
             future_question = Question(pub_date=time)
             self.assertIs(future_question.was_published_recently(), False)
 
-這裡我們建立了一個 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 子類別，並增加了一個方法函式，此方法函式建立一個 `pub_date` 日期是未來某天的 `Question` 實例。然後我們會檢查 `was_published_recently()` 方法函式的回傳值 — 它的回傳值 *應該* 要是 False 才對。
+這裡我們建立了一個 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 子類別，並增加了一個方法函式，此方法函式建立一個 `問題 (Question)` 實例而該問題的 `發佈日期 (pub_date)` 是在未來的 30 天後 。接著程式會檢查 `was_published_recently()` 方法函式的回傳值 — 而它的回傳值 *應該* 要是 False 才對。
 
 ### 執行測試[¶](#running-tests "永久連結至標題")
 
@@ -2257,6 +2257,7 @@ polls/tests.py[¶](#id1 "永久連結至程式")**
     F
     ======================================================================
     FAIL: test_was_published_recently_with_future_question (polls.tests.QuestionModelTests)
+    對於 questions 的 pub_date 是在未來的日期則 was_published_recently()
     ----------------------------------------------------------------------
     Traceback (most recent call last):
       File "/path/to/mysite/polls/tests.py", line 16, in test_was_published_recently_with_future_question

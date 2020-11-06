@@ -2367,7 +2367,7 @@ Django 提供了一個測試 [`用戶端 (Client)`](https://docs.djangoproject.c
     >>> setup_test_environment()
 
 這個 [`setup_test_environment()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/advanced/#django.test.utils.setup_test_environment "django.test.utils.setup_test_environment")
-會安裝一個範本實現器 (template renderer)，讓我們可以檢查像是 `response.context` 這類在回應 (response) 時的一些額外的屬性，否則這些屬性將無法被使用。注意，這個方法函式並 *不會* 設置一個測試資料庫，所以接下來的程式將會在當前存在的資料庫上執行，輸出的內容可能會由於你已經建立的問題 (question) 內容的不同而有所不同。如果你的 `settings.py` 中關於 `TIME_ZONE` 的設定不對，你可能會得到非預期的結果。如果你不記得之前設定了什麼，在繼續往下進行之前先檢查一下。
+會安裝一個範本呈現器 (template renderer)，讓我們可以檢查像是 `response.context` 這類在回應 (response) 時的一些額外的屬性，否則這些屬性將無法被使用。注意，這個方法函式並 *不會* 設置一個測試資料庫，所以接下來的程式將會在當前存在的資料庫上執行，輸出的內容可能會由於你已經建立的問題 (question) 內容的不同而有所不同。如果你的 `settings.py` 中關於 `TIME_ZONE` 的設定不對，你可能會得到非預期的結果。如果你不記得之前設定了什麼，在繼續往下進行之前先檢查一下。
 
 接下來，我們需要匯入測試用戶 (client) 類別（稍後在 `tests.py` 中我們將會使用 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別，該類別裡包含了自己的用戶端實例，因此不需要這一步驟）:
 
@@ -2438,17 +2438,16 @@ polls/views.py[¶](#id6 "永久連結至程式")**
 
 ### 測試我們的新視圖[¶](#testing-our-new-view "永久連結至標題")
 
-啟動伺服器、在瀏覽器中載入網站、建立一些發佈時間在過去和將來的
-`Questions` ，然後檢驗只有已經發佈的 `Questions` 會顯示出來，現在你可以對自己感到滿意了。你不想 *每次修改可能與這相關的程式時都重復這樣做* — 所以讓我們基於以上 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
-會話中的內容，再編寫一個測試。
+啟動伺服器、打開瀏覽器輸入網站網址以開啟網站、建立一些發佈時間在過去和將來的 `問題 (Questions)` ，然後查看是否只有已經發佈的 `問題 (Questions)` 會顯示出來，現在你可以對自己感到滿意了。但你可不想 *每次修改可能與這相關的程式時都重復這樣做* — 所以讓我們基於以上在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
+命令提示列交談對話中的內容，再編寫一個測試。
 
-將下面的程式增加到 `polls/tests.py` ：
+將下面的程式加到 `polls/tests.py` 檔案裡：
 
 polls/tests.py[¶](#id7 "永久連結至程式")**
 
     from django.urls import reverse
 
-然後我們寫一個公用的快捷函數用於建立投票問題，以及為視圖建立一個新的測試類別：
+然後我們寫一個共用的快捷函數用於建立投票問題，以及為視圖建立一個新的測試類別：
 
 polls/tests.py[¶](#id8 "永久連結至程式")**
 
@@ -2523,13 +2522,13 @@ polls/tests.py[¶](#id8 "永久連結至程式")**
 
 首先是一個快捷函數 `create_question`，它在建立問題 (question) 的流程中拿掉了重復的程式。
 
-`test_no_questions` 方法函式裡沒有建立任何問題 (question)，但它檢查回傳的網頁上有沒有 "No polls are available." 這段訊息和 `latest_question_list` 是否為空。請注意 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別提供了一些額外的斷言 (assertion) 方法函式，在這個例子中，我們使用了
+`test_no_questions` 方法函式裡沒有建立任何問題 (question)，但它會檢查回傳的網頁上有沒有 "No polls are available." 這段訊息和確認 `latest_question_list` 是否是空的。請注意 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別提供了一些額外的斷言 (assertion) 方法函式，在這個例子中，我們使用了
 [`assertContains()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains "django.test.SimpleTestCase.assertContains")
 和 [`assertQuerysetEqual()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual "django.test.TransactionTestCase.assertQuerysetEqual") 函式。
 
 在 `test_past_question` 中，我們建立了一個問題 (question) 並檢查它是否出現在列表中。
 
-在 `test_future_question` 中，我們建立了一個 `pub_date` 在未來某天的問題 (question)。資料庫會在每次呼叫測試方法前被重置，所以第一個問題 (question) 已經不復存在了，而所以在主頁中應該不會有任何問題 (question)。
+在 `test_future_question` 中，我們建立了一個 `pub_date` 在未來某天的問題 (question)。資料庫會在每次呼叫測試方法前會被重置，所以第一個問題 (question) 已經不復存在了，而所以在主頁中應該不會有任何問題 (question) 清單。
 
 依此類推。實際上，我們使用測試來描述 — 管理員的輸入和使用者的用戶經驗，及檢查每個新的變更的每個系統狀態，最終所預期的結果是發佈的 — 這樣的故事。
 
@@ -2587,7 +2586,8 @@ polls/tests.py[¶](#id10 "永久連結至程式")**
 
 看起來我們的測試多的快要失去控制了。按照這樣發展下去，測試程式就要變得比應用程式本身還要多了。而且測試程式大多都是重復且不優雅的，特別是在和業務程式比起來的時候，這種感覺更加明顯。
 
-**但是這沒有關係！**
+**不過這倒沒關係！**
+
 就讓測試程式繼續肆意增長吧。大部分情況下，你寫完一個測試之後就可以忘掉它了。在你繼續開發的過程中，它會一直默默無聞地為你做貢獻的。
 
 但有時測試也需要更新。想像一下如果我們修改了視圖，只顯示有選項的那些問題，那麼目前寫的很多測試就都會失敗。*但這也明確地告訴了我們哪些測試需要被更新*，所以就這個程度而言測試也會照顧它自己。
@@ -2605,7 +2605,7 @@ polls/tests.py[¶](#id10 "永久連結至程式")**
 
 在本教學中，我們僅僅是了解了測試的基礎知識。你能做的還有很多，而且世界上有很多有用的工具來幫你完成這些有意義的事。
 
-舉個例子，在上述的測試中，我們已經從程式邏輯和視圖回應的角度檢查了應用程式的輸出，現在你可以從一個更加 "in-browser" 的角度來檢查最終實現出的 HTML 是否符合預期，使用 Selenium 可以很輕松的完成這件事。這個工具不僅可以測試 Django 框架裡的程式，還可以檢查其他部分，例如你的 JavaScript。它假裝成是一個正在和你網站進行互動的瀏覽器，就好像有個真人在開啟網站一樣！Django
+舉個例子，在上述的測試中，我們已經從程式邏輯和視圖回應的角度檢查了應用程式的輸出，現在你可以從一個更加 "in-browser" 的角度來檢查最終呈現出的 HTML 是否符合預期，使用 Selenium 可以很輕松的完成這件事。這個工具不僅可以測試 Django 框架裡的程式，還可以檢查其他部分，例如你的 JavaScript。它假裝成是一個正在和你網站進行互動的瀏覽器，就好像有個真人在開啟網站一樣！Django
 提供了 [`LiveServerTestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.LiveServerTestCase "django.test.LiveServerTestCase")
 與 Selenium 這樣的工具進行整合與互動。
 
@@ -2638,11 +2638,10 @@ polls/tests.py[¶](#id10 "永久連結至程式")**
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial05/)
 結尾的地方繼續講起。在上一節中我們為網絡投票應用編寫了測試，而現在我們要為它加上樣式和圖片。
 
-除了服務端產生的 HTML
-以外，網絡應用通常需要一些額外的文件—例如圖片，腳本和樣式表—來協助實現網絡頁面。在
-Django 中，我們把這些文件統稱為“靜態文件”。
+除了伺服器端所產生的 HTML 文件以外，網路應用通常需要一些額外的文件—例如圖片，腳本 (script) 和樣式表 (css, Cascading Style Sheets)—來協助呈現在網路的頁面上。在
+Django 中，我們把這些文件統稱為 “靜態文件”。
 
-對於小專案來說，這個問題沒什麼大不了的，因為你可以把這些靜態文件隨便放在哪，只要服務程式能夠找到它們就行。然而在大專案—特別是由好幾個應用組成的大專案—中，處理不同應用所需要的靜態文件的工作就顯得有點麻煩了。
+對於小專案來說，這個問題並不需要太在意，因為你可以把這些靜態文件隨便放在哪，只要服務程式能夠找到它們就行。然而在大專案—特別是由好幾個應用組成的大專案—中，處理不同應用所需要的靜態文件的工作就顯得有點麻煩了。
 
 這就是 `django.contrib.staticfiles` 存在的意義：它將各個應用的靜態文件（和一些你指明的目錄裡的文件）統一收集起來，這樣一來，在生產環境中，這些文件就會集中在一個便於分發的地方。
 

@@ -2519,22 +2519,22 @@ polls/tests.py[¶](#id8 "永久連結至程式")**
                 ['<Question: Past question 2.>', '<Question: Past question 1.>']
             )
 
-好了。我們來詳細的看一下我們新增了什麼內容。
+好了。我們來詳細的說明一下我們剛才新增了什麼內容。
 
 首先是一個和建立問題 (question) 有關的捷挳函式 `create_question`，它只是幫助我們在下面的類別中，當要建立問題 (question) 時就呼叫這個捷徑函式。這樣就可以把相同而重複的程式從建立問題的重複性流程中抽離出來。
 
-`test_no_questions` 方法函式裡沒有建立任何問題 (question)，但它會檢查回傳的網頁上有沒有包含 "No polls are available." 這段字串訊息，和確認 `latest_question_list` 的內容是空的。請注意 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別提供了一些額外的斷言 (assertion) 方法函式，在這個例子中，我們使用了[`assertContains()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains "django.test.SimpleTestCase.assertContains")
+`test_no_questions` 方法函式裡沒有建立任何問題 (question)，但它會檢查回傳的網頁上有沒有包含 "No polls are available." 這段訊息，和確認 `latest_question_list` 的內容是空的。請注意 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別提供了一些額外的斷言 (assertion) 方法函式，在這個例子中，我們分別使用了[`assertContains()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains "django.test.SimpleTestCase.assertContains")
 和 [`assertQuerysetEqual()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual "django.test.TransactionTestCase.assertQuerysetEqual") 兩個新的函式。
 
-在 `test_past_question` 中，我們呼叫上述的捷挳函式 `create_question` 建立了一個日期在過去某天的問題 (question)，並檢查它是否出現在列表中。
+在 `test_past_question` 中，我們呼叫上述的捷挳函式 `create_question` 來建立一個問題 (question)，而問題的 `發佈日期(pub_date)` 是在過去的某一天，然後檢查它是否出現在清單中。
 
-在 `test_future_question` 中，我們建立了一個 `pub_date` 在未來某天的問題 (question)。由於我們的資料庫會在呼叫每個測試方法重置，所以第一個問題 (question) 並不會一直存在，因此在網站的索引頁面 (index) 中應該不會存在任何的問題 (question) 項目。
+在 `test_future_question` 中，我們建立了一個問題 (question)，它的 `發佈日期(pub_date)` 是在未來的某一天。由於我們的資料庫會在呼叫每個測試方法時重置，所以第一個問題 (question) 並不會一直存在，因此在網站的索引頁面 (index) 中，不會存在任何的問題 (question) 項目。
 
-其他的函式依此類推。實際上，我們相當於是使用測試來描述 — 管理員的輸入和使用者的用戶經驗，及檢查每個新的變更的每個系統狀態，最終所預期的結果是發佈的 — 這樣的故事。
+其他的函式依此類推。實際上，整個程式的說明相當於是使用測試來描述 — 管理員的輸入和使用者的用戶經驗、檢查每個新增的變更和其對應的每個系統的狀態，以及最終是否所如預期的發佈結果 — 這樣的流程。
 
 ### 測試 `DetailView`[¶](#testing-the-detailview "永久連結至標題")
 
-到目前為止我們已完成的東西運作地挺好的；但是如果使用者知道或者猜到正確的 URL，即便未來 (發佈日期尚未到時) 的那些問題 (question) 不會出現在 *索引頁 (index)*，使用者還是可以存取得到該索引頁面。所以我們得增加一個類似的限制在 `DetailView` 裡：
+到目前為止我們已完成的東西運作地挺好的；但是如果使用者知道或者猜測到實際的 URL 位址，那麼即使發佈日期尚未到時的那些未來日期的問題 (question) 不會出現在 *索引 (index)* 頁面中，使用者還是可以存取得到該索引的頁面。因此我們得在 `DetailView` 裡增加一個類似的限制來避免它：
 
 polls/views.py[¶](#id9 "永久連結至程式")**
 
@@ -2546,7 +2546,7 @@ polls/views.py[¶](#id9 "永久連結至程式")**
             """
             return Question.objects.filter(pub_date__lte=timezone.now())
 
-我們應該接著要增加一些測試來檢驗 `Question` 中的 `pub_date` 的日期如果是在過去則可以顯示出來，而 那些問題 (question) 中如果 `pub_date` 的日期是在未來的則不可以：
+我們應該接著要增加一些測試來檢驗 `Question` 中的 `pub_date` 的日期如果是在過去的日期，就顯示出來，而如果問題 (question) 清單中的 `pub_date` 的日期是在未來的日期，就不要顯示出來：
 
 polls/tests.py[¶](#id10 "永久連結至程式")**
 

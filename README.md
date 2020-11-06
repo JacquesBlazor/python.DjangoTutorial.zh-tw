@@ -312,7 +312,7 @@ Django 使用了 ''範本繼承'' 的概念。這就是
 的範本，並且用下面的標記塊對範本中定義的標記塊進行填充''。簡而言之，範本繼承可以使範本間的冗餘內容最小化：每個範本只需包含與其它文件有區別的內容。
 
 下面是 base.html 可能的樣子，它使用了
-[靜態文件](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/)
+[靜態檔案](https://docs.djangoproject.com/zh-hans/3.0/howto/static-files/)
 ：
 
 mysite/templates/base.html[¶](#id7 "永久連結至程式")**
@@ -823,7 +823,7 @@ SQLite，那麼你不需要在使用前做任何事——資料庫會在需要�
 -   [`django.contrib.messages`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/messages/#module-django.contrib.messages "django.contrib.messages: Provides cookie- and session-based temporary message storage.")
     -- 訊息框架。
 -   [`django.contrib.staticfiles`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/staticfiles/#module-django.contrib.staticfiles "django.contrib.staticfiles: An app for handling static files.")
-    -- 管理靜態文件的框架。
+    -- 管理靜態檔案的框架。
 
 為了給常見的專案提供方便因此這些應用程式預設是啟用的。
 
@@ -2617,7 +2617,7 @@ polls/tests.py[¶](#id10 "永久連結至程式")**
 
 如果你想深入了解測試，就去看 [Django 中的測試](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/) 。
 
-當你已經比較熟悉測試 Django 視圖的方法後，就可以繼續閱讀 [教學第 6 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)，學習靜態文件管理的相關知識。
+當你已經比較熟悉測試 Django 視圖的方法後，就可以繼續閱讀 [教學第 6 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)，學習靜態檔案管理的相關知識。
 
 [** 編寫你的第一個 Django 應用，第 4
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial04/)
@@ -2962,7 +2962,7 @@ mysite/settings.py[¶](#id9 "永久連結至程式")**
 
 組織範本
 
-就像靜態文件一樣，我們 *可以*
+就像靜態檔案一樣，我們 *可以*
 把所有的範本文件放在一個大範本目錄內，這樣它也能工作的很好。但是，屬於特定應用的範本文件最好放在應用所屬的範本目錄（例如
 `polls/templates`）。我們會在
 [建立可復用的應用教學](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)

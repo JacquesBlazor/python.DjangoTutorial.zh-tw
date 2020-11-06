@@ -2440,8 +2440,7 @@ polls/views.py[¶](#id6 "永久連結至程式")**
 
 ### 測試我們的新視圖[¶](#testing-our-new-view "永久連結至標題")
 
-啟動伺服器、打開瀏覽器輸入網站網址以開啟網站、建立一些發佈時間在過去和將來的 `問題 (Questions)` ，然後查看是否只有已經發佈的 `問題 (Questions)` 會顯示出來，現在你可以對自己感到滿意了。但你可不想 *每次修改可能與這相關的程式時都重復這樣做* — 所以讓我們基於以上在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell)
-命令提示列交談對話中的內容，再編寫一個測試。
+啟動伺服器、打開瀏覽器輸入網站的管理網站網址 (/admin) 以開啟管理網站、到 POLLS/Questions 裡建立一些 `問題 (Questions)` ，而這些問題的發佈時間分別是在過去和在將來，然後檢查網站的主頁面是否只會顯示已經發佈的 `問題 (Questions)`。現在你應該會對自己感到滿意了，但你並不想 *每次都重復修改可能與這相關的程式* — 因此我們可以根據先前在 [`shell`](https://docs.djangoproject.com/zh-hans/3.0/ref/django-admin/#django-admin-shell) 命令提示列的交談對話中所輸入的內容，編寫另一個測試。
 
 將下面的程式加到 `polls/tests.py` 檔案裡：
 
@@ -2449,7 +2448,7 @@ polls/tests.py[¶](#id7 "永久連結至程式")**
 
     from django.urls import reverse
 
-然後我們寫一個共用的快捷函數用於建立投票問題，以及為視圖建立一個新的測試類別：
+然後我們這裡寫一個共用的捷徑函數，用來方便地建立投票的問題。同時下方也為我們的視圖建立一個新的測試類別：
 
 polls/tests.py[¶](#id8 "永久連結至程式")**
 
@@ -2520,19 +2519,18 @@ polls/tests.py[¶](#id8 "永久連結至程式")**
                 ['<Question: Past question 2.>', '<Question: Past question 1.>']
             )
 
-讓我們更詳細地看一下以上這些內容。
+好了。我們來詳細的看一下我們新增了什麼內容。
 
-首先是一個快捷函數 `create_question`，它在建立問題 (question) 的流程中拿掉了重復的程式。
+首先是一個和建立問題 (question) 有關的捷挳函式 `create_question`，它只是幫助我們在下面的類別中要建立問題 (question) 時，因為流程相同而需要撰寫重複的程式。
 
-`test_no_questions` 方法函式裡沒有建立任何問題 (question)，但它會檢查回傳的網頁上有沒有 "No polls are available." 這段訊息和確認 `latest_question_list` 是否是空的。請注意 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別提供了一些額外的斷言 (assertion) 方法函式，在這個例子中，我們使用了
-[`assertContains()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains "django.test.SimpleTestCase.assertContains")
-和 [`assertQuerysetEqual()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual "django.test.TransactionTestCase.assertQuerysetEqual") 函式。
+`test_no_questions` 方法函式裡沒有建立任何問題 (question)，但它會檢查回傳的網頁上有沒有包含 "No polls are available." 這段字串訊息，和確認 `latest_question_list` 的內容是空的。請注意 [`django.test.TestCase`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TestCase "django.test.TestCase") 類別提供了一些額外的斷言 (assertion) 方法函式，在這個例子中，我們使用了[`assertContains()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains "django.test.SimpleTestCase.assertContains")
+和 [`assertQuerysetEqual()`](https://docs.djangoproject.com/zh-hans/3.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual "django.test.TransactionTestCase.assertQuerysetEqual") 兩個新的函式。
 
-在 `test_past_question` 中，我們建立了一個問題 (question) 並檢查它是否出現在列表中。
+在 `test_past_question` 中，我們呼叫上述的捷挳函式 `create_question` 建立了一個日期在過去某天的問題 (question)，並檢查它是否出現在列表中。
 
-在 `test_future_question` 中，我們建立了一個 `pub_date` 在未來某天的問題 (question)。資料庫會在每次呼叫測試方法前會被重置，所以第一個問題 (question) 已經不復存在了，而所以在主頁中應該不會有任何問題 (question) 清單。
+在 `test_future_question` 中，我們建立了一個 `pub_date` 在未來某天的問題 (question)。由於我們的資料庫會在呼叫每個測試方法重置，所以第一個問題 (question) 並不會一直存在，因此在網站的索引頁面 (index) 中應該不會存在任何的問題 (question) 項目。
 
-依此類推。實際上，我們使用測試來描述 — 管理員的輸入和使用者的用戶經驗，及檢查每個新的變更的每個系統狀態，最終所預期的結果是發佈的 — 這樣的故事。
+其他的函式依此類推。實際上，我們相當於是使用測試來描述 — 管理員的輸入和使用者的用戶經驗，及檢查每個新的變更的每個系統狀態，最終所預期的結果是發佈的 — 這樣的故事。
 
 ### 測試 `DetailView`[¶](#testing-the-detailview "永久連結至標題")
 

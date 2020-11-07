@@ -2700,19 +2700,15 @@ polls/static/polls/style.css[¶](#id3 "永久連結至程式")**
 編寫你的第一個 Django 應用，第 7 部分[¶](#writing-your-first-django-app-part-7 "永久連結至標題")
 ================================================================================================
 
-這篇教學承接 [教學第 6 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
-結束的地方。我們繼續修改線上投票應用程式，這次我們專注於客製化我們在 [教學第 2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/)
-探索過的 Django 自動產生管理網站的過程。
+這一篇從 [教學第 6 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
+結尾的地方繼續講起。我們將繼續我們的投票應用程式網站開發，而這次我們會聚焦在客製化在 [教學第 2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/) 探索過的 Django 自動產生的管理網站。
 
 客製化管理網站表單[¶](#customize-the-admin-form "永久連結至標題")
 -------------------------------------------------------------
 
-透過 `admin.site.register (Question)`
-註冊 `Question` 模型，Django
-能夠構建一個預設的表單用於顯示。通常來說，你期望能客製化表單的外觀和工作方式。你可以在註冊模型時將這些設定告訴 Django。
+當使用 `admin.site.register(Question)` 來註冊 `Question` 模型時，Django 會建構出一個預設的表單畫面。通常，你希望能夠對管理表單頁如何展現它的外觀和工作方式做客製化。你可以在註冊該模型物件時將這些選項告訴 Django。
 
-讓我們透過重排列表單上的欄位來看看它是怎麼工作的。用以下內容替換
-`admin.site.register(Question)`：
+我們試著重新排列表單上的欄位來看看它是怎麼運作的。用以下內容替換 `admin.site.register(Question)` 這行：
 
 polls/admin.py[¶](#id1 "永久連結至程式")**
 
@@ -2726,15 +2722,15 @@ polls/admin.py[¶](#id1 "永久連結至程式")**
 
     admin.site.register(Question, QuestionAdmin)
 
-你需要遵循以下流程—建立一個模型管理類，接著將其作為第二個參數傳給
-`admin.site.register()`
-—在你需要修改模型的管理選項時這麼做。
+在你需要變更某個模型的管理選項的時候，你會遵循以下的模式 — 建立一個模型管理 (ModelAdmin) 類別，然後把它作為第二個參數傳遞給 `admin.site.register()` 函式。
 
-以上修改使得 "Publication date" 欄位顯示在 "Question" 欄位之前：
+這個特定的變更會把 "Publication date" 欄位顯示在 "Question" 欄位之前：
 
-這在只有兩個欄位時並不特別引人注意，但對於擁有數十個欄位的表單來說，為表單選擇一個直觀的排序方法就是個很有用的細節。
+***
 
-說到擁有數十個欄位的表單，你可能更期望將表單分為幾個欄位集：
+這畫面上只有兩個欄位並不覺得重新排列後有什麼特別的，但對於擁有數十個欄位的表單來說，為表單選擇一個直覺的排列方式就是一個很重要的對於如何適合使用者使用的觀念細節。
+
+說到擁有數十個欄位的表單，你可能更希望將表單拆分為欄位集 (fieldsets)：
 
 polls/admin.py[¶](#id2 "永久連結至程式")**
 
@@ -2751,18 +2747,18 @@ polls/admin.py[¶](#id2 "永久連結至程式")**
 
     admin.site.register(Question, QuestionAdmin)
 
-[`fieldsets`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets "django.contrib.admin.ModelAdmin.fieldsets")
-元組中的第一個元素是欄位集的標題。以下是我們的表單現在的樣子：
+在欄位集 [`fieldsets`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets "django.contrib.admin.ModelAdmin.fieldsets") 中，每個元組 (tuple) 的第一個組成元件就會成為欄位集的標題 (title)。現在我們的表單看起來會是這個樣子：
 
-增加關聯的物件[¶](#adding-related-objects "永久連結至標題")
+***
+
+新增相關聯的物件[¶](#adding-related-objects "永久連結至標題")
 -----------------------------------------------------------
 
-好了，現在我們有了投票的管理網站頁。不過，一個 `Question` 有多個 `Choice`，但管理網站頁卻沒有顯示多個選項。
+好的，我們有了問題 (Question) 的管理網站頁面。不過，一個 `問題 Question` 會有多個 `選項 Choice`，但這個管理網站頁面卻無法將選項的列表顯現出來。
 
-好了。
+它只是到目前為止還不行。
 
-有兩個方法可以解決這個問題。第一個就是仿照我們向管理網站註冊
-`Question` 一樣註冊 `Choice` ：
+有兩個方法可以解決這個問題。第一個就是對管理網站註冊 `Choice` ，就如同我們先前註冊 `Question` 一樣：
 
 polls/admin.py[¶](#id3 "永久連結至程式")**
 
@@ -2772,24 +2768,18 @@ polls/admin.py[¶](#id3 "永久連結至程式")**
     # ...
     admin.site.register(Choice)
 
-現在 "Choices" 在 Django
-管理網站頁中是一個可用的選項了。“增加選項”的表單看起來像這樣：
+現在在 Django 管理網站頁面中 "Choices" 是一個可以使用的選項了。而 “增加選項 (Choice)” 的表單看起來會是這樣：
 
-在這個表單中，"Question" 欄位是一個包含資料庫中所有投票的選擇框。Django
-知道要將 [`ForeignKey`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.ForeignKey "django.db.models.ForeignKey")
-在管理網站中以選擇框 `<select>`
-的形式顯示。此時，我們只有一個投票。
+***
 
-同時也注意下 "Question" 旁邊的“增加”按鈕。每個使用
-`ForeignKey`
-關聯到另一個物件的物件會自動取得這個功能。當你點選“增加”按鈕時，你會見到一個包含“增加投票”的表單。如果你在這個對話框中增加了一個投票，並點選了“儲存”，Django
-會將其儲存至資料庫，並動態地在你正在查看的“增加選項”表單中取得它。
+在這個表單中，"問題 Question" 欄位是一個在資料庫中包含了所有問題 (Question) 項目的對話框。Django
+知道在管理網站中要將 [`ForeignKey`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.ForeignKey "django.db.models.ForeignKey") 以選擇對話框 `<select>` 的樣式顯示在頁面中。在我們的例子裡，目前在資料庫中只有一個問題 (Question) 項目。
 
-不過，這是一種很低效地增加“選項”的方法。更好的辦法是在你建立“投票”物件時直接增加好幾個選項。讓我們呈現它。
+同時也請留意 "問題 Question" 旁邊的 “新增 (+)” 按鈕。對於每個有 `ForeignKey` 和其他物件有關聯 (relationship) 的物件會免費贈送這個選項。當你點選 “新增 (+)”  按鈕時，你會看到一個包含 “新增問題 (Question)” 表單的彈出式視窗。如果你在那個對話框視窗裡新增了一個問題 (Question)，並點選了 “儲存”，Django 會將該問題 (Question) 儲存至資料庫，然後並動態地在你目前看到的 “新增選項 (Choice)” 表單中把它新增為已選擇的選項 (Choice)。
 
-移除呼叫 `register()` 註冊
-`Choice` 模型的程式。隨後，像這樣修改
-`Question` 的註冊程式：
+不過，用這種方法來新增 “選項 Choice” 物件到系統中的效率很低。如果能夠在你建立 “問題 Question” 物件時直接增加一堆選項 (Choice) 會更好。那我們就來做看看。
+
+移除註冊 `Choice` 模型的呼叫 `register()` 函式。然後，修改 `Question` 的註冊程式碼以用來讀取：
 
 polls/admin.py[¶](#id4 "永久連結至程式")**
 
@@ -2812,48 +2802,43 @@ polls/admin.py[¶](#id4 "永久連結至程式")**
 
     admin.site.register(Question, QuestionAdmin)
 
-這會告訴 Django：“`Choice` 物件要在
-`Question` 管理網站頁面編輯。預設提供 3
-個足夠的選項欄位。”
+這會告訴 Django：“`選項 Choice` 物件要在 `問題 Question` 管理網站頁面中編輯。預設會提供足夠能填入 3 個選項 (Choice) 的欄位。”
 
-載入“增加投票”頁面來看看它看起來的樣子：
+載入 “新增問題 (Question)” 頁面來看看它看起來的樣子：
 
+***
 
+它看起來像這樣：有三個位置給關聯的選項 — 由 `extra` 定義 — 而且每次你回到你已建立的物件的 “修改” 頁面時，你會得到三個新的位置。
 
-它看起來像這樣：有三個關聯的選項位置—由 `extra`
-定義，且每次你回傳任意已建立的物件的“修改”頁面時，你會見到三個新的位置。
+在現有的三個位置的結尾，你會看到一個 “新增其他選項” 的連結。如果你點選它，會增加一個新的位置。如果你想移除已新增的位置，可以在已新增的位置的右上角點選 X。注意，你不能移除原始的 3 個位置。以下圖片顯示了一個已新增的位置：
 
-在三個位置的末端，你會看到一個“增加新選項”的按鈕。如果你單擊它，一個新的位置會被增加。如果你想移除已有的位置，可以點選位置右上角的X。注意，你不能移除原始的
-3 個位置。以下圖片顯示了一個已增加的位置：
+***
 
+雖然有個小問題就是，為了能顯示輸入相關聯 `項選 Choice` 物件的所有欄位佔了螢幕很大的空間。由於這個因素，Django 提供了一種用行內來顯示相關聯物件的表格方式。如果要使用它，請修改 `ChoiceInline` 宣告用來讀取：
 
-
-不過，仍然有點小問題。它佔據了大量的螢幕區域來顯示所有關聯的
-`Choice`
-物件的欄位。對於這個問題，Django
-提供了一種表格式的單行顯示關聯物件的方法。要使用它，只需按如下形式修改
-`ChoiceInline` 申明：
+***
 
 polls/admin.py[¶](#id5 "永久連結至程式")**
 
     class ChoiceInline(admin.TabularInline):
         #...
 
-透過 ``` TabularInline``（取代 ``StackedInline ``` ），關聯物件以一種表格式的方式顯示，顯得更加緊湊：
+使用 `TabularInline`（而不是 `StackedInline`），相關聯的物件會以一種更加緊湊的表格式來顯示：
 
-注意這裡有一個額外的“刪除？”欄，這允許移除透過“增加新選項”按鈕增加的，或是已被儲存的行。
+***
 
-客製化管理網站更改列表[¶](#customize-the-admin-change-list "永久連結至標題")
+注意這裡有一個額外的 “刪除？” 欄位，允許你刪除使用 “增加其他選項 (Choice)” 按鈕，或是已被儲存的項目。
+
+客製化管理網站變更清單[¶](#customize-the-admin-change-list "永久連結至標題")
 ------------------------------------------------------------------------
 
-現在投票的管理網站頁看起來很不錯，讓我們對“更改列表”頁面進行一些調整—改成一個能顯示系統中所有投票的頁面。
+現在問題 (Question) 的管理網站頁面看起來很不錯，接著我們來對 “變更清單” 頁面進行一些調整 — 改成一個能顯示系統中所有問題 (Question) 的頁面。
 
-以下是它此時的外觀：
+這是它現在的樣子：
 
-預設情況下，Django 顯示每個物件的 `str()`
-回傳的值。但有時如果我們能夠顯示單個欄位，它會更有協助。為此，使用
-[`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display")
-管理網站選項，它是一個包含要顯示的欄位名的元組，在更改列表頁中以欄的形式顯示這個物件：
+***
+
+預設情況下，Django 顯示每個物件的 `str()` 函式所回傳的值。但有時候如果我們能夠顯示個別欄位，它會更有幫助。要這樣做的話，使用 [`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display") 管理網站選項，它是這個物件的一個要顯示的欄位名稱的元組 (tuple) ，在變更清單頁面中以欄位的形式來表示：
 
 polls/admin.py[¶](#id6 "永久連結至程式")**
 
@@ -2861,9 +2846,7 @@ polls/admin.py[¶](#id6 "永久連結至程式")**
         # ...
         list_display = ('question_text', 'pub_date')
 
-另外，讓我們把 [教學第 2
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/) 中的
-`was_published_recently()` 方法也加上：
+因為這是個好的方法，所以我們把 [教學第 2 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial02/) 中的 `was_published_recently()` 方法函式也加進來：
 
 polls/admin.py[¶](#id7 "永久連結至程式")**
 
@@ -2871,16 +2854,13 @@ polls/admin.py[¶](#id7 "永久連結至程式")**
         # ...
         list_display = ('question_text', 'pub_date', 'was_published_recently')
 
-現在修改投票的列表頁看起來像這樣：
+現在修改問題 (Question) 的清單頁看起來會像這樣：
 
+***
 
+你可以點選欄位的標題來排序欄位裡的值 — 除了 `was_published_recently` 這個標題欄位，因為排序任意輸出的內容並不支援。同時也注意這個欄位的標題 `was_published_recently`，預設就是方法函式（用空格替換底線後）的名稱，且該欄的每行都包含了輸出的字串表達的形式。
 
-你可以點選欄標題來對這些行進行排序—除了
-`was_published_recently`
-這個欄，因為沒有呈現排序方法。順便看下這個欄的標題
-`was_published_recently`，預設就是方法名（用空格替換下劃線），該欄的每行都以字串形式顯示出處。
-
-你可以透過給這個方法（在 `polls/models.py` 中）一些屬性來達到優化的目的，像這樣：
+你可以透過給這個方法函式（在 `polls/models.py` 中）一些屬性來改善，像下面這樣：
 
 polls/models.py[¶](#id8 "永久連結至程式")**
 
@@ -2893,63 +2873,47 @@ polls/models.py[¶](#id8 "永久連結至程式")**
         was_published_recently.boolean = True
         was_published_recently.short_description = 'Published recently?'
 
-更多關於這些方法屬性的資訊，參見 [`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display")。
+有關更多這些方法屬性的資訊，請參考 [`list_display`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display")。
 
-再次編輯文件 `polls/admin.py`，優化 `Question`
-變更頁：過濾器，使用 [`list_filter`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter "django.contrib.admin.ModelAdmin.list_filter")。將以下程式增加至
-`QuestionAdmin`：
+再次編輯 `polls/admin.py` 檔案。使用 [`list_filter`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter "django.contrib.admin.ModelAdmin.list_filter") 清單篩選器來新增一個 `Question` 的變更頁面的改善措施。將下列幾行新增到 `QuestionAdmin`：
 
     list_filter = ['pub_date']
 
-這樣做增加了一個“過濾器”側邊欄，允許人們以 `pub_date` 欄位來過濾列表：
+這樣就會增加一個允許人們用 `pub_date` 欄位來過濾變更清單的 “篩選器” 側邊欄：
 
-顯示的過濾器類型取決你你要過濾的欄位的類型。因為 `pub_date` 是類 [`DateTimeField`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField "django.db.models.DateTimeField")，Django
-知道要提供哪個過濾器：“任意時間”，“今天”，“過去7天”，“這個月”和“今年”。
+顯示的篩選器類型取決你你要篩選的欄位的類型。因為 `pub_date` 是 [`DateTimeField`](https://docs.djangoproject.com/zh-hans/3.0/ref/models/fields/#django.db.models.DateTimeField "django.db.models.DateTimeField") 的一個類別，Django 知道要提供哪個篩選器：“任何日期”，“今天”，“過去 7 天”，“這個月” 和 “今年”。
 
-這已經弄的很好了。讓我們再擴充些功能:
+這樣已經把頁面調整得很好了。我們再來增加一個搜尋的功能:
 
     search_fields = ['question_text']
 
-在列表的頂部增加一個搜索框。當輸入待搜項時，Django 將搜索
-`question_text`
-欄位。你可以使用任意多的欄位—由於管理網站使用 `LIKE`
-來查詢資料，將待搜索的欄位數限制為一個不會出問題大小，會便於資料庫進行查詢操作。
+這會在清單的最上面增加一個搜尋對話框。當有人輸入搜尋條件時，Django 將會搜尋 `question_text` 欄位。你可以依照你的需求而使用更多的欄位 — 雖然因為管理網站是使用一個 `LIKE` 查詢語法在底層搜尋資料，將搜尋的欄位數限制在合理的範圍，會讓你的資料庫進行搜尋作業時更加容易。
 
-現在是給你的修改列表頁增加分頁功能的好時機。預設每頁顯示 100
-項。[`變更頁分頁`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_per_page "django.contrib.admin.ModelAdmin.list_per_page"),
-[`搜索框`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields "django.contrib.admin.ModelAdmin.search_fields"),
-[`過濾器`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter "django.contrib.admin.ModelAdmin.list_filter"),
-[`日期層次結構`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.date_hierarchy "django.contrib.admin.ModelAdmin.date_hierarchy"),
-和 [`欄標題排序`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display")
-均以你期望的方式合作執行。
+現在也是該說明一下變更清單頁面有免費的分頁功能的好時機。預設情況下每頁可以顯示 100 個項目。[`變更清單分頁 Change list pagination`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_per_page "django.contrib.admin.ModelAdmin.list_per_page"),
+[`搜尋對話框 Search Boxes`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields "django.contrib.admin.ModelAdmin.search_fields"),
+[`篩選器 Filters`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter "django.contrib.admin.ModelAdmin.list_filter"),
+[`日期的樹狀階層 date-hierarchies`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.date_hierarchy "django.contrib.admin.ModelAdmin.date_hierarchy"), 和 [`標題欄位排序 column-header-ordering `](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display "django.contrib.admin.ModelAdmin.list_display") 這些所有的東西都會以你覺得他們會運作的方式共同合作。
 
-客製化管理網站界面和風格[¶](#customize-the-admin-look-and-feel "永久連結至標題")
+客製化管理網站外觀和風格[¶](#customize-the-admin-look-and-feel "永久連結至標題")
 ----------------------------------------------------------------------------
 
-在每個管理網站頁頂部顯示“Django 管理員”顯得很滑稽。這只是一串佔位文字。
+很明顯的，在每個管理網站頁的最上面都顯示 “Django 管理頁面” 顯得很荒謬好笑。它只是一段佔位文字。
 
-不過，你可以透過 Django 的範本系統來修改。Django
-的管理網站由自己驅動，且它的交互接口採用 Django 自己的範本系統。
+當然你可以透過 Django 的範本系統來修改它。Django 的管理網站由 Django 自己所提供的 (powered by Django)，而且它的使用者界面是採用 Django 自己的範本系統。
 
-### 客製化你的 *工程的* 範本[¶](#customizing-your-project-s-templates "永久連結至標題")
+### 客製化你的 *專案的* 範本[¶](#customizing-your-project-s-templates "永久連結至標題")
 
-在你的工程目錄（指包含 `manage.py`
-的那個文件夾）內建立一個名為 `templates` 的目錄。範本可放在你系統中任何 Django
-能找到的位置。（誰啟動了 Django，Django
-就以他的用戶身份執行。）不過，把你的範本放在工程內會帶來很大便利，推薦你這樣做。
+在你的專案目錄（也就是包含了 `manage.py` 檔案的那個資料夾）下建立一個命名為 `templates` 的目錄。範本 (Templates) 可放在你的檔案系統中任何 Django 能存取的位置。（Django 以執行 Django 的使用者身份來執行。）不過，把範本檔放在專案裡是個很好的傳統，可以依循它。
 
-打開你的設定文件（`mysite/settings.py`，牢記），在 [`TEMPLATES`{.xref .std .std-setting .docutils
-.literal
-.notranslate}](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES)
-設定中增加 [`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS)
-選項：
+打開你的設定文件（`mysite/settings.py`，請記住），在 [`TEMPLATES`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES)
+設定中新增 [`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS) 的設定：
 
 mysite/settings.py[¶](#id9 "永久連結至程式")**
 
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [os.path.join(BASE_DIR, 'templates')],
+            'DIRS': [BASE_DIR / 'templates'],
             'APP_DIRS': True,
             'OPTIONS': {
                 'context_processors': [
@@ -2962,93 +2926,66 @@ mysite/settings.py[¶](#id9 "永久連結至程式")**
         },
     ]
 
-[`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS)
-是一個包含多個系統目錄的文件列表，用於在載入 Django
-範本時使用，是一個待搜索路徑。
+當 Django 要載入範本時，[`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS) 是一個它用來從檔案系統目錄中搜尋路徑的清單。
 
-組織範本
+組織你的範本
 
-就像靜態文件一樣，我們 *可以*
-把所有的範本文件放在一個大範本目錄內，這樣它也能工作的很好。但是，屬於特定應用程式的範本文件最好放在應用程式所屬的範本目錄（例如
-`polls/templates`），而不是工程的範本目錄（`templates`）。我們會在
-[建立可復用的應用程式教學](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)
-中討論 *為什麼* 我們要這樣做。
+就像靜態文件一樣，我們 *可以* 把所有的範本文件放在一個大範本的目錄內，這樣它也能運作的很好。但是，屬於特定應用程式的範本文件最好放在應用程式所專屬的範本目錄（例如 `polls/templates`）裡，而不是專案本身的範本（`templates`）目錄。我們會在 [建立可重復利用的應用程式教學](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/) 中討論我們 *為什麼* 要這樣做的細節。
 
-現在，在 `templates` 目錄內建立名為
-`admin` 的目錄，隨後，將存放 Django
-預設範本的目錄（`django/contrib/admin/templates`）內的範本文件 `admin/base_site.html` 復制到這個目錄內。
+現在，在 `templates` 目錄內建立命名為 `admin` 的目錄，接著，在 Django 自己的原始碼內從  Django 預設的管理範本目錄裡，複製 admin/base_site.html 範本檔案，到 `admin` 目錄內。
 
-Django 的原始碼在哪裡？
+Django 的原始碼檔案在哪裡？
 
-如果你不知道 Django 原始碼在你系統的哪個位置，執行以下命令：
+如果你對在你系統裡怎麼找到 Django 原始碼的位置有點為難，執行以下命令：
 
     $ python -c "import django; print(django.__path__)"
 
-接著，用你網頁網站的名字編輯替換文件內的 [\`\`](#id1){{
-site\_header|default:\_('Django administration')
-}}\`\`（包含大括號）。完成後，你應該看到如下程式：
+然後，編輯這個檔案，用你覺得合適的名字為你的自己的網站取名後，取代原本的 `{{ site_header|default:_('Django administration')}}`（包含大括號）這段程式。完成後，你的程式碼區段應該最終會長得像這樣：
 
     {% block branding %}
-    <h1 id="site-name"><a href="{% url 'admin:index' %}">Polls Administration</a></h1>
+    <h1 id="site-name"><a href="{% url 'admin:index' %}">投票管理網站</a></h1>
     {% endblock %}
 
-我們會用這個方法來教你復寫範本。在一個實際工程中，你可能更期望使用
-[`django.contrib.admin.AdminSite.site_header`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.AdminSite.site_header "django.contrib.admin.AdminSite.site_header")
-來進行簡單的定制。
+我們用這個方法來教你如何覆寫原來的範本。在一個實際的專案中，你可能更期望使用
+[`django.contrib.admin.AdminSite.site_header`](https://docs.djangoproject.com/zh-hans/3.0/ref/contrib/admin/#django.contrib.admin.AdminSite.site_header "django.contrib.admin.AdminSite.site_header") 屬性來更容易地完成這個客製化。
 
-這個範本文件包含很多類似 `{% block branding %}` 和 `{{ title }}` 的文字。
-`{%` 和 `{{` 標籤是 Django 範本語言的一部分。當 Django 呈現
-`admin/base_site.html`
-時，這個範本語言會被求值，產生最終的網頁，就像我們在 [教學第 3
-部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/)
-所學的一樣。
+這個範本檔案裡包含很多類似 `{% block branding %}` 和 `{{ title }}` 的文字。`{%` 和 `{{` 標籤是 Django 範本語言的一部分。當 Django 要呈現 `admin/base_site.html` 內容時，這個範本語言會評估其實際值然後產生出最終的 HTML 頁面，就像我們在 [教學第 3 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial03/) 所看到的那樣。
 
-注意，所有的 Django 預設管理網站範本均可被復寫。若要復寫範本，像你修改
-`base_site.html`
-一樣修改其它文件—先將其從預設目錄中拷貝到你的客製化目錄，再做修改。
+注意，所有的 Django 預設管理網站範本都可被覆寫。若要覆寫一個範本，像你修改 `base_site.html` 一樣修改其它文件 — 先將其從預設目錄中複製到你的客製化目錄，再做修改。
 
 ### 客製化你 *應用程式的* 範本[¶](#customizing-your-application-s-templates "永久連結至標題")
 
-機智的同學可能會問： [`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS)
-預設是空的，Django 是怎麼找到預設的管理網站範本的？因為 [`APP_DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-APP_DIRS)
-被置為 `True`，Django
-會自動在每個應用程式套件內遞迴尋找 `templates/` 子目錄（不要忘了 `django.contrib.admin` 也是一個應用程式）。
+聰明的讀者可能會問：但如果 [`DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-DIRS) 預設是空的，Django 是怎麼找到預設的管理網站範本的？答案是，因為 [`APP_DIRS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-TEMPLATES-APP_DIRS)
+被置為 `True`，Django 會自動在每個應用程式套件內，遞迴地尋找 `templates/` 子目錄（不要忘了 `django.contrib.admin` 也是一個應用程式）。
 
-我們的投票應用程式不是非常複雜，所以無需客製化管理網站範本。不過，如果它變的更加複雜，需要修改
-Django 的標準管理網站範本功能時，修改 *應用程式* 的範本會比 *工程*
-的更加明智。這樣，在其它工程包含這個投票應用程式時，可以確保它總是能找到需要的客製化範本文件。
+我們的投票應用程式並不是非常地複雜，所以並不需要客製管理網站範本。不過，如果它變的更加複雜，需要修改
+Django 的標準管理網站範本功能時，修改 *應用程式* 的範本會比修改 *專案* 的範本更加合理。這樣，你就可以在其它專案中把這個投票應用程式包含進去，而且可以確保它能找到它所需的客製化範本文件。
 
-更多關於 Django 如何尋找範本的文件，參見
-[載入範本文件](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/#template-loading)。
+更多關於 Django 如何尋找範本，參考 [範本載入說明文件](https://docs.djangoproject.com/zh-hans/3.0/topics/templates/#template-loading) 的文件。
 
-客製化管理網站主頁[¶](#customize-the-admin-index-page "永久連結至標題")
+客製化管理網站的索引 Index 主頁[¶](#customize-the-admin-index-page "永久連結至標題")
 -------------------------------------------------------------------
 
-在類似的說明中，你可能想要客製化 Django 管理網站索引頁的外觀。
+在類似的說明中，你可能想要客製化 Django 管理網站索引頁的外觀和樣式。
 
-預設情況下，它顯示了所有設定在 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS)
-中，已透過管理網站應用程式註冊，按拼音排序的應用程式。你可能想對這個頁面的布局做重大的修改。畢竟，索引頁是管理網站的重要頁面，它應該便於使用。
+預設情況下，它顯示了設定在 [`INSTALLED_APPS`](https://docs.djangoproject.com/zh-hans/3.0/ref/settings/#std:setting-INSTALLED_APPS) 中，已透過管理網站應用程式註冊，並按拼音排序的所有應用程式。你可能想對這個頁面的版面設計做重大的修改。畢竟，索引頁是管理網站中最重要的頁面，它應該要很易於使用。
 
 需要客製化的範本是 `admin/index.html`。（像上一節修改 `admin/base_site.html`
-那樣修改此文件—從預設目錄中拷貝此文件至客製化範本目錄）。打開此文件，你將看到它使用了一個叫做
-`app_list`
-的範本變數。這個變數包含了每個安裝的 Django
-應用程式。你可以用任何你期望的直接以程式編寫連結（連結至特定物件的管理網站頁）取代使用這個變數。
+那樣修改此文件 — 從預設目錄中複製此文件至客製化範本的目錄裡）。打開此文件，你將看到它使用了一個叫做
+`app_list` 的範本變數。這個變數包含了每個安裝的 Django 應用程式。你可以用任何你希望的方式直接以程式碼編寫連結（連結至物件特定 object-specific 的管理網站頁面）取代使用這個變數。
 
 接下來要做什麼？[¶](#what-s-next "永久連結至標題")
 --------------------------------------------------
 
-初學者教學到這就結束了。隨後，你可能想閱讀
-[下一步看什麼](https://docs.djangoproject.com/zh-hans/3.0/intro/whatsnext/)，看看下一步能做什麼。
+初學者教學到這裡就結束了。隨後，你可能想閱讀 [到這裡後該往哪裡去](https://docs.djangoproject.com/zh-hans/3.0/intro/whatsnext/)，看看下一步能做什麼。
 
-如果你很熟悉 Python
-包裝，且對學習如何把投票應用程式改成“可復用應用程式”感興趣，查看
-[進階教學：如何建立可復用應用程式](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)。
+如果你很熟悉 Python 包裝，且對學習如何把投票應用程式改成 “可重復利用的應用程式” 感興趣，查看
+[進階教學：如何建立可重復利用的應用程式](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)。
 
 [** 編寫你的第一個 Django 應用，第 6
 部分](https://docs.djangoproject.com/zh-hans/3.0/intro/tutorial06/)
 
-[進階指南：如何編寫可重複利用的程式
+[進階指南：如何編寫可重復利用的應用程式
 **](https://docs.djangoproject.com/zh-hans/3.0/intro/reusable-apps/)
 
 進階指南：如何編寫可重複利用的程式[¶](#advanced-tutorial-how-to-write-reusable-apps "永久連結至標題")
